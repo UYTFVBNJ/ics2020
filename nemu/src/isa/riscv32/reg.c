@@ -9,8 +9,8 @@ const char *regsl[] = {
 };
 
 void isa_reg_display() {
-	puts("REG: ");
-	for (int i=0;i<32;i++) printf("%d\n",reg_l(i));
+	puts("REGs: ");
+	for (int i=0;i<32;i++) printf("%s %d\n",regsl[i],reg_l(i));
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
