@@ -43,10 +43,20 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
 	char *arg = strtok(NULL, " ");	
-	cpu_exec(arg?atol(arg):1);
+	cpu_exec(arg?atol(arg):1);	
 	return 0;
 }
 
+static int cmd_info(char *args) {
+	char *arg = strtok(NULL, " ");
+	switch (arg[0]) {
+		case 'r': isa_reg_display(); break;
+		case 'w': /* TODO */ break;
+		default:
+			puts("?");
+	}
+	return 0;
+}
 
 // GH: own changes
 
@@ -61,6 +71,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Single Step", cmd_si }, 
+	{ "info", "Show R/W Info", cmd_info },
 
   /* TODO: Add more commands */
 
