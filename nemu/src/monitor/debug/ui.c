@@ -42,9 +42,13 @@ static int cmd_help(char *args);
 // GH: own changes 
 
 static int cmd_si(char *args) {
-		
+	char *arg = strtok(NULL, " ");	
+	cpu_exec(arg?atol(arg):1);
+	return 0;
 }
 
+
+// GH: own changes
 
 // GH: own changes
 
@@ -56,10 +60,13 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Single Step", cmd_si }, 
 
   /* TODO: Add more commands */
 
 };
+
+// GH: own changes
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 
