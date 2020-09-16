@@ -39,6 +39,15 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+// GH: own changes 
+
+static int cmd_si(char *args) {
+		
+}
+
+
+// GH: own changes
+
 static struct {
   char *name;
   char *description;
