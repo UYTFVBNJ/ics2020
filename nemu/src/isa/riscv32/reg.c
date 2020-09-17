@@ -11,9 +11,13 @@ const char *regsl[] = {
 void isa_reg_display() {
 	puts("REGs: ");
 	for (int i=0;i<4;i++) {
-		for (int j=0;j<8;j++)	printf("|%-8s|\n",regsl[i]);
-		for (int j=0;j<8;j++)	printf("%08X\n",reg_l(i));
-		for (int j=0;j<8;j++)	printf("|%-8d|\n",reg_l(i));
+		for (int j=0;j<8;j++)	printf("|%8s|",regsl[i]); 
+		puts("");
+		for (int j=0;j<8;j++)	printf("%08X",reg_l(i)); 
+		puts("");
+		for (int j=0;j<8;j++)	printf("|%8d|",reg_l(i)); 
+		puts("");
+
 	}
 }
 
