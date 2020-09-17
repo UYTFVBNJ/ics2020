@@ -13,7 +13,7 @@ void isa_reg_display() {
 	for (int i=0;i<4;i++) {
 		for (int j=0;j<8;j++)	printf("|%8s|",regsl[4*i+j]); 
 		puts("");
-		for (int j=0;j<8;j++)	printf("%08X",reg_l(4*i+j)); 
+		for (int j=0;j<8;j++)	printf("|%08X|",reg_l(4*i+j)); 
 		puts("");
 		for (int j=0;j<8;j++)	printf("|%8d|",reg_l(4*i+j)); 
 		puts("");
