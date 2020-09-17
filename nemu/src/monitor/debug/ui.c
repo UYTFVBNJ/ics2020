@@ -1,6 +1,7 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
+#include <../../../include/memory/vaddr.h>
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -58,6 +59,16 @@ static int cmd_info(char *args) {
 	return 0;
 }
 
+static int cmd_x(char *args) {
+	long long n=atol(strtok(NULL, " "));
+	int i=strtol(strtok(NULL, " "),NULL,16);
+	while (n--) {
+		printf("%X\n",vaddr_read(i,4));
+		i+=4;
+	}
+	return 0;
+}
+
 // GH: own changes
 
 // GH: own changes
@@ -72,7 +83,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Single Step", cmd_si }, 
 	{ "info", "Show R/W Info", cmd_info },
-
+	{ "x", "Show mem", cmd_x },
   /* TODO: Add more commands */
 
 };
