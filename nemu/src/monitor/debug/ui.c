@@ -63,7 +63,7 @@ static int cmd_x(char *args) {
 	long long n=atol(strtok(NULL, " "));
 	int i=strtol(strtok(NULL, " "),NULL,16);
 	while (n--) {
-		printf("%X\n",vaddr_read(i,4));
+		printf("%16X\n",vaddr_read(i,4));
 		i+=4;
 	}
 	return 0;
