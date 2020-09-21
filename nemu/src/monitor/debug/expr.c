@@ -29,6 +29,9 @@ static struct rule {
 	{"-", '-'},         // minus
 	{"\\c*", '*'},         // times
 	{"/", '/'},         // devide
+	
+	{"\\(", '('},       // l bracket 
+  {"\\)", ')'},       // r bracket 
 
   {"==", TK_EQ},        // equal
 
