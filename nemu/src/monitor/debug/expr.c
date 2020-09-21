@@ -33,7 +33,7 @@ static struct rule {
 	{"\\(", '('},       // l bracket 
   {"\\)", ')'},       // r bracket 
 
-	{"\\d+", '0'},       // numbers
+	{"[0-9]+", '0'},       // numbers
 
   {"==", TK_EQ},        // equal
 
