@@ -27,7 +27,7 @@ static struct rule {
 
   {"\\+", '+'},         // plus
 	{"-", '-'},         // minus
-	{"\\c*", '*'},         // times
+	{"\\*", '*'},         // times
 	{"/", '/'},         // devide
 	
 	{"\\(", '('},       // l bracket 
