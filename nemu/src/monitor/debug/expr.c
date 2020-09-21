@@ -33,6 +33,8 @@ static struct rule {
 	{"\\(", '('},       // l bracket 
   {"\\)", ')'},       // r bracket 
 
+	{"\\d+", '0'},       // numbers
+
   {"==", TK_EQ},        // equal
 
 // GH: own changes
