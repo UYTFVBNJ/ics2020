@@ -21,9 +21,19 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
+// GH: own changes
+	
   {" +", TK_NOTYPE},    // spaces
+
   {"\\+", '+'},         // plus
+	{"-", '-'},         // minus
+	{"\\c*", '*'},         // times
+	{"/", '/'},         // devide
+
   {"==", TK_EQ},        // equal
+
+// GH: own changes
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
