@@ -69,6 +69,12 @@ static int cmd_x(char *args) {
 	return 0;
 }
 
+static int cmd_p(char *args) {
+	printf("%d\n",expr(args,0));
+	return 0;
+}
+
+
 // GH: own changes
 
 // GH: own changes
@@ -84,6 +90,8 @@ static struct {
   { "si", "Single Step", cmd_si }, 
 	{ "info", "Show R/W Info", cmd_info },
 	{ "x", "Show mem", cmd_x },
+	{ "p", "Print Expression", cmd_p },
+
   /* TODO: Add more commands */
 
 };
