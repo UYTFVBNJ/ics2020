@@ -70,7 +70,9 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_p(char *args) {
-	printf("%d\n",expr(args,0));
+	bool is_success=0;
+	long long exp=expr(args,&is_success);
+	printf("%lld\n",exp);
 	return 0;
 }
 
