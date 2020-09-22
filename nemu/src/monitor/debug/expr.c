@@ -126,19 +126,47 @@ static bool make_token(char *e) {
 
 // GH: own changes
 
-bool check_parentheses(int p, int q) {
-	if (tokens[q].type!='(' || tokens[q].type!=')') return 0;
+bool check_parentheses(int p, int q, bool *success) {	
 	int cnt=0;
-	for (p=p+1;p!=q && cnt>=0;p++) if (tokens[p].type=='(') cnt++; else if (tokens[p].type==')') cnt--;
-	return (p==q && cnt==0); 
+	for (int i=p+1;i!=q && cnt>=0;i++) if (tokens[i].type=='(') cnt++; else if (tokens[i].type==')') cnt--;
+	*success = (cnt==0);
+	return (tokens[p].type=='(' && tokens[q].type==')' && cnt==0); 
 }
 
-word_t eval(int p, int q) {
+word_t eval(int p, int q, bool *success) {
 	if (p > q) {
 		puts("BAD EXPRESSION!");
+		*success = 0;
 		return 0;
 	} else if (p==q) {
-		return strtol(tokens[q].str,NULL,10); 
+		return strtol(tokens[p].str,NULL,10); 
+	} else if (check_parentheses(p,q,success)) {
+		return eval(p+1,q-1,success);
+	} else if (success) {
+		int cnt=0,i,lpm=0,ltd=0,le,re;
+		for (i=p;i<=q;i++) switch (tokens[i].type) {
+			case '+': if (cnt==0) lpm=i; break;
+			case '-': if (cnt==0) lpm=i; break;
+			case '*': if (cnt==0) ltd=i; break;
+			case '/': if (cnt==0) ltd=i; break;
+			case '(': cnt++; break;
+			case ')': cnt--; break;
+			default : 
+				break;
+		}
+		if (lpm==0) lpm = ltd;
+		le=eval(p,lpm-1,success); 
+		if (!success) return 0;
+		re=eval(lpm+1,q,success);
+		if (!success) return 0;
+
+		switch (tokens[lpm].type) {
+			case '+': return le+re; break;
+			case '-': return le-re; break;
+			case '*': return le*re; break;
+			case '/': return le/re; break;
+				default: assert(0);
+		}
 	}
 	return 0;
 }
