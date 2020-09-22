@@ -180,9 +180,7 @@ word_t expr(char *e, bool *success) {
 	for (int i=0;i<nr_token;i++) printf("%d\n%s\n",tokens[i].type,tokens[i].str);
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(0,nr_token-1,success);
 }
 
 // GH: ownchanges
