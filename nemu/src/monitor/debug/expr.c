@@ -4,7 +4,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+#include <stdlib.h>
 enum {
   TK_NOTYPE = 256, TK_EQ,
 
@@ -70,6 +70,8 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
+// GH: own changes
+
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -122,15 +124,37 @@ static bool make_token(char *e) {
   return true;
 }
 
+// GH: own changes
+
+bool check_parentheses(int p, int q) {
+	if (tokens[q].type!='(' || tokens[q].type!=')') return 0;
+	int cnt=0;
+	for (p=p+1;p!=q && cnt>=0;p++) if (tokens[p].type=='(') cnt++; else if (tokens[p].type==')') cnt--;
+	return (p==q && cnt==0); 
+}
+
+word_t eval(int p, int q) {
+	if (p > q) {
+		puts("BAD EXPRESSION!");
+		return 0;
+	} else if (p==q) {
+		return strtol(tokens[q].str,NULL,10); 
+	}
+	return 0;
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
+	
+	for (int i=0;i<nr_token;i++) printf("%d\n%s\n",tokens[i].type,tokens[i].str);
 
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
 
   return 0;
 }
+
+// GH: ownchanges
