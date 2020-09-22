@@ -20,12 +20,16 @@ static int pos=0;
 static char str[32];
 
 static inline void gen(char ch) {
-	buf[pos++]=ch;	
-	assert(pos <= 65536);
+	if (pos < 65536) buf[pos++]=ch;	
+//	assert(pos <= 65536);
+}
+
+static inline int choose(int n) {
+	return rand() %n;
 }
 
 static inline void gen_space() {
-	while (choose(1)) gen(' ');
+	while (choose(2)) gen(' ');
 }
 
 static inline void gen_num() {
@@ -34,27 +38,30 @@ static inline void gen_num() {
 		str[b++]=a %10;
 		a/=10;
 	}
-	while (b) gen(str[--b]);
+	while (b) gen('0'+str[--b]);
 }
 
 static inline void gen_rand_op() {
 	switch (choose(4)) {
-		case 0: gen('+');
-		case 1: gen('-');
-		case 2: gen('*');
-		case 3: gen('/');
+		case 0: gen('+'); break;
+		case 1: gen('-'); break;
+		case 2: gen('*'); break;
+		case 3: gen('/'); break;
 	}
 }
 
 static void gen_rand_expr() {
+	if (pos >= 65536) return ;
 	gen_space();
 	switch (choose(3)) {
 		case 0: gen_num(); break;
-		case 1: gen_('('); gen_rand_expr(); gen(')'); break;
+		case 1: gen('('); gen_rand_expr(); gen(')'); break;
 		case 2: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
 	}
 	gen_space();
 }
+
+char status[50];
 
 int main(int argc, char *argv[]) {
   int seed = time(0);
@@ -68,6 +75,12 @@ int main(int argc, char *argv[]) {
 		pos=0;
     gen_rand_expr();
 		gen('\0');
+		if (pos == 65536) {
+			i--;
+			continue;
+		}
+//		strcpy(buf,"1/0\0");
+//		printf("C:%s\nENDC\n",buf);
 
     sprintf(code_buf, code_format, buf);
 
@@ -76,17 +89,46 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
+//	  puts("A9");	
     int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
+//	  puts("A8");	
     if (ret != 0) continue;
+		
+		
+//	  puts("A7");	
 
-    fp = popen("/tmp/.expr", "r");
+	
+//		puts("A3");	
+		
+		fp = popen("bash -c '/tmp/.expr; true' 2>&1", "r");
+//	  puts("A4");	
     assert(fp != NULL);
-
-    int result;
-    fscanf(fp, "%d", &result);
+//	  puts("A5");	
+		
+    fgets(status, 40, fp);
+//	  puts("A6");	
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+
+		if (strstr(status, "Floating") != NULL) {
+			i--;
+			continue;
+		}
+//		printf("S:%s\n",status);
+
+
+
+    int result;
+		
+		fp = popen("bash -c '/tmp/.expr; true' ", "r");
+    assert(fp != NULL);
+		
+//	  puts("A1");	
+    fscanf(fp, "%d", &result);
+//	  puts("A2");	
+    pclose(fp);
+		
+	  printf("%u %s\n", result, buf);
   }
   return 0;
 }
