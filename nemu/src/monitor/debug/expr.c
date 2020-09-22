@@ -142,7 +142,7 @@ word_t eval(int p, int q, bool *success) {
 		return strtol(tokens[p].str,NULL,10); 
 	} else if (check_parentheses(p,q,success)) {
 		return eval(p+1,q-1,success);
-	} else if (success) {
+	} else if (*success) {
 		int cnt=0,i,lpm=0,ltd=0,le,re;
 		for (i=p;i<=q;i++) switch (tokens[i].type) {
 			case '+': if (cnt==0) lpm=i; break;
@@ -156,9 +156,9 @@ word_t eval(int p, int q, bool *success) {
 		}
 		if (lpm==0) lpm = ltd;
 		le=eval(p,lpm-1,success); 
-		if (!success) return 0;
+		if (!*success) return 0;
 		re=eval(lpm+1,q,success);
-		if (!success) return 0;
+		if (!*success) return 0;
 
 		switch (tokens[lpm].type) {
 			case '+': return le+re; break;
@@ -177,7 +177,7 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 	
-	for (int i=0;i<nr_token;i++) printf("%d\n%s\n",tokens[i].type,tokens[i].str);
+//	for (int i=0;i<nr_token;i++) printf("%d\n%s\n",tokens[i].type,tokens[i].str);
 
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1,success);
