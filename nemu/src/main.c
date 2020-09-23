@@ -21,12 +21,13 @@ int main(int argc, char *argv[]) {
 	assert(fp != NULL);
 
 	unsigned int result,i,exp; bool success=0;
+	int che;
 
 	for (i=0;i<1;i++) {
 
-		if ((exp=fscanf(fp, "%u", &result))!=1) {
+		if (~(che=fscanf(fp, "%u", &result))) {
 			puts("ERR FSC");
-			printf("%u\n",exp);
+			printf("%d\n",che);
 			return 0;	
 		}
 		if (fgets(buf, 65900, fp) == NULL) {
