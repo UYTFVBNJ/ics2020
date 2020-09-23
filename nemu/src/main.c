@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 // GH: own changes
 	
-	FILE *fp = fopen("../tools/gen-expr/input","r");
+	FILE *fp = fopen("~/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
 	unsigned int result,i,exp; bool success=0;
