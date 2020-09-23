@@ -25,15 +25,17 @@ int main(int argc, char *argv[]) {
 
 	for (i=0;i<1;i++) {
 
-		if (~(che=fscanf(fp, "%u", &result))) {
+		if ((che=fscanf(fp, "%u", &result))!=1) {
 			puts("ERR FSC");
 			printf("%d\n",che);
 			return 0;	
 		}
+		puts("PSS FSC");
 		if (fgets(buf, 65900, fp) == NULL) {
 			puts("ERR FGT");
 			return 0;
 		}
+		puts("PSS FGT");
 
 		exp=expr(buf, success);
 
