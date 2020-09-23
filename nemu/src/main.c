@@ -24,8 +24,9 @@ int main(int argc, char *argv[]) {
 
 	for (i=0;i<1;i++) {
 
-		if (~fscanf(fp, "%u", &result)) {
+		if ((exp=fscanf(fp, "%u", &result))!=1) {
 			puts("ERR FSC");
+			printf("%u\n",exp);
 			return 0;	
 		}
 		if (fgets(buf, 65900, fp) == NULL) {
