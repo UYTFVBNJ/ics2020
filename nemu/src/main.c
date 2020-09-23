@@ -39,6 +39,8 @@ int main(int argc, char *argv[]) {
 
 		exp=expr(buf, success);
 
+		puts("PSS EXP");
+
 		printf("%u %u %d\n",result, exp, success);
 	}
 // GH: own changes
