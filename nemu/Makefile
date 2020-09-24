@@ -87,7 +87,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convenient rules
 
-.PHONY: app run gdb clean run-env $(DIFF_REF_SO)
+.PHONY: app run gdb clean run-env $(DIFF_REF_SO) gdb_with_Clion
 app: $(BINARY)
 
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
@@ -120,3 +120,6 @@ clean:
 	$(MAKE) -C tools/gen-expr clean
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
+
+gdb_with_Clion: run-env
+	$(call git_commit, "gdb")
