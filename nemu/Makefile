@@ -121,5 +121,5 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
 
-gdb_with_Clion: run-env
+build: run-env
 	$(call git_commit, "gdb")
