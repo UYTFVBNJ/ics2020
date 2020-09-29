@@ -139,7 +139,8 @@ word_t eval(int p, int q, bool *success) {
 		*success = 0;
 		return 0;
 	} else if (p==q) {
-		return strtol(tokens[p].str,NULL,10); 
+    unsigned ans= strtol(tokens[p].str,NULL,10); 
+		return ans;
 	} else if (check_parentheses(p,q,success)) {
 		return eval(p+1,q-1,success);
 	} else if (*success) {
