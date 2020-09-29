@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
-	unsigned int result,i,exp; bool success=0;
+	unsigned int result,i,exp; bool success233=0;
 	int che;
 
 	for (i=0;i<1;i++) {
@@ -47,11 +47,11 @@ int main(int argc, char *argv[]) {
 
 		buf[4]=0;
 
-		exp=expr(buf+1, success);
+		exp=expr(buf+1, success233);
 
 		puts("PSS EXP");
 
-		printf("%u %u %d\n",result, exp, success);
+		printf("%u %u %d\n",result, exp, success233);
 	}
 // GH: own changes
 
