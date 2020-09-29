@@ -56,6 +56,7 @@ endif
 
 OBJ_DIR ?= $(BUILD_DIR)/obj-$(ISA)-$(ENGINE)$(SO)
 BINARY ?= $(BUILD_DIR)/$(ISA)-$(NAME)-$(ENGINE)$(SO)
+BINARY- ?= $(BUILD_DIR)/$(ISA)-$(NAME)-$(ENGINE)$(SO)
 
 include Makefile.git
 
@@ -102,6 +103,13 @@ $(BINARY): $(OBJS)
 	@echo + LD $@
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)
 
+$(BINARY-): $(OBJS)
+	$(call git_commit, "compile")
+	@echo + LD $@
+	@$(LD) -O1 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)	
+
+
+
 run-env: $(BINARY) $(DIFF_REF_SO)
 
 run: run-env
@@ -121,5 +129,5 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
 
-build: run-env
-	$(call git_commit, "gdb")
+build: $(BINARY-) $(DIFF_REF_SO)
+	$(call git_commit, "build")

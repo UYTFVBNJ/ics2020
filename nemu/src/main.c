@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 		puts("PSS EXP");
 
 		if (!success || result != exp) 
-		printf("%u %u %d\n",result, exp, success);
+		printf("%d %u %u %d\n",i, result, exp, success);
 	}
 // GH: own changes
 
