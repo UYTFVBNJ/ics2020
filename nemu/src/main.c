@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
 		printf("Read: %s\n",buf);
 		
-		for (int j=0;j<5;j++) printf("%d ",buf[j]); 
+		for (int j=0;j<6;j++) printf("%d ",buf[j]); 
 		puts("");
 
 		exp=expr(buf, success);
