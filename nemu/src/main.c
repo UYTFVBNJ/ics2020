@@ -33,12 +33,12 @@ int main(int argc, char *argv[]) {
 			printf("%d\n",che);
 			return 0;	
 		}
-		puts("PSS FSC");
+		// puts("PSS FSC");
 		if (fgets(buf, 65900, fp) == NULL) {
 			puts("ERR FGT");
 			return 0;
 		}
-		puts("PSS FGT");
+		// puts("PSS FGT");
 /*
 		printf("Read: %s\n",buf);
 		
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 
 		exp=expr(buf, &success);
 
-		puts("PSS EXP");
+		// puts("PSS EXP");
 
 		if (!success || result != exp) 
 		printf("%d %u %u %d\n",i, result, exp, success);
