@@ -14,7 +14,12 @@ char buf[66];
 // GH: own changes
 
 int main(int argc, char *argv[]) {
-/*
+
+
+
+
+  /* Initialize the monitor. */
+  init_monitor(argc, argv);
 // GH: own changes
 	
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
@@ -51,11 +56,6 @@ int main(int argc, char *argv[]) {
 		printf("%u %u %d\n",result, exp, success);
 	}
 // GH: own changes
-*/
-
-  /* Initialize the monitor. */
-  init_monitor(argc, argv);
-
   /* Start engine. */
   engine_start();
 
