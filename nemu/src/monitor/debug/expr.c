@@ -128,7 +128,7 @@ static bool make_token(char *e) {
 
 bool check_parentheses(int p, int q, bool *success) {	
 	int cnt=0;
-	for (int i=p+1;i!=q && cnt>=0;i++) if (tokens[i].type=='(') cnt++; else if (tokens[i].type==')') cnt--;
+	for (int i=p;i!=q+1 && cnt>=0;i++) if (tokens[i].type=='(') cnt++; else if (tokens[i].type==')') cnt--;
 	*success = (cnt==0);
 	return (tokens[p].type=='(' && tokens[q].type==')' && cnt==0); 
 }
