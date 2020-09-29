@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
-	unsigned int result,i,j,exp; bool success=0;
+	unsigned int result,i,j,exp; bool success=1;
 	int che;
 
 	for (i=0;i<1;i++) {
