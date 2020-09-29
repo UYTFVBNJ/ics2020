@@ -9,8 +9,10 @@ int is_exit_status_bad();
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
 uint32_t expr();
 char buf[66000];
+char *str;
 // GH: own changes
 
 int main(int argc, char *argv[]) {
@@ -24,20 +26,15 @@ int main(int argc, char *argv[]) {
 	assert(fp != NULL);
 
 	unsigned int result,i,j,exp; bool success=1;
-	int che;
 
 	for (i=0;i<90;i++) {
 
-		if ((che=fscanf(fp, "%u", &result))!=1) {
-			puts("ERR FSC");
-			printf("%d\n",che);
-			return 0;	
-		}
-		// puts("PSS FSC");
 		if (fgets(buf, 65900, fp) == NULL) {
 			puts("ERR FGT");
 			return 0;
 		}
+
+		result = strtol(buf, &str, 10);		
 		// puts("PSS FGT");
 /*
 		printf("Read: %s\n",buf);
@@ -51,7 +48,7 @@ int main(int argc, char *argv[]) {
 		for (j=0;j<65000;j++) if (buf[j] == '\n') break;
 		buf[j]=0;
 
-		exp=expr(buf, &success);
+		exp=expr(str, &success);
 
 		// puts("PSS EXP");
 
