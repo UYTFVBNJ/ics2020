@@ -10,7 +10,7 @@ int is_exit_status_bad();
 #include <stdint.h>
 #include <stdbool.h>
 uint32_t expr();
-char buf[66000];
+char buf[66];
 // GH: own changes
 
 int main(int argc, char *argv[]) {
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 			return 0;	
 		}
 		puts("PSS FSC");
-		if (fgets(buf, 65900, fp) == NULL) {
+		if (fgets(buf, 65, fp) == NULL) {
 			puts("ERR FGT");
 			return 0;
 		}
