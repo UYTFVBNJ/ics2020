@@ -105,9 +105,9 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 //	  puts("A5");	
 		
-    fgets(status, 40, fp);
+    if (!fgets(status, 40, fp)) assert(0);
 //	  puts("A6");	
-    pclose(fp);
+    assert(!pclose(fp));
 
 
 		if (strstr(status, "Floating") != NULL) {
@@ -124,9 +124,9 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 		
 //	  puts("A1");	
-    fscanf(fp, "%d", &result);
+    if (!fscanf(fp, "%d", &result)) assert(0);
 //	  puts("A2");	
-    pclose(fp);
+    assert(!pclose(fp));
 		
 	  printf("%u %s\n", result, buf);
   }
