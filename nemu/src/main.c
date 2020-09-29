@@ -10,7 +10,7 @@ int is_exit_status_bad();
 #include <stdint.h>
 #include <stdbool.h>
 uint32_t expr();
-char buf[66];
+char buf[66000];
 // GH: own changes
 
 int main(int argc, char *argv[]) {
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
-	unsigned int result,i,exp; bool success=0;
+	unsigned int result,i,j,exp; bool success=0;
 	int che;
 
 	for (i=0;i<1;i++) {
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 			return 0;	
 		}
 		puts("PSS FSC");
-		if (fgets(buf, 65, fp) == NULL) {
+		if (fgets(buf, 65900, fp) == NULL) {
 			puts("ERR FGT");
 			return 0;
 		}
@@ -47,6 +47,10 @@ int main(int argc, char *argv[]) {
 
 		buf[4]=0;
 */
+
+		for (j=0;j<65000;j++) if (buf[j] == '\n') break;
+		buf[j]=0;
+
 		exp=expr(buf, &success);
 
 		puts("PSS EXP");
