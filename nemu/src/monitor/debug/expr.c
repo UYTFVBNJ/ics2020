@@ -140,7 +140,7 @@ word_t eval(int p, int q, bool *success) {
 		return 0;
 	} else if (p==q) {
     unsigned int ans= strtol(tokens[p].str,NULL,10); 
-    printf("%u\n",ans);
+    printf("%u %ld\n",ans, strtol(tokens[p].str,NULL,10));
 		return ans;
 	} else if (check_parentheses(p,q,success)) {
 		return eval(p+1,q-1,success);
