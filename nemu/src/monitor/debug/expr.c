@@ -101,7 +101,7 @@ static bool make_token(char *e) {
 						break;
 					case '0': {
 						tokens[nr_token].type=rules[i].token_type;
-						for (int j=0;j<substr_len && j<32;j++) 
+						for (int j=0;j<32;j++) 
 							tokens[nr_token].str[j]=*(e+position-substr_len+j);
 						nr_token++;
 						break;
