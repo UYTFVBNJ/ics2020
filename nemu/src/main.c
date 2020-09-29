@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	unsigned int result,i,j,exp; bool success=1;
 	int che;
 
-	for (i=0;i<1;i++) {
+	for (i=0;i<100;i++) {
 
 		if ((che=fscanf(fp, "%u", &result))!=1) {
 			puts("ERR FSC");
