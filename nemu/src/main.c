@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
 		buf[4]=0;
 
-		exp=expr(buf+1, &success);
+		exp=expr(buf, &success);
 
 		puts("PSS EXP");
 
