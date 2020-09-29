@@ -42,6 +42,8 @@ int main(int argc, char *argv[]) {
 		for (int j=0;j<6;j++) printf("%d ",buf[j]); 
 		puts("");
 
+		buf[4]=0;
+
 		exp=expr(buf, success);
 
 		puts("PSS EXP");
