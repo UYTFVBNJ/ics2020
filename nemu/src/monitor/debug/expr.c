@@ -134,6 +134,7 @@ bool check_parentheses(int p, int q, bool *success) {
 }
 
 word_t eval(int p, int q, bool *success) {
+  printf("%d %d\n",p,q);
 	if (p > q) {
 		puts("BAD EXPRESSION!");
 		*success = 0;
