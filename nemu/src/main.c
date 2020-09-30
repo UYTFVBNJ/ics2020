@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
 
 	unsigned int result,i,j,exp; bool success=1;
 
+	puts("here");
+
 	for (i=0;i<90;i++) {
 
 		if (fgets(buf, 65900, fp) == NULL) {
