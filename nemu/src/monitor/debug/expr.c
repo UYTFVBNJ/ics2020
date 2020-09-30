@@ -181,7 +181,7 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 	
-	// for (int i=0;i<nr_token;i++) printf("%d\n%s\n",tokens[i].type,tokens[i].str);
+	for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
 
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1,success);
