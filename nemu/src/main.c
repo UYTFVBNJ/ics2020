@@ -57,6 +57,8 @@ int main(int argc, char *argv[]) {
 		if (!success || result != exp) 
 		printf("%d %u %u %d\n",i, result, exp, success);
 	}
+
+	puts("PSS");
 // GH: own changes
 
   /* Start engine. */
