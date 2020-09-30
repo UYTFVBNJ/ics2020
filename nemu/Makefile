@@ -103,12 +103,6 @@ $(BINARY): $(OBJS)
 	@echo + LD $@
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)
 
-$(BINARY-): $(OBJS)
-	$(call git_commit, "compile")
-	@echo + LD $@
-	@$(LD) -O1 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)	
-
-
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
@@ -129,5 +123,5 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
 
-build: $(BINARY-) $(DIFF_REF_SO)
+build: run-env
 	$(call git_commit, "build")
