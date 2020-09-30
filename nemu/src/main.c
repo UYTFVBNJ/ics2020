@@ -25,11 +25,14 @@ int main(int argc, char *argv[]) {
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
-	unsigned int result,i=0,j,exp; bool success=1;
+	unsigned int result,i,j,exp; bool success=1;
 
-	while (fgets(buf, 65900, fp) == NULL) {
+	for (i=0;i<90;i++) {
 
-		i++;
+		if (fgets(buf, 65900, fp) == NULL) {
+			puts("ERR FGT");
+			return 0;
+		}
 
 		result = strtol(buf, &str, 10);		
 		// puts("PSS FGT");
@@ -48,8 +51,6 @@ int main(int argc, char *argv[]) {
 		exp=expr(str, &success);
 
 		// puts("PSS EXP");
-
-		printf("%u\n",i);
 
 		if (!success || result != exp) 
 		printf("%d %u %u %d\n",i, result, exp, success);
