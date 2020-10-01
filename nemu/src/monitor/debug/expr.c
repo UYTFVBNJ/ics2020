@@ -226,7 +226,7 @@ word_t eval(int p, int q, bool *success) {
 		}
 
 
-		for (i = 10 - 1; i >= 0; i--) if (pos[i]) break;
+		for (i = 0; i < 10; i++) if (pos[i]) break;
     opt_pos = pos[i];
 
     if (i == PR_SIGOPT) return isa_reg_str2val(tokens[opt_pos].str, success); // SIGOPT
@@ -250,7 +250,9 @@ word_t eval(int p, int q, bool *success) {
 
       case TK_LAND: return (left_exp && right_exp); break;
 
-			default: assert(0);
+			default: 
+        Log("ERR");
+        assert(0);
 		}
 	}
 	return 0;
