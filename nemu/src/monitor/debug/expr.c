@@ -6,7 +6,7 @@
 #include <regex.h>
 #include <stdlib.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_AND, TK_DEREF,
 
   /* TODO: Add more token types */
 
@@ -22,6 +22,8 @@ static struct rule {
    */
 
 // GH: own changes
+  {"0x[0-9]+", TK_HEX_NUM},
+  {"$[0-9]+1", TK_REG},
 	
   {" +", TK_NOTYPE},    // spaces
 
@@ -33,9 +35,12 @@ static struct rule {
 	{"\\(", '('},       // l bracket 
   {"\\)", ')'},       // r bracket 
 
-	{"[0-9]+", '0'},       // numbers
+	{"[0-9]+", TK_NUM},       // numbers
 
   {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},        // not equal
+  
+  {"&&", TK_AND},        // and
 
 // GH: own changes
 
@@ -99,7 +104,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 					case TK_NOTYPE: 
 						break;
-					case '0': {
+					case TK_NUM: {
 						tokens[nr_token].type=rules[i].token_type;
 						for (int j=0;j<32;j++) 
 							tokens[nr_token].str[j]=(j<substr_len)?(*(e+position-substr_len+j)):0;
@@ -183,7 +188,34 @@ word_t expr(char *e, bool *success) {
 	
 	// for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
 
+  for (int i=0;i<nr_token;i++) if (tokens[i].type == '*') {
+    if (i == 0) {
+      tokens[i].type = TK_DEREF;
+      continue;
+    } else {
+      switch (tokens[i-1].type) {
+      case ')':
+        break;
+      case TK_HEX_NUM:
+        break;
+      case TK_REG:
+        break;
+      case TK_NUM:
+        break;
+      
+      case '*':
+        puts("ERR: ** is not implemented!");
+        break;
+      
+      default:
+        tokens[i].type = TK_DEREF;
+        break;
+      }      
+    }
+  }
+
   /* TODO: Insert codes to evaluate the expression. */
+
   return eval(0,nr_token-1,success);
 }
 
