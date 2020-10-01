@@ -19,12 +19,35 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-/*
-WP* new_wp() {
 
+WP* new_wp() {
+  if (free_ == NULL) {
+    Log("ERR: not enough watch point");
+    assert(0);
+  }
+  else {
+    WP *p = free_;
+    free_ = p->next;
+
+    p->next = head;
+    head = p;
+
+    return p;
+  }
 }
 
-void free_wp(WP *wp) {
+void free_wp(int wp_no) {
+  wp_pool[wp_no].next = free_; // the freed one will be used first
+  free_ = &wp_pool[wp_no];
 
+  // wp* p = head;
 
-}*/
+  // if (p == NULL) {
+
+  // }
+  // while (p)
+}
+
+void wp_display() {
+  // for ()
+}

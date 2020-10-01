@@ -9,6 +9,8 @@
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
+void wp_display();
+void free_wp(int);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -52,9 +54,9 @@ static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 	switch (arg[0]) {
 		case 'r': isa_reg_display(); break;
-		case 'w': /* TODO */ break;
+		case 'w': wp_display(); break;
 		default:
-			puts("?");
+			puts("ERR");
 	}
 	return 0;
 }
@@ -78,6 +80,12 @@ static int cmd_p(char *args) {
 	return 0;
 }
 
+static int cmd_d(char *args) {
+  free_wp(strtol(strtok(NULL, " "),NULL,10));
+	return 0;
+}
+
+
 
 // GH: own changes
 
@@ -95,6 +103,8 @@ static struct {
 	{ "info", "Show R/W Info", cmd_info },
 	{ "x", "Show mem", cmd_x },
 	{ "p", "Print Expression", cmd_p },
+	{ "d", "Delete Watchpoint", cmd_d },
+
 
   /* TODO: Add more commands */
 
