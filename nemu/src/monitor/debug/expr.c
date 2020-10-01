@@ -172,12 +172,16 @@ bool check_parentheses(int p, int q, bool *success) {
 }
 
 word_t eval(int p, int q, bool *success) {
+  
   // printf("%d %d\n",p,q);
+
 	if (p > q) {
 		Log("ERR: BAD EXPRESSION!");
 		*success = 0;
 		return 0;
-	} else if (p==q) {
+	} 
+  
+  else if (p==q) {
     int radix; 
     switch (tokens[p].type) {
       case TK_HEX_NUM:
@@ -195,9 +199,13 @@ word_t eval(int p, int q, bool *success) {
     unsigned int ans = strtol(tokens[p].str, NULL, radix); 
     // printf("%u %ld\n",ans, strtol(tokens[p].str,NULL,10));
 		return ans;
-	} else if (check_parentheses(p,q,success)) {
+	} 
+  
+  else if (check_parentheses(p,q,success)) 
 		return eval(p+1,q-1,success);
-	} else if (*success) {
+	
+  
+  else if (*success) {
 
     word_t left_exp, right_exp;
 		int cnt=0, i;

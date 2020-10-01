@@ -71,9 +71,9 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
 	bool success = 1;
-	int exp=expr(args,&success);
+	word_t exp=expr(args,&success);
 	if (success) {
-		printf("success: \n %d\n",exp);
+		printf("%u\n",exp);
 	} else puts("failed");
 	return 0;
 }
