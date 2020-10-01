@@ -263,6 +263,7 @@ word_t expr(char *e, bool *success) {
   }
 	
 	// for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
+  Log("233hi");
 
   for (int i=0;i<nr_token;i++) if (tokens[i].type == '*') {
     if (i == 0) {
