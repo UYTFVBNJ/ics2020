@@ -174,7 +174,7 @@ bool check_parentheses(int p, int q, bool *success) {
 word_t eval(int p, int q, bool *success) {
   // printf("%d %d\n",p,q);
 	if (p > q) {
-		puts("BAD EXPRESSION!");
+		Log("ERR: BAD EXPRESSION!");
 		*success = 0;
 		return 0;
 	} else if (p==q) {
@@ -263,7 +263,6 @@ word_t expr(char *e, bool *success) {
   }
 	
 	// for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
-  Log("233hi");
 
   for (int i=0;i<nr_token;i++) if (tokens[i].type == '*') {
     if (i == 0) {
