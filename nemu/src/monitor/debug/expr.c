@@ -26,7 +26,7 @@ static struct rule {
    */
 
 // GH: own changes
-  {"0x[0-9]+", TK_HEX_NUM},
+  {"0x([0-9]|[a-f])+", TK_HEX_NUM},
   {"\\$(\\$|[a-z]|[0-9]){2,3}", TK_REG},
 	
   {" +", TK_NOTYPE},    // spaces
