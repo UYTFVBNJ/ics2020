@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 
 // GH: own changes
-	
+/*	
 	FILE *fp = fopen("/home/gh/ics2020/nemu/tools/gen-expr/input","r");
 	assert(fp != NULL);
 
@@ -38,14 +38,6 @@ int main(int argc, char *argv[]) {
 
 		result = strtol(buf, &str, 10);		
 		// puts("PSS FGT");
-/*
-		printf("Read: %s\n",buf);
-		
-		for (int j=0;j<6;j++) printf("%d ",buf[j]); 
-		puts("");
-
-		buf[4]=0;
-*/
 
 		for (j=0;j<65000;j++) if (buf[j] == '\n') break;
 		buf[j]=0;
@@ -59,10 +51,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	puts("PSS");
+*/
 // GH: own changes
 
   /* Start engine. */
-//   engine_start();
+  engine_start();
 
   return is_exit_status_bad();
 }
