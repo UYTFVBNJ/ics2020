@@ -139,7 +139,7 @@ bool check_parentheses(int p, int q, bool *success) {
 	return (tokens[p].type=='(' && tokens[q].type==')' && cnt==0); 
 }
 
-int eval(int p, int q, bool *success) {
+word_t eval(int p, int q, bool *success) {
   // printf("%d %d\n",p,q);
 	if (p > q) {
 		puts("BAD EXPRESSION!");
@@ -152,7 +152,7 @@ int eval(int p, int q, bool *success) {
 	} else if (check_parentheses(p,q,success)) {
 		return eval(p+1,q-1,success);
 	} else if (*success) {
-		int cnt=0,i,lpm=0,ltd=0; int le,re;
+		int cnt=0,i,lpm=0,ltd=0; word_t le,re;
 		for (i=p;i<=q;i++) switch (tokens[i].type) {
 			case '+': if (cnt==0) lpm=i; break;
 			case '-': if (cnt==0) lpm=i; break;
