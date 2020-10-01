@@ -179,7 +179,6 @@ word_t eval(int p, int q, bool *success) {
 		return 0;
 	} else if (p==q) {
     int radix; 
-printf("%d\n",*success);
     switch (tokens[p].type) {
       case TK_HEX_NUM:
         radix = 16;
@@ -259,13 +258,11 @@ printf("%d\n",*success);
 }
 
 word_t expr(char *e, bool *success) {
-printf("%d\n",*success);
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
 	
-  printf("%d\n",*success);
 	// for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
 
   for (int i=0;i<nr_token;i++) if (tokens[i].type == '*') {
