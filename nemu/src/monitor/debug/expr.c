@@ -5,11 +5,15 @@
  */
 #include <regex.h>
 #include <stdlib.h>
-enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_AND, TK_DEREF,
+enum TOKEN {
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_LAND, TK_DEREF,
 
   /* TODO: Add more token types */
 
+};
+
+enum PRIORITY {
+  PR_LOR, PR_LAND, PR_EQ, PR_NEQ = PR_EQ, PR_PM, PR_TD, PR_SIGOPT
 };
 
 static struct rule {
@@ -23,12 +27,13 @@ static struct rule {
 
 // GH: own changes
   {"0x[0-9]+", TK_HEX_NUM},
-  {"$[0-9]+1", TK_REG},
+  {"\\$(\\$|[a-z]|[0-9]){2,3}", TK_REG},
 	
   {" +", TK_NOTYPE},    // spaces
 
   {"\\+", '+'},         // plus
 	{"-", '-'},         // minus
+
 	{"\\*", '*'},         // times
 	{"/", '/'},         // devide
 	
@@ -40,7 +45,7 @@ static struct rule {
   {"==", TK_EQ},        // equal
   {"!=", TK_NEQ},        // not equal
   
-  {"&&", TK_AND},        // and
+  {"&&", TK_LAND},        // and
 
 // GH: own changes
 
@@ -104,13 +109,40 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 					case TK_NOTYPE: 
 						break;
+
 					case TK_NUM: {
 						tokens[nr_token].type=rules[i].token_type;
+
 						for (int j=0;j<32;j++) 
 							tokens[nr_token].str[j]=(j<substr_len)?(*(e+position-substr_len+j)):0;
+
 						nr_token++;
 						break;
 					}
+
+          case TK_DEREF: {
+            tokens[nr_token].type=rules[i].token_type;
+
+            substr_len--; // change initial pos
+
+						for (int j=0;j<32;j++) 
+							tokens[nr_token].str[j]=(j<substr_len)?(*(e+position-substr_len+j)):0; 
+
+						nr_token++;
+						break;      
+          }
+
+          case TK_HEX_NUM: {
+            tokens[nr_token].type=rules[i].token_type;
+
+            substr_len-=2; //change initial pos
+
+						for (int j=0;j<32;j++) 
+							tokens[nr_token].str[j]=(j<substr_len)?(*(e+position-substr_len+j)):0; 
+
+						nr_token++;
+						break;      
+          }
 
 					default:
 						tokens[nr_token++].type=rules[i].token_type;
@@ -146,35 +178,79 @@ word_t eval(int p, int q, bool *success) {
 		*success = 0;
 		return 0;
 	} else if (p==q) {
-    unsigned int ans= strtol(tokens[p].str,NULL,10); 
+    int radix; 
+
+    switch (tokens[p].type) {
+      case TK_HEX_NUM:
+        radix = 16;
+        break;
+      case TK_NUM:
+        radix = 10;
+        break;
+      default:
+        Log("ERR: unknown radix");
+        radix = 10;
+        break;
+    }
+
+    unsigned int ans = strtol(tokens[p].str, NULL, radix); 
     // printf("%u %ld\n",ans, strtol(tokens[p].str,NULL,10));
 		return ans;
 	} else if (check_parentheses(p,q,success)) {
 		return eval(p+1,q-1,success);
 	} else if (*success) {
-		int cnt=0,i,lpm=0,ltd=0; word_t le,re;
+
+    word_t left_exp, right_exp;
+		int cnt=0, i;
+    int opt_pos, pos[10]; // index stands for priorities +
+
+    memset(pos,0,sizeof(int)*10);
+
 		for (i=p;i<=q;i++) switch (tokens[i].type) {
-			case '+': if (cnt==0) lpm=i; break;
-			case '-': if (cnt==0) lpm=i; break;
-			case '*': if (cnt==0) ltd=i; break;
-			case '/': if (cnt==0) ltd=i; break;
+      case TK_DEREF: if (cnt==0) pos[PR_SIGOPT] = i; break;
+
+    	case '*': if (cnt==0) pos[PR_TD] = i; break;
+			case '/': if (cnt==0) pos[PR_TD] = i; break;
+
+			case '+': if (cnt==0) pos[PR_PM] = i; break;
+	 		case '-': if (cnt==0) pos[PR_PM] = i; break;
+      
+      case TK_EQ:  if (cnt==0) pos[PR_EQ]  = i; break;
+	 		case TK_NEQ: if (cnt==0) pos[PR_NEQ] = i; break;
+
+
 			case '(': cnt++; break;
 			case ')': cnt--; break;
 			default : 
 				break;
 		}
-		if (lpm==0) lpm = ltd;
-		le=eval(p,lpm-1,success); 
-		if (!*success) return 0;
-		re=eval(lpm+1,q,success);
+
+
+		for (i = 10 - 1; i >= 0; i--) if (pos[i]) break;
+    opt_pos = pos[i];
+
+    if (i == PR_SIGOPT) return isa_reg_str2val(tokens[opt_pos].str, success); // SIGOPT
+
+		left_exp  = eval(p, opt_pos - 1, success); 
 		if (!*success) return 0;
 
-		switch (tokens[lpm].type) {
-			case '+': return le+re; break;
-			case '-': return le-re; break;
-			case '*': return le*re; break;
-			case '/': return le/re; break;
-				default: assert(0);
+		right_exp = eval(opt_pos + 1, q, success);
+		if (!*success) return 0;
+
+
+		switch (tokens[opt_pos].type) {
+			case '*': return left_exp * right_exp; break;
+			case '/': return left_exp / right_exp; break;
+
+			case '+': return left_exp + right_exp; break;
+			case '-': return left_exp - right_exp; break;
+
+      case TK_EQ:  return (left_exp == right_exp); break;
+      case TK_NEQ: return (left_exp != right_exp); break;
+
+      case TK_LAND: return (left_exp && right_exp); break;
+
+			default: assert(0);
 		}
 	}
 	return 0;
