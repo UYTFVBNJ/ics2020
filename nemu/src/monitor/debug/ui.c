@@ -1,7 +1,7 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
-#include <../../../include/memory/vaddr.h>
+#include <memory/vaddr.h>
 
 #include <stdlib.h>
 #include <readline/readline.h>
