@@ -259,6 +259,7 @@ printf("%d\n",*success);
 }
 
 word_t expr(char *e, bool *success) {
+printf("%d\n",*success);
   if (!make_token(e)) {
     *success = false;
     return 0;
