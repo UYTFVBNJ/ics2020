@@ -204,7 +204,7 @@ word_t eval(int p, int q, bool *success) {
 		int cnt=0, i;
     int opt_pos, pos[10]; // index stands for priorities +
 
-    memset(pos,0,sizeof(int)*10);
+    memset(pos, -1, sizeof(int)*10);
 
 		for (i=p;i<=q;i++) switch (tokens[i].type) {
       case TK_DEREF: if (cnt==0) pos[PR_SIGOPT] = i; break;
@@ -226,7 +226,7 @@ word_t eval(int p, int q, bool *success) {
 		}
 
 
-		for (i = 0; i < 10; i++) if (pos[i]) break;
+		for (i = 0; i < 10; i++) if (pos[i] != -1) break;
     opt_pos = pos[i];
 
     if (i == PR_SIGOPT) return isa_reg_str2val(tokens[opt_pos].str, success); // SIGOPT
