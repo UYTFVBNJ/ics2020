@@ -56,7 +56,6 @@ endif
 
 OBJ_DIR ?= $(BUILD_DIR)/obj-$(ISA)-$(ENGINE)$(SO)
 BINARY ?= $(BUILD_DIR)/$(ISA)-$(NAME)-$(ENGINE)$(SO)
-BINARY- ?= $(BUILD_DIR)/$(ISA)-$(NAME)-$(ENGINE)$(SO)
 
 include Makefile.git
 
@@ -88,7 +87,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convenient rules
 
-.PHONY: app run gdb clean run-env $(DIFF_REF_SO) gdb_with_Clion
+.PHONY: app run gdb clean run-env $(DIFF_REF_SO)
 app: $(BINARY)
 
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
@@ -102,7 +101,6 @@ $(BINARY): $(OBJS)
 	$(call git_commit, "compile")
 	@echo + LD $@
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)
-
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
