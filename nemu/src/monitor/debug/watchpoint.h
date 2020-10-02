@@ -13,6 +13,8 @@ typedef struct watchpoint {
 
   bool enable;
   char exp[NR_WP_EXP];
+  word_t last_result;
+  
 } WP;
 
 

@@ -77,17 +77,28 @@ static int cmd_p(char *args) {
 	word_t exp=expr(args,&success);
 	if (success) {
 		printf("%u\n",exp);
-	} else puts("failed");
+	} else puts("ERR: invalid expression");
 	return 0;
 }
 
 static int cmd_w(char *args) {
+
+  bool success = 1;
+	word_t exp=expr(args,&success);
+  
+  if (!success) {
+    puts("ERR: invalid expression");
+    return 0;
+  }
+
   WP *p = new_wp();
 
-  p-> enable = 1;
+  p->enable = 1;
 
   for (int i = 0; args[i] != 0; i ++) p->exp[i] = args[i];
-  
+
+  p->last_result = exp;
+
 	return 0;
 }
 
@@ -178,7 +189,7 @@ void ui_mainloop() {
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args) < 0) { return; } // if return value < 0 ...
         break;
       }
     }
