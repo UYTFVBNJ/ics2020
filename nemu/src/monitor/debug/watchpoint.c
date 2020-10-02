@@ -82,6 +82,8 @@ bool wp_check() {
     if (!success) Log("ERR: invalid expression");
 
     if (result != p->last_result) {
+      printf("Watch point %3d: %s", p->NO, p->exp);
+
       puts("Old value = ");
       printf("%u\n",p->last_result);
 
