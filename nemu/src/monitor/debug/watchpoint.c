@@ -9,7 +9,7 @@ static WP *head = NULL, *free_ = NULL;
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
-    wp_pool[i].in_use = 0;
+    wp_pool[i].enable = 0;
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
     // wp_pool[i].exp
@@ -34,6 +34,7 @@ WP* new_wp() {
     p->next = head;
     head = p;
 
+    p->enable = 1;
     memset(p->exp, 0, sizeof(char)*NR_WP_EXP);
 
     return p;
@@ -57,6 +58,7 @@ void free_wp(int wp_no) {
   if (q == NULL) head = NULL;
   else q->next = p->next;
   
+  wp_pool[wp_no].enable = 0;
 
   wp_pool[wp_no].next = free_; // the freed one will be used first
   free_ = &wp_pool[wp_no];
@@ -64,7 +66,7 @@ void free_wp(int wp_no) {
 }
 
 void wp_display() {
-  for (int i = 0; i < 32; i ++) if (wp_pool[i].in_use) {
+  for (int i = 0; i < 32; i ++) if (wp_pool[i].enable) {
     printf("Num  Type  Disp  Enb  Address  What\n");
     printf("%3d expr  keep  y    unknown  %s\n", i, wp_pool[i].exp);
   }

@@ -11,7 +11,7 @@ typedef struct watchpoint {
 
   /* TODO: Add more members if necessary */
 
-  bool in_use;
+  bool enable;
   char exp[NR_WP_EXP];
 } WP;
 

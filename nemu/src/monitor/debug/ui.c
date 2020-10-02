@@ -9,8 +9,9 @@
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
-void wp_display();
+WP* new_wp();
 void free_wp(int);
+void wp_display();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -80,6 +81,16 @@ static int cmd_p(char *args) {
 	return 0;
 }
 
+static int cmd_w(char *args) {
+  WP *p = new_wp();
+
+  p-> enable = 1;
+
+  for (int i = 0; args[i] != 0; i ++) p->exp[i] = args[i];
+  
+	return 0;
+}
+
 static int cmd_d(char *args) {
   free_wp(strtol(strtok(NULL, " "),NULL,10));
 	return 0;
@@ -103,6 +114,7 @@ static struct {
 	{ "info", "Show R/W Info", cmd_info },
 	{ "x", "Show mem", cmd_x },
 	{ "p", "Print Expression", cmd_p },
+	{ "w", "Set up Watchpoint", cmd_w },
 	{ "d", "Delete Watchpoint", cmd_d },
 
 
