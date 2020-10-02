@@ -65,6 +65,7 @@ void free_wp(int wp_no) {
 
 void wp_display() {
   for (int i = 0; i < 32; i ++) if (wp_pool[i].in_use) {
-    // printf()
+    printf("Num  Type  Disp  Enb  Address  What\n");
+    printf("%3d expr  keep  y    unknown  %s\n", i, wp_pool[i].exp);
   }
 }
