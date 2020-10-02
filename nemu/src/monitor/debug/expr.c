@@ -120,7 +120,7 @@ static bool make_token(char *e) {
 						break;
 					}
 
-          case TK_DEREF: {
+          case TK_REG: {
             tokens[nr_token].type=rules[i].token_type;
 
             substr_len--; // change initial pos
