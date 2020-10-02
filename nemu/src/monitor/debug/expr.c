@@ -173,7 +173,7 @@ bool check_parentheses(int p, int q, bool *success) {
 
 word_t eval(int p, int q, bool *success) {
   
-  // printf("%d %d\n",p,q);
+  printf("%d %d\n",p,q);
 
 	if (p > q) {
 		Log("ERR: BAD EXPRESSION!");
@@ -192,6 +192,8 @@ word_t eval(int p, int q, bool *success) {
         break;
       default:
         Log("ERR: unknown radix");
+
+        success = 0;
         radix = 10;
         break;
     }
