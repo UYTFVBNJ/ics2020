@@ -9,8 +9,10 @@ static WP *head = NULL, *free_ = NULL;
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
+    wp_pool[i].in_use = 0;
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
+    // wp_pool[i].exp
   }
   wp_pool[NR_WP - 1].next = NULL;
 
@@ -32,22 +34,37 @@ WP* new_wp() {
     p->next = head;
     head = p;
 
+    memset(p->exp, 0, sizeof(char)*NR_WP_EXP);
+
     return p;
   }
 }
 
 void free_wp(int wp_no) {
+
+  WP *p = head, *q = NULL;
+
+  if (p == NULL) {
+    puts("ERR: no watchpoint to free");
+    return ;
+  }
+
+  while (p->NO != wp_no) {
+    q = p;
+    p = p->next;
+  }
+
+  if (q == NULL) head = NULL;
+  else q->next = p->next;
+  
+
   wp_pool[wp_no].next = free_; // the freed one will be used first
   free_ = &wp_pool[wp_no];
 
-  // wp* p = head;
-
-  // if (p == NULL) {
-
-  // }
-  // while (p)
 }
 
 void wp_display() {
-  // for ()
+  for (int i = 0; i < 32; i ++) if (wp_pool[i].in_use) {
+    // printf()
+  }
 }
