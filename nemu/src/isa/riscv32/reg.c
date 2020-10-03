@@ -9,18 +9,20 @@ const char *regsl[] = {
 };
 
 void isa_reg_display() {
-	puts("REGs: ");
-	for (int i=0;i<4;i++) {
-		for (int j=0;j<8;j++)	printf("$%8s$",regsl[8*i+j]); 
-		puts("");
-		for (int j=0;j<8;j++)	printf("|%08X|",reg_l(8*i+j)); 
-		puts("");
-		for (int j=0;j<8;j++)	printf("|%8d|",reg_l(8*i+j)); 
-		puts("");
+  puts("REGs: ");
+  for (int i=0;i<4;i++) {
+	for (int j=0;j<8;j++)	printf("$%11s$",regsl[8*i+j]); 
+	  puts("");
+	  for (int j=0;j<8;j++)	printf("|   %08X|",reg_l(8*i+j)); 
+	  puts("");
+	  for (int j=0;j<8;j++)	printf("|%11u|",reg_l(8*i+j)); 
+	  puts("");
 
 	}
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  for (int i = 0; i < 32; i ++) if (strcmp(regsl[i], s) == 0) return reg_l(i);
+  *success = 0;
   return 0;
 }
