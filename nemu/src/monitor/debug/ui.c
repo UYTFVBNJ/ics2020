@@ -114,6 +114,7 @@ static int cmd_w(char *args) {
 }
 
 static int cmd_d(char *args) {
+  
   free_wp(strtol(strtok(NULL, " "),NULL,10));
 	return 0;
 }
