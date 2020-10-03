@@ -1,12 +1,11 @@
 #include <isa.h>
+#include <memory/vaddr.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
 #include <stdlib.h>
-
-word_t vaddr_read(word_t, int);
 
 enum TOKEN {
   TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_LAND, TK_DEREF,
