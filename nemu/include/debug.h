@@ -28,4 +28,10 @@
 
 #define TODO() panic("please implement me")
 
+#define check_ptr(arg) \
+  if (arg == NULL) { \
+    Log("ERR: NULL pointer dereference"); \
+    return 0; \
+  }
+
 #endif

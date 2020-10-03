@@ -14,6 +14,7 @@ void free_wp(int);
 void wp_display();
 
 
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -68,7 +69,9 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-	long long n=atol(strtok(NULL, " "));
+  char *arg = strtok(NULL, " ");
+  
+	long long n=atol(arg);
 	int i=strtol(strtok(NULL, " "),NULL,16);
 	while (n--) {
 		printf("%08X\n",vaddr_read(i,4));
