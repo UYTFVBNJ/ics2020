@@ -14,7 +14,6 @@ void free_wp(int);
 void wp_display();
 
 
-
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -48,17 +47,16 @@ static int cmd_help(char *args);
 // GH: own changes 
 
 static int cmd_si(char *args) {
-	char *arg = strtok(NULL, " ");	
+	char * arg = strtok(NULL, " ");	
+  
 	cpu_exec(arg?atol(arg):1);	
 	return 0;
 }
 
 static int cmd_info(char *args) {
-	char *arg = strtok(NULL, " ");
-  if (arg == NULL) {
-    puts("ERR");
-    return 0;
-  }
+	char * arg = strtok(NULL, " ");
+  check_ptr(arg);
+
 	switch (arg[0]) {
 		case 'r': isa_reg_display(); break;
 		case 'w': wp_display(); break;
@@ -69,14 +67,19 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  char *arg = strtok(NULL, " ");
-  
+  char* arg = strtok(NULL, " ");
+  check_ptr(arg);
 	long long n=atol(arg);
-	int i=strtol(strtok(NULL, " "),NULL,16);
+
+  arg = strtok(NULL, " ");
+  check_ptr(arg);
+	int i=strtol(arg, NULL, 16);
+
 	while (n--) {
 		printf("%08X\n",vaddr_read(i,4));
 		i+=4;
 	}
+
 	return 0;
 }
 
