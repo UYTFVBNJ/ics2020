@@ -5,6 +5,7 @@
  */
 #include <regex.h>
 #include <stdlib.h>
+word_t vaddr_read(word_t,word_t);
 enum TOKEN {
   TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_LAND, TK_DEREF,
 
@@ -190,6 +191,9 @@ word_t eval(int p, int q, bool *success) {
       case TK_NUM:
         radix = 10;
         break;
+      case TK_REG:
+        return isa_reg_str2val(tokens[p].str, success);
+        break;
       default:
         Log("ERR: unknown radix");
 
@@ -209,7 +213,7 @@ word_t eval(int p, int q, bool *success) {
   
   else if (*success) {
 
-    word_t left_exp, right_exp;
+    word_t left_exp = 0, right_exp = 0;
 		int cnt=0, i;
     int opt_pos, pos[10]; // index stands for priorities +
 
@@ -238,10 +242,15 @@ word_t eval(int p, int q, bool *success) {
 		for (i = 0; i < 10; i++) if (pos[i] != -1) break;
     opt_pos = pos[i];
 
-    if (i == PR_SIGOPT) return isa_reg_str2val(tokens[opt_pos].str, success); // SIGOPT
+    switch (i) {
+      case PR_SIGOPT:
+        break;
 
-		left_exp  = eval(p, opt_pos - 1, success); 
-		if (!*success) return 0;
+      default:
+        left_exp  = eval(p, opt_pos - 1, success); 
+        if (!*success) return 0;
+        break;
+    }
 
 		right_exp = eval(opt_pos + 1, q, success);
 		if (!*success) return 0;
@@ -258,6 +267,8 @@ word_t eval(int p, int q, bool *success) {
       case TK_NEQ: return (left_exp != right_exp); break;
 
       case TK_LAND: return (left_exp && right_exp); break;
+
+      case TK_DEREF: return vaddr_read(right_exp, 4);
 
 			default: 
         Log("ERR");

@@ -13,6 +13,7 @@ WP* new_wp();
 void free_wp(int);
 void wp_display();
 
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
