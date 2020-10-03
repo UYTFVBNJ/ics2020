@@ -8,7 +8,7 @@
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
-word_t vaddr_read(word_t, word_t);
+word_t vaddr_read(word_t, int);
 WP* new_wp();
 void free_wp(int);
 void wp_display();
