@@ -73,7 +73,7 @@ static int cmd_x(char *args) {
 
   arg = strtok(NULL, " ");
   check_ptr(arg);
-	int i=strtol(arg, NULL, 16);
+	word_t i=strtol(arg, NULL, 16);
 
 	while (n--) {
 		printf("%08X\n",vaddr_read(i,4));
@@ -85,9 +85,9 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
 	bool success = 1;
-	word_t exp=expr(args,&success);
+	word_t exp=expr(args, &success);
 	if (success) {
-		printf("%u\n",exp);
+		printf("%u\n", exp);
 	} else puts("ERR: invalid expression");
 	return 0;
 }
@@ -95,7 +95,7 @@ static int cmd_p(char *args) {
 static int cmd_w(char *args) {
 
   bool success = 1;
-	word_t exp=expr(args,&success);
+	word_t exp=expr(args, &success);
   
   if (!success) {
     puts("ERR: invalid expression");
@@ -114,8 +114,10 @@ static int cmd_w(char *args) {
 }
 
 static int cmd_d(char *args) {
-  
-  free_wp(strtol(strtok(NULL, " "),NULL,10));
+  char * arg = strtok(NULL, " ");
+  check_ptr(arg);
+
+  free_wp(strtol(arg,NULL,10));
 	return 0;
 }
 
