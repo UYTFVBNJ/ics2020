@@ -1,7 +1,6 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
-#include <memory/vaddr.h>
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -9,6 +8,7 @@
 
 void cpu_exec(uint64_t);
 int is_batch_mode();
+word_t vaddr_read(word_t, word_t);
 WP* new_wp();
 void free_wp(int);
 void wp_display();
