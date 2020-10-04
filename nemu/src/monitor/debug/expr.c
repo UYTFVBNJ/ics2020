@@ -304,10 +304,6 @@ word_t expr(char *e, bool *success) {
       case TK_NUM:
         break;
       
-      case '*':
-        puts("ERR: ** is not implemented!");
-        break;
-      
       default:
         tokens[i].type += TK_NOTYPE;
         break;
