@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 enum TOKEN {
-  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_LAND, TK_DEREF,
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_HEX_NUM, TK_REG, TK_NUM, TK_LAND, TK_DEREF = '*' + TK_NOTYPE, TK_UNMINUS = '-' + TK_NOTYPE, 
 
   /* TODO: Add more token types */
 
@@ -221,7 +221,7 @@ word_t eval(int p, int q, bool *success) {
     memset(pos, -1, sizeof(int)*10);
 
 		for (i=p;i<=q;i++) switch (tokens[i].type) {
-      case TK_DEREF: if (cnt==0) pos[PR_SIGOPT] = i; break;
+      case TK_DEREF: case TK_UNMINUS: if (cnt==0) pos[PR_SIGOPT] = i; break;
 
     	case '*': if (cnt==0) pos[PR_TD] = i; break;
 			case '/': if (cnt==0) pos[PR_TD] = i; break;
@@ -269,7 +269,9 @@ word_t eval(int p, int q, bool *success) {
 
       case TK_LAND: return (left_exp && right_exp); break;
 
-      case TK_DEREF: return vaddr_read(right_exp, 4);
+      case TK_DEREF: return vaddr_read(right_exp, 4); break;
+
+      case TK_UNMINUS: return - right_exp; break;
 
 			default: 
         Log("ERR");
@@ -287,9 +289,9 @@ word_t expr(char *e, bool *success) {
 	
 	// for (int i=0;i<nr_token;i++) printf("%c\n%s\n",tokens[i].type,tokens[i].str);
 
-  for (int i=0;i<nr_token;i++) if (tokens[i].type == '*') {
+  for (int i=0;i<nr_token;i++) if (tokens[i].type == '*' || tokens[i].type == '-') {
     if (i == 0) {
-      tokens[i].type = TK_DEREF;
+      tokens[i].type += TK_NOTYPE; // + TK_NOTYPE = unary opt
       continue;
     } else {
       switch (tokens[i-1].type) {
@@ -307,7 +309,7 @@ word_t expr(char *e, bool *success) {
         break;
       
       default:
-        tokens[i].type = TK_DEREF;
+        tokens[i].type += TK_NOTYPE;
         break;
       }      
     }
@@ -315,7 +317,7 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 
-  return eval(0,nr_token-1,success);
+  return eval(0, nr_token-1, success);
 }
 
 // GH: ownchanges
