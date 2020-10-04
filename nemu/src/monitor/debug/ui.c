@@ -8,6 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+void rtl_exit(int, vaddr_t, uint32_t); 
 int is_batch_mode();
 WP* new_wp();
 void free_wp(int);
@@ -39,6 +40,7 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
+  rtl_exit(4, cpu.pc, -1);
   return -1;
 }
 
