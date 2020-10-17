@@ -6,5 +6,6 @@
 #include "muldiv.h"
 #include "system.h"
 
+
 def_EHelper(inv);
 def_EHelper(nemu_trap);

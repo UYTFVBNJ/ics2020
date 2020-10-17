@@ -6,6 +6,8 @@ static inline void set_width(DecodeExecState *s, int width) {
   if (width != 0) s->width = width;
 }
 
+// exe definitions
+
 static inline def_EHelper(load) {
   switch (s->isa.instr.i.funct3) {
     EXW  (2, ld, 4)
@@ -20,15 +22,32 @@ static inline def_EHelper(store) {
   }
 }
 
+// exe definitions 
 
 static inline void fecth_decode_exec(DecodeExecState *s) {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   assert(s->isa.instr.i.opcode1_0 == 0x3);
   switch (s->isa.instr.i.opcode6_2) {
+
+    // ldst
     IDEX (0b00000, I, load)
     IDEX (0b01000, S, store)
+
+    // compute
     IDEX (0b01101, U, lui)
+    IDEX (0b00101, U, auipc)
+
+    // control
+
+
+    // muldiv
+
+
+    // system
+
+
     EX   (0b11010, nemu_trap)
+
     default: exec_inv(s);
   }
 }
