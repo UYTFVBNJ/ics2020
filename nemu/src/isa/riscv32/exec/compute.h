@@ -6,7 +6,7 @@ static inline def_EHelper(lui) {
 }
 
 static inline def_EHelper(auipc) {
-  //rtl_addi(s, ddest, id_src1->imm);
+  // rtl_addi(s, ddest, id_src1->imm);
   print_asm_template2(auipc);
 }
 
