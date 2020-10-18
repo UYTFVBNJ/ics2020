@@ -5,6 +5,17 @@
 #error "Should be only included by <rtl/rtl.h>"
 #endif
 
+uint32_t upper_fill_1[8] = {
+  0xffffffff,
+  0xfffffff0,
+  0xffffff00,
+  0xfffff000,
+  0xffff0000,
+  0xfff00000,
+  0xff000000,
+  0xf0000000,
+ };
+
 /* RTL pseudo instructions */
 
 // load
