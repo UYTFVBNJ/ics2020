@@ -4,7 +4,7 @@
 
 static inline def_EHelper(addi) {
   rtl_li(s, s0, id_src2->imm);
-  rtl_sext(s, s0, s0, 3);
+  rtl_sext(s, s0, s0, 12);
   rtl_add(s, ddest, dsrc1, s0);
 
   print_asm_template3(addi);
@@ -12,7 +12,7 @@ static inline def_EHelper(addi) {
 
 static inline def_EHelper(slti) {
   rtl_li(s, s0, id_src2->imm);
-  rtl_sext(s, s0, s0, 3);
+  rtl_sext(s, s0, s0, 12);
   rtl_setrelop(s, RELOP_LT, ddest, dsrc1, s0);
 
   print_asm_template3(slti);
@@ -27,7 +27,7 @@ static inline def_EHelper(sltiu) {
 
 static inline def_EHelper(andi) {
   rtl_li(s, s0, id_src2->imm);
-  rtl_sext(s, s0, s0, 3);
+  rtl_sext(s, s0, s0, 12);
   rtl_and(s, ddest, dsrc1, s0);
 
   print_asm_template3(andi);
@@ -35,7 +35,7 @@ static inline def_EHelper(andi) {
 
 static inline def_EHelper(ori) {
   rtl_li(s, s0, id_src2->imm);
-  rtl_sext(s, s0, s0, 3);
+  rtl_sext(s, s0, s0, 12);
   rtl_or(s, ddest, dsrc1, s0);
 
   print_asm_template3(ori);
@@ -43,7 +43,7 @@ static inline def_EHelper(ori) {
 
 static inline def_EHelper(xori) {
   rtl_li(s, s0, id_src2->imm);
-  rtl_sext(s, s0, s0, 3);
+  rtl_sext(s, s0, s0, 12);
   rtl_xor(s, ddest, dsrc1, s0);
 
   print_asm_template3(xori);
@@ -81,7 +81,7 @@ static inline def_EHelper(IRII) {
     case 5 : exec_srli_srai(s); break;
     case 6 : exec_ori(s);       break;
     case 7 : exec_andi(s);      break;
-    default : break;
+    default : assert(0); break;
   }
 }
 
@@ -92,7 +92,7 @@ static inline def_EHelper(lui) {
 }
 
 static inline def_EHelper(auipc) {
-  rtl_addi(s, ddest, s->seq_pc, id_src1->imm);
+  rtl_addi(s, ddest, &cpu.pc, id_src1->imm);
   
   print_asm_template2(auipc);
 }
@@ -179,6 +179,6 @@ static inline def_EHelper(IRRO) {
     case 5 : exec_srl_sra(s);    break;
     case 6 : exec_or(s);         break;
     case 7 : exec_and(s);        break;
-    default : break;
+    default : assert(0); break;
   }
 }
