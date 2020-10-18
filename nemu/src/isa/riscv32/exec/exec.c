@@ -45,6 +45,7 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     IDEX (0110011, R, IRRO);
 
     // control
+    IDEX (1101111, J, JAL);
 
 
     // muldiv
