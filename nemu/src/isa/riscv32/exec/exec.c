@@ -42,7 +42,7 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     IDEX (0b00101, U, auipc)
 
     // Integer Register-Register Operations
-    // IDEX (0110011, R, IRRO);
+    IDEX (0110011, R, IRRO);
 
     // control
 
