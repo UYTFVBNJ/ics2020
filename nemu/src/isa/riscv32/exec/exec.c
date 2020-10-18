@@ -36,7 +36,7 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     // compute
 
       // Integer Register-Immediate Instructions
-    // IDEX (0010011, I, addi)
+    IDEX (0010011, I, addi)
     // IDEX (0010011, I, slti)
     // IDEX (, I, xlen)
 
