@@ -1,14 +1,14 @@
 // Integer Register-Immediate Instructions
 static inline def_EHelper(addi) {
-  rtl_li(s, s0, id_src1->imm);
+  rtl_li(s, s0, id_src2->imm);
   rtl_sext(s, s0, s0, 3);
   rtl_add(s, ddest, s0, ddest);
 }
 
 static inline def_EHelper(slti) {
-  rtl_li(s, s0, id_src1->imm);
+  rtl_li(s, s0, id_src2->imm);
   rtl_sext(s, s0, s0, 3);
-  // rtl_setrelop(, ddest, s0, );
+  rtl_setrelop(s, RELOP_LT, ddest, dsrc1, s0);
 }
 
 static inline def_EHelper(lui) {
