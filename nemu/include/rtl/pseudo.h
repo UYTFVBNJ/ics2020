@@ -4,7 +4,7 @@
 #ifndef __RTL_RTL_H__
 #error "Should be only included by <rtl/rtl.h>"
 #endif
-
+/*
 uint32_t upper_fill_1[8] = {
   0xffffffff,
   0xfffffff0,
@@ -15,7 +15,7 @@ uint32_t upper_fill_1[8] = {
   0xff000000,
   0xf0000000,
  };
-
+*/
 /* RTL pseudo instructions */
 
 // load
@@ -41,7 +41,7 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 4 - 1) .. 0])
   assert(width > 0);
-  *dest = (*src1 & (1 << (width * 4 - 1)) ? *src1 | upper_fill_1[width] : *src1);
+  // *dest = (*src1 & (1 << (width * 4 - 1)) ? *src1 | upper_fill_1[width] : *src1);
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
