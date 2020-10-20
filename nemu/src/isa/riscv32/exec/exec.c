@@ -17,7 +17,9 @@ static inline def_EHelper(load) {
 
 static inline def_EHelper(store) {
   switch (s->isa.instr.s.funct3) {
-    EXW  (2, st, 4)
+    EXW  (0b000, st, 4)
+    EXW  (0b001, st, 4)
+    EXW  (0b010, st, 4)
     default: exec_inv(s);
   }
 }
