@@ -62,7 +62,7 @@ static inline def_EHelper(srli_srai) {
        
       print_asm_template3(srli);
       break;
-    case (1 << 11) : 
+    case (1 << 10) : 
       rtl_sari(s, ddest, dsrc1, id_src2->imm & 0x1f); 
   
       print_asm_template3(srai);
