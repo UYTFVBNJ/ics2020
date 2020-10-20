@@ -107,7 +107,7 @@ static inline def_EHelper(add_sub) {
       print_asm_template3(add);
       break;
     case (1 << 5) : 
-      rtl_add(s, ddest, dsrc1, dsrc2);
+      rtl_sub(s, ddest, dsrc1, dsrc2);
   
       print_asm_template3(sub);
       break;
