@@ -1,9 +1,9 @@
 #include "../local-include/rtl.h"
 
+#include "muldiv.h"
 #include "compute.h"
 #include "control.h"
 #include "ldst.h"
-#include "muldiv.h"
 #include "system.h"
 
 
