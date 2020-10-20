@@ -48,7 +48,8 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     IDEX (0b11011, J, jal);
     IDEX (0b11001, I, jalr);
 
-
+    IDEX (0b11000, B, CB);
+    
     // system
 
 
