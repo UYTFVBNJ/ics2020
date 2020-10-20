@@ -42,13 +42,11 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     IDEX (0b00101, U, auipc)
 
     // Integer Register-Register Operations
-    IDEX (0b01100, R, IRRO);
+    IDEX (0b01100, R, IRRO_IMD);
 
     // control
     IDEX (0b11011, J, jal);
     IDEX (0b11001, I, jalr);
-
-    // muldiv
 
 
     // system

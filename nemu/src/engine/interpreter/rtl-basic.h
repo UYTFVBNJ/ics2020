@@ -46,12 +46,13 @@ static inline def_rtl(setrelopi, uint32_t relop, rtlreg_t *dest,
 
 def_rtl_compute_reg(mul_lo)
 def_rtl_compute_reg(mul_hi)
-def_rtl_compute_reg(imul_lo)
-def_rtl_compute_reg(imul_hi)
+def_rtl_compute_reg(muls_lo)
+def_rtl_compute_reg(muls_hi)
+def_rtl_compute_reg(mulsu_hi)
 def_rtl_compute_reg(div_q)
 def_rtl_compute_reg(div_r)
-def_rtl_compute_reg(idiv_q)
-def_rtl_compute_reg(idiv_r)
+def_rtl_compute_reg(divs_q)
+def_rtl_compute_reg(divs_r)
 
 
 static inline def_rtl(div64_q, rtlreg_t* dest,
