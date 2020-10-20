@@ -32,7 +32,7 @@ static inline def_EHelper(beq) {
     rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(beq);
+  print_asm_template3(beq);
 }
 
 static inline def_EHelper(bne) {
@@ -44,7 +44,7 @@ static inline def_EHelper(bne) {
     // rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(bne);
+  print_asm_template3(bne);
 }
 
 static inline def_EHelper(blt) {
@@ -56,7 +56,7 @@ static inline def_EHelper(blt) {
     // rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(blt);
+  print_asm_template3(blt);
 }
 
 static inline def_EHelper(bltu) {
@@ -68,7 +68,7 @@ static inline def_EHelper(bltu) {
     // rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(bltu);
+  print_asm_template3(bltu);
 }
 
 static inline def_EHelper(bge) {
@@ -80,7 +80,7 @@ static inline def_EHelper(bge) {
     // rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(bge);
+  print_asm_template3(bge);
 }
 
 static inline def_EHelper(bgeu) {
@@ -92,7 +92,7 @@ static inline def_EHelper(bgeu) {
     // rtl_li(s, ddest, s->seq_pc);
   }
 
-  print_asm_template2(bgeu);
+  print_asm_template3(bgeu);
 }
 
 static inline def_EHelper(CB) {
