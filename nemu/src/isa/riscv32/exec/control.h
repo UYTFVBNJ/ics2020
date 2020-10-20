@@ -41,7 +41,7 @@ static inline def_EHelper(bne) {
   rtl_add(s, s0, &cpu.pc, s0);
   if (interpret_relop(RELOP_NE, *dsrc1, *ddest)) {
     rtl_jr(s, s0);
-    rtl_li(s, ddest, s->seq_pc);
+    // rtl_li(s, ddest, s->seq_pc);
   }
 
   print_asm_template2(bne);
@@ -53,7 +53,7 @@ static inline def_EHelper(blt) {
   rtl_add(s, s0, &cpu.pc, s0);
   if (interpret_relop(RELOP_LT, *dsrc1, *ddest)) {
     rtl_jr(s, s0);
-    rtl_li(s, ddest, s->seq_pc);
+    // rtl_li(s, ddest, s->seq_pc);
   }
 
   print_asm_template2(blt);
@@ -65,7 +65,7 @@ static inline def_EHelper(bltu) {
   rtl_add(s, s0, &cpu.pc, s0);
   if (interpret_relop(RELOP_LTU, *dsrc1, *ddest)) {
     rtl_jr(s, s0);
-    rtl_li(s, ddest, s->seq_pc);
+    // rtl_li(s, ddest, s->seq_pc);
   }
 
   print_asm_template2(bltu);
@@ -77,7 +77,7 @@ static inline def_EHelper(bge) {
   rtl_add(s, s0, &cpu.pc, s0);
   if (interpret_relop(RELOP_GE, *dsrc1, *ddest)) {
     rtl_jr(s, s0);
-    rtl_li(s, ddest, s->seq_pc);
+    // rtl_li(s, ddest, s->seq_pc);
   }
 
   print_asm_template2(bge);
@@ -89,7 +89,7 @@ static inline def_EHelper(bgeu) {
   rtl_add(s, s0, &cpu.pc, s0);
   if (interpret_relop(RELOP_GEU, *dsrc1, *ddest)) {
     rtl_jr(s, s0);
-    rtl_li(s, ddest, s->seq_pc);
+    // rtl_li(s, ddest, s->seq_pc);
   }
 
   print_asm_template2(bgeu);
