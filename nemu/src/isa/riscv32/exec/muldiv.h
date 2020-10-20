@@ -3,25 +3,25 @@
 static inline def_EHelper(mul) {
   rtl_muls_lo(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(mul);
+  print_asm_template3(mul);
 }
 
 static inline def_EHelper(mulh) {
   rtl_muls_hi(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(mulh);
+  print_asm_template3(mulh);
 }
 
 static inline def_EHelper(mulhsu) {
   rtl_mul_lo(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(mulhsu);
+  print_asm_template3(mulhsu);
 }
 
 static inline def_EHelper(mulhu) {
   rtl_mul_hi(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(mulhu);
+  print_asm_template3(mulhu);
 }
 
 
@@ -30,25 +30,25 @@ static inline def_EHelper(mulhu) {
 static inline def_EHelper(div) {
   rtl_divs_q(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(div);
+  print_asm_template3(div);
 }
 
 static inline def_EHelper(divu) {
   rtl_div_q(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(divu);
+  print_asm_template3(divu);
 }
 
 static inline def_EHelper(rem) {
   rtl_divs_r(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(rem);
+  print_asm_template3(rem);
 }
 
 static inline def_EHelper(remu) {
   rtl_div_r(s, ddest, dsrc1, dsrc2);
 
-  print_asm_template2(remu);
+  print_asm_template3(remu);
 }
 
 static inline def_EHelper(IMD) {
