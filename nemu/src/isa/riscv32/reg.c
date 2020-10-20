@@ -9,16 +9,17 @@ const char *regsl[] = {
 };
 
 void isa_reg_display() {
-  puts("REGs: ");
+  puts("REG INFO: ");
   for (int i=0;i<4;i++) {
 	for (int j=0;j<8;j++)	printf("$%11s$",regsl[8*i+j]); 
 	  puts("");
-	  for (int j=0;j<8;j++)	printf("|   %08X|",reg_l(8*i+j)); 
+	  for (int j=0;j<8;j++)	printf("|   %08x|",reg_l(8*i+j)); 
 	  puts("");
 	  for (int j=0;j<8;j++)	printf("|%11u|",reg_l(8*i+j)); 
 	  puts("");
 
 	}
+  printf("pc: %08x\n",cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
