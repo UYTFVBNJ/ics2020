@@ -29,7 +29,7 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   assert(s->isa.instr.i.opcode1_0 == 0x3);
 
-  if (s->isa.instr.i.opcode6_2) difftest_skip_dut(1, 2);
+  if (s->isa.instr.i.opcode6_2 == 0b11001) difftest_skip_dut(1, 2);
   switch (s->isa.instr.i.opcode6_2) {
 
     // ldst
