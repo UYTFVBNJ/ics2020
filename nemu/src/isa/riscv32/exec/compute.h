@@ -56,7 +56,7 @@ static inline def_EHelper(slli) {
 }
 
 static inline def_EHelper(srli_srai) {
-  switch (id_src2->imm & (1 << 11)) {
+  switch (id_src2->imm & (1 << 10)) {
     case         0 : 
       rtl_shri(s, ddest, dsrc1, id_src2->imm & 0x1f);
        
