@@ -91,7 +91,7 @@ void* memcpy(void* out, const void* in, size_t n) {
 int memcmp(const void* s1, const void* s2, size_t n) {
   size_t i;
   
-  for (i = 0; i < n && ((unsigned char*)s1)[i] == ((unsigned char*)s2)[i]; i++) ;
+  for (i = 0; i < n - 1 && ((unsigned char*)s1)[i] == ((unsigned char*)s2)[i]; i++) ;
   
   if (((unsigned char*)s1)[i] > ((unsigned char*)s2)[i]) return 1;
   else if (((unsigned char*)s1)[i] == ((unsigned char*)s2)[i]) return 0;
