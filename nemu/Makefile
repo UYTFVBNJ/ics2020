@@ -66,7 +66,7 @@ CC = gcc
 LD = gcc
 
 # Optimization --------------------------------------------------------
-Opt = O0
+Opt = O2
 
 INCLUDES  = $(addprefix -I, $(INC_DIR))
 CFLAGS   += -$(Opt) -MMD -Wall -Werror -ggdb3 $(INCLUDES) \
@@ -104,6 +104,7 @@ NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 $(BINARY): $(OBJS)
 	$(call git_commit, "compile")
 	@echo + LD $@
+	pwd
 	@$(LD) -O2 -rdynamic $(SO_LDLAGS) -o $@ $^ $(LD_LIBS)
 
 run-env: $(BINARY) $(DIFF_REF_SO)

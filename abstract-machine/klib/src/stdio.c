@@ -31,8 +31,13 @@ int sprintf(char *out, const char *fmt, ...) {
         v_int = va_arg(vl, int);
         bufp = 0;
 
+        if (v_int < 0) {
+          v_int = -v_int;
+          out[outp++] = '-';
+        }
+
         while (v_int) {
-          buf[bufp++] = v_int % 10;
+          buf[bufp++] = v_int % 10 + '0';
           v_int /= 10;
         }
 
