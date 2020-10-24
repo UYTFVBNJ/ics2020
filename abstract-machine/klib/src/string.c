@@ -76,7 +76,8 @@ void* memmove(void* dst,const void* src,size_t n) {
   for (i = 0; i < n; i++) p[i] = ((char*)src)[i];
   for (i = 0; i < n; i++) ((char*)dst)[i] = p[i];
 
-
+  free(p);
+  
   return dst;
 }
 
