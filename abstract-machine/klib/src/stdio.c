@@ -20,9 +20,9 @@
     fmtp++;                                                            \
     switch (fmt[fmtp]) {                                               \
       case 'c':                                                        \
-        v_char = va_arg(ap, int);                                     \
+        v_char = va_arg(ap, int);                                      \
         opt(v_char);                                                   \
-      break;                                                           \
+        break;                                                         \
       case 'd':                                                        \
         v_int = va_arg(ap, int);                                       \
         bufp = 0;                                                      \
