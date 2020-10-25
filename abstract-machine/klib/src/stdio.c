@@ -17,7 +17,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_list vl;
   va_start(vl,fmt);
   size_t fmtp = 0, outp = 0, bufp = 0;
-  char *buf = malloc(65);
+  char buf[15];
 
   int v_int; 
   char *v_str;
@@ -79,8 +79,6 @@ int sprintf(char *out, const char *fmt, ...) {
   }
 
   out[outp] = '\0';
-
-  free(buf);
 
   return outp;
 }
