@@ -10,6 +10,7 @@
   size_t fmtp = 0, outp = 0, bufp = 0;                                 \
   char buf[15];                                                        \
                                                                        \
+  char v_char;                                                         \
   int v_int;                                                           \
   char *v_str;                                                         \
                                                                        \
@@ -18,6 +19,10 @@
     case '%':                                                          \
     fmtp++;                                                            \
     switch (fmt[fmtp]) {                                               \
+      case 'c':                                                        \
+        v_char = va_arg(ap, int);                                     \
+        opt(v_char);                                                   \
+      break;                                                           \
       case 'd':                                                        \
         v_int = va_arg(ap, int);                                       \
         bufp = 0;                                                      \
