@@ -6,7 +6,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 
-#define __vsprintf()                                                   \
+#define M__vsprintf()                                                  \
   size_t fmtp = 0, outp = 0, bufp = 0;                                 \
   char buf[15];                                                        \
                                                                        \
@@ -70,14 +70,16 @@
                                                                        \
 
 int printf(const char *fmt, ...) {
-  va_list vl;
-  va_start(vl,fmt);
-  char buf[256];
+  va_list ap;
+  va_start(ap,fmt);
   
-#define opt(arg) out[outp++] = arg
-  int outp = vsprintf(buf, fmt, vl);
+#define opt(arg) putch(arg)
 
-  va_end(vl);
+  M__vsprintf();
+
+#undef opt
+
+  va_end(ap);
 
   return outp;
 }
@@ -86,8 +88,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   
 #define opt(arg) out[outp++] = arg
 
-  __vsprintf()
-  out[outp] = '\0';                                                    
+  M__vsprintf()
+  out[outp] = '\0';
 
 #undef opt
 
