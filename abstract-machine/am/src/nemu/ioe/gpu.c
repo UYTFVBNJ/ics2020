@@ -24,7 +24,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   for (int i = 0; i < ctl->w; i++)
     for (int j = 0; j < ctl->h; j++) 
       if (ctl->x + i < AGC.width && ctl->y + j < AGC.height) 
-        fb[(ctl->x + i) * 4*AGC.height + (ctl->y + j)] = ((uint32_t *)ctl->pixels)[i * ctl->h + j];
+        fb[(ctl->x + i) * AGC.height/2 + (ctl->y + j)] = ((uint32_t *)ctl->pixels)[i * ctl->h + j];
 
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
