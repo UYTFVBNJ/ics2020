@@ -21,15 +21,15 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
 
-  for (int i = 0; i < ctl->w; i++)
-    for (int j = 0; j < ctl->h; j++) 
+  // for (int i = 0; i < ctl->w; i++)
+    // for (int j = 0; j < ctl->h; j++) 
       // if (ctl->x + i < AGC.width && ctl->y + j < AGC.height) 
-        fb[(ctl->x + i) + (ctl->y + j) * AGC.width] = ((uint32_t *)ctl->pixels)[i * ctl->h + j];
+        // fb[(ctl->x + i) + (ctl->y + j) * AGC.width] = ((uint32_t *)ctl->pixels)[i * ctl->h + j];
 
-  // for (int i = 0; i < AGC.width; i++)
-    // for (int j = 0; j < AGC.height; j++) 
+  for (int i = 0; i < AGC.width; i++)
+    for (int j = 0; j < AGC.height; j++) 
       // if (ctl->x + i < AGC.width && ctl->y + j < AGC.height) 
-        // fb[i * AGC.height + j] = 0x445566;
+        fb[i + j * AGC.width] = 0x445566;
 
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
