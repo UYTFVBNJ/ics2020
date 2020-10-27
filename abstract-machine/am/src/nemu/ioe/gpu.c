@@ -37,14 +37,4 @@ void __am_gpu_status(AM_GPU_STATUS_T *status) {
 
 void __am_gpu_init() {
   __am_gpu_config(&AGC);
-
-  /*
-  int i;
-  int wh_info = inl(VGACTL_ADDR);
-  int w = wh_info >> 16;  
-  int h = wh_info & 0xffff;  
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
-  outl(SYNC_ADDR, 0);
-  */
 }
