@@ -3,7 +3,7 @@
 
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
-static AM_GPU_CONFIG_T AGC;
+static AM_GPU_CONFIG_T AGC; // assume that screen size won't change
 
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {

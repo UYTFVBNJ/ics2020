@@ -28,10 +28,11 @@ int atoi(const char* nptr) {
   }
   return x;
 }
-
+extern char _heap_start;
+static uint32_t * addr = (uint32_t*)&_heap_start;
 void *malloc(size_t size) {
-
-  return NULL;
+  addr += size;
+  return (void*)addr - size;
 }
 
 void free(void *ptr) {
