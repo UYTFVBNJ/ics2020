@@ -9,7 +9,7 @@
 
 // load
 
-static inline def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
+def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
   rtl_addi(s, dest, rz, imm);
 }
 
@@ -19,7 +19,7 @@ static inline def_rtl(mv, rtlreg_t* dest, const rtlreg_t *src1) {
 
 // GH own changes
 
-inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
+static inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
   *dest = ~ *src1;
 }
 
