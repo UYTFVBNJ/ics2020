@@ -19,7 +19,7 @@ static inline def_rtl(mv, rtlreg_t* dest, const rtlreg_t *src1) {
 
 // GH own changes
 
- inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
+inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
   *dest = ~ *src1;
 }
 
