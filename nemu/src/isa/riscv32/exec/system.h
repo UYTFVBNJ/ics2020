@@ -33,7 +33,7 @@ static inline def_EHelper(CSR) {
   switch(s->isa.instr.i.funct3) {
     case 0 : exec_ECALL(s);    break;
     case 1 : exec_CRSRRW(s);    break;
-    case 2 : exec_CRSRRS(s);    break;
+    // case 2 : exec_CRSRRS(s);    break;
     // case 4 : exec_(s);    break;
     // case 5 : exec_(s);    break;
     // case 6 : exec_(s);   break;
