@@ -37,6 +37,6 @@ static inline def_EHelper(CSR) {
     // case 5 : exec_(s);    break;
     // case 6 : exec_(s);   break;
     // case 7 : exec_(s);   break;
-    default : assert(0); break;
+    default : printf("%d\n", s->isa.instr.i.funct3); assert(0); break;
   }
 }
