@@ -9,7 +9,7 @@ static inline def_EHelper(CRSRRW) {
 
 static inline def_EHelper(CRSRRS) {
   rtl_mv(s, ddest, dsrc2);
-  rtl_mv(s, dsrc2, dsrc1);
+  rtl_and(s, dsrc2, dsrc2, dsrc1);
 
   print_asm_template3(crsrrs);
 }
@@ -33,7 +33,7 @@ static inline def_EHelper(CSR) {
   switch(s->isa.instr.i.funct3) {
     case 0 : exec_ECALL(s);    break;
     case 1 : exec_CRSRRW(s);    break;
-    // case 2 : exec_CRSRRS(s);    break;
+    case 2 : exec_CRSRRS(s);    break;
     // case 4 : exec_(s);    break;
     // case 5 : exec_(s);    break;
     // case 6 : exec_(s);   break;
