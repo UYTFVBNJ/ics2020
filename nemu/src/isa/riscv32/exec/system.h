@@ -1,17 +1,17 @@
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc);
 
-static inline def_EHelper(CRSRRW) {
+static inline def_EHelper(CSRRW) {
   rtl_mv(s, ddest, dsrc2);
   rtl_mv(s, dsrc2, dsrc1);
 
-  print_asm_template3(crsrrw);
+  print_asm_template3(csrrw);
 }
 
-static inline def_EHelper(CRSRRS) {
+static inline def_EHelper(CSRRS) {
   rtl_mv(s, ddest, dsrc2);
   rtl_and(s, dsrc2, dsrc2, dsrc1);
 
-  print_asm_template3(crsrrs);
+  print_asm_template3(csrrs);
 }
 
 static inline def_EHelper(ECALL) {
@@ -32,8 +32,8 @@ static inline def_EHelper(CSR) {
 
   switch(s->isa.instr.i.funct3) {
     case 0 : exec_ECALL(s);    break;
-    case 1 : exec_CRSRRW(s);    break;
-    case 2 : exec_CRSRRS(s);    break;
+    case 1 : exec_CSRRW(s);    break;
+    case 2 : exec_CSRRS(s);    break;
     // case 4 : exec_(s);    break;
     // case 5 : exec_(s);    break;
     // case 6 : exec_(s);   break;
