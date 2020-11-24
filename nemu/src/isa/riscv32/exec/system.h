@@ -22,6 +22,7 @@ static inline def_EHelper(ECALL) {
 
 static inline def_EHelper(CSR) {
   switch(id_src2->imm) {
+    case 0x000 : break;
     case 0x100 : id_src2->preg = &cpu.csr[0]._32;    break; // sstatus
     case 0x105 : id_src2->preg = &cpu.csr[1]._32;    break; // stvec
     case 0x141 : id_src2->preg = &cpu.csr[2]._32;    break; // sepc
