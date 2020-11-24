@@ -64,7 +64,7 @@ static inline void fecth_decode_exec(DecodeExecState *s) {
     IDEX (0b11000, B, CB);
     
     // system
-    // IDEX (0b11100, I, CSR);
+    IDEX (0b11100, I, CSR);
 
     EX   (0b11010, nemu_trap)
 
