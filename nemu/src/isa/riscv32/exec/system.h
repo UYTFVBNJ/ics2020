@@ -6,6 +6,7 @@ static inline def_EHelper(CRSRRW) {
 }
 
 static inline def_EHelper(CSR) {
+  printf("%d\n", id_src2->imm);
   switch(id_src2->imm) {
     case 0x100 : id_src2->preg = &cpu.csr[0]._32;    break; // sstatus
     case 0x105 : id_src2->preg = &cpu.csr[1]._32;    break; // stvec
