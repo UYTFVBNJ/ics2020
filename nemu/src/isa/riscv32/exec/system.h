@@ -1,17 +1,47 @@
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc);
 
 static inline def_EHelper(CSRRW) {
-  rtl_mv(s, ddest, dsrc2);
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
   rtl_mv(s, dsrc2, dsrc1);
 
   print_asm_template3(csrrw);
 }
 
 static inline def_EHelper(CSRRS) {
-  rtl_mv(s, ddest, dsrc2);
-  rtl_and(s, dsrc2, dsrc2, dsrc1);
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
+  rtl_or(s, dsrc2, dsrc2, dsrc1);
 
   print_asm_template3(csrrs);
+}
+
+static inline def_EHelper(CSRRC) {
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
+  rtl_sub(s, s0, rz, dsrc1);
+  rtl_and(s, dsrc2, dsrc2, s0);
+
+  print_asm_template3(csrrc);
+}
+
+static inline def_EHelper(CSRRWI) {
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
+  rtl_li(s, dsrc2, id_src1->reg);
+
+  print_asm_template3(csrrwi);
+}
+
+static inline def_EHelper(CSRRSI) {
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
+  rtl_ori(s, dsrc2, dsrc2, id_src1->reg);
+
+  print_asm_template3(csrrsi);
+}
+
+static inline def_EHelper(CSRRCI) {
+  if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
+  rtl_subi(s, s0, rz, id_src1->reg);
+  rtl_and(s, dsrc2, dsrc2, s0);
+
+  print_asm_template3(csrrci);
 }
 
 static inline def_EHelper(ECALL) {
