@@ -45,7 +45,7 @@ static inline def_EHelper(CSRRCI) {
 }
 
 static inline def_EHelper(ECALL) {
-  raise_intr(s, 9, cpu.pc);
+  raise_intr(s, 1, cpu.pc);
 
   print_asm_template3(ecall);
 }
