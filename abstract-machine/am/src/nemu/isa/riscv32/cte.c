@@ -5,7 +5,7 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  printf("HIT!\n");
+  printf("HIT!");
   // printf("%d %d %d\n", c->epc, c->status, c->cause);
   // for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
   // printf("\n");
@@ -19,7 +19,6 @@ Context* __am_irq_handle(Context *c) {
     Event ev = {0};
     switch (c->cause) {
       case 1: ev.event = EVENT_YIELD; break;
-      // TODO
       default: ev.event = EVENT_ERROR; break;
     }
 
