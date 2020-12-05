@@ -44,6 +44,12 @@ static inline def_EHelper(CSRRCI) {
   print_asm_template3(csrrci);
 }
 
+static inline def_EHelper(SRET) {
+  rtl_jr(s, &cpu.csr[2]._32);
+
+  print_asm_template3(sret);
+}
+
 static inline def_EHelper(ECALL) {
   raise_intr(s, 1, cpu.pc);
 
@@ -52,18 +58,20 @@ static inline def_EHelper(ECALL) {
 
 static inline def_EHelper(CSR) {
   switch(id_src2->imm) {
-    case 0x000 : break;
+    case 0x000 : if (s->isa.instr.i.funct3 == 0) exec_ECALL(s); return ; // ECALL
+    case 0x102 : if (s->isa.instr.i.funct3 == 0) exec_SRET(s);  return ; // SRET
+
     case 0x100 : id_src2->preg = &cpu.csr[0]._32;    break; // sstatus
     case 0x105 : id_src2->preg = &cpu.csr[1]._32;    break; // stvec
     case 0x141 : id_src2->preg = &cpu.csr[2]._32;    break; // sepc
     case 0x142 : id_src2->preg = &cpu.csr[3]._32;    break; // scause
+
     default : exec_inv(s); assert(0); break;
   }
 
   switch(s->isa.instr.i.funct3) {
-    case 0 : exec_ECALL(s);    break;
-    case 1 : exec_CSRRW(s);    break;
-    case 2 : exec_CSRRS(s);    break;
+    case 1 : exec_CSRRW(s);      break;
+    case 2 : exec_CSRRS(s);      break;
     // case 4 : exec_(s);    break;
     // case 5 : exec_(s);    break;
     // case 6 : exec_(s);   break;
