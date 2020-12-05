@@ -6,8 +6,16 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
   printf("HIT!");
+  printf("%d %d %d\n", c->epc, c->status, c->cause);
+  for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
+  printf("\n");
+  for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
+  printf("\n");
+  printf("%d ", &c->pdir); 
+  printf("\n");
+  
   if (user_handler) {
-  printf("HIT!");
+    printf("HIT!");
     Event ev = {0};
     switch (c->cause) {
       default: ev.event = EVENT_ERROR; break;
@@ -17,13 +25,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  printf("%d %d %d\n", c->epc, c->status, c->cause);
-  for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
-  printf("\n");
-  for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
-  printf("\n");
-  printf("%d ", &c->pdir); 
-  printf("\n");
+  
 
   return c;
 }
