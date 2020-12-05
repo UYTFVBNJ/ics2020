@@ -8,6 +8,7 @@ static inline def_EHelper(CSRRW) {
 }
 
 static inline def_EHelper(CSRRS) {
+  printf("NO: %d\n", cpu.csr[3]._32);
   rtl_mv(s, ddest, dsrc2);
   if (id_src1->reg != 0) rtl_or(s, dsrc2, dsrc2, dsrc1);
 
