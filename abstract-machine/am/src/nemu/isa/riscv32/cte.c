@@ -18,7 +18,7 @@ Context* __am_irq_handle(Context *c) {
     printf("HIT!");
     Event ev = {0};
     switch (c->cause) {
-      case 1: ev.event = EVENT_YIELD;
+      case 1: ev.event = EVENT_YIELD; break;
       // TODO
       default: ev.event = EVENT_ERROR; break;
     }
