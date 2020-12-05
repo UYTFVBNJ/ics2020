@@ -2,11 +2,11 @@
 #define ARCH_H__
 
 struct Context {
-  uintptr_t epc, status, cause;
   union {
     uintptr_t gpr[32];
     void *pdir;
   };
+  uintptr_t epc, status, cause;
 };
 
 #define GPR1 gpr[17] // a7
