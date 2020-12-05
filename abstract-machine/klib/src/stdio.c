@@ -20,7 +20,7 @@
     fmtp++;                                                            \
     switch (fmt[fmtp]) {                                               \
       case 'c':                                                        \
-        v_char = va_arg(ap, int);                                     \
+        v_char = va_arg(ap, int);                                      \
         opt(v_char);                                                   \
       break;                                                           \
       case 'd':                                                        \
@@ -30,6 +30,10 @@
         if (v_int < 0) {                                               \
           v_int = -v_int;                                              \
           opt('-');                                                    \
+        }                                                              \
+                                                                       \
+        if (v_int == 0) {                                              \
+          opt('0');                                                    \
         }                                                              \
                                                                        \
         while (v_int) {                                                \
