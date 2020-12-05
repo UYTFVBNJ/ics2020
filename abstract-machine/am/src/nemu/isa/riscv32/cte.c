@@ -15,6 +15,14 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
+  printf("%d %d %d\n", c->epc, c->status, c->cause);
+  for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
+  printf("\n");
+  for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
+  printf("\n");
+  printf("%d ", &c->pdir); 
+  printf("\n");
+
   return c;
 }
 
