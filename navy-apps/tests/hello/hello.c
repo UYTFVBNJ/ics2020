@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main() {
-  if (write(1, "Hello World!\n", 13) == 14) puts("OK");
+  if (write(1, "Hello World!\n", 13) == 0) puts("OK");
   printf("%d\n",write(1, "Hello World!\n", 13));
 
   puts("abc");
