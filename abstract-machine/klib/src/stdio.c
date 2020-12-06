@@ -5,7 +5,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+const char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
               'a', 'b', 'c', 'd', 'e', 'f'};
 
 #define M__vsprintf()                                                  \
