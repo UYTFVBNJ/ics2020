@@ -18,6 +18,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read(&eh, 0, 52);
 
   printf("%d\n", eh.e_phoff);
+  printf("%d\n", eh.e_phentsize);
   printf("%d\n", eh.e_phnum);
 
   return 0;
