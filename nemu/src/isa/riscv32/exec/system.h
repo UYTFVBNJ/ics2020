@@ -46,6 +46,7 @@ static inline def_EHelper(CSRRCI) {
 
 static inline def_EHelper(SRET) {
   rtl_jr(s, &cpu.csr[2]._32);
+  for (int i = 10; i < 18; i ++) printf("%d ", cpu.gpr[i]._32);
 
   print_asm_template3(sret);
 }
