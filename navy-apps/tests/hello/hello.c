@@ -2,7 +2,10 @@
 #include <stdio.h>
 
 int main() {
-  write(1, "Hello World!\n", 13);
+  if (write(1, "Hello World!\n", 13) == 13) puts("OK");
+
+  puts("abc");
+
   int i = 2;
   volatile int j = 0;
   while (1) {
