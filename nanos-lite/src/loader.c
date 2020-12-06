@@ -35,17 +35,15 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     printf("ph: \n");
     
     if (ph.p_type == 1) {
-      ramdisk_read(&ph, eh.e_phoff + i * eh.e_phentsize, eh.e_phentsize);
-      for (size_t j = ph.p_vaddr; j < ph.p_vaddr + ph.p_memsz; j ++) {
-        *((uint32_t *)j) = 1;
+      ramdisk_read((void(*))ph.p_vaddr, ph.p_offset, ph.p_filesz);
+
+      for (size_t j = ph.p_vaddr + ph.p_filesz; j < ph.p_vaddr + ph.p_memsz; j ++) {
+        *((uint32_t *)j) = 0;
       }
     }
   }
 
-
-
-
-  return 0;
+  return eh.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
