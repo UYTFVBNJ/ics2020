@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 int main() {
-  if (write(1, "Hello World!\n", 13) == 13) puts("OK");
+  if (write(1, "Hello World!\n", 13) == 14) puts("OK");
+  printf("%d\n",write(1, "Hello World!\n", 13) % 10);
 
   puts("abc");
 
