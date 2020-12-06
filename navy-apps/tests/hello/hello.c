@@ -3,7 +3,7 @@
 
 int main() {
   if (write(1, "Hello World!\n", 13) == 14) puts("OK");
-  printf("%d\n",write(1, "Hello World!\n", 13) % 10);
+  printf("%d\n",write(1, "Hello World!\n", 13));
 
   puts("abc");
 

@@ -1,3 +1,5 @@
+MAKEFLAGS+="-j8"
+
 #HAS_NAVY = 1
 RAMDISK_FILE = build/ramdisk.img
 
