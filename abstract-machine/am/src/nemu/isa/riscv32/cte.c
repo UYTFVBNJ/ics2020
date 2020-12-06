@@ -5,8 +5,8 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  printf("__am_irq_handle:");
-  printf("%d %d %d\n", c->epc, c->status, c->cause);
+  // printf("__am_irq_handle:");
+  // printf("%d %d %d\n", c->epc, c->status, c->cause);
   // for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
   // printf("\n");
   // for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
@@ -17,8 +17,19 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->cause) {
-      case 1: ev.event = EVENT_YIELD; break;
-      default: ev.event = EVENT_ERROR; break;
+      case 1: // Supervisor software interrupt
+        if (c->epc >= 0x830000000) // might be changed
+          ev.event = EVENT_SYSCALL; 
+        else 
+          ev.event = EVENT_YIELD; 
+        break; 
+      case 5: // Supervisor timer interrupt
+        ev.event = EVENT_ERROR; 
+        break; 
+      case 9: // Supervisor external interrupt
+        ev.event = EVENT_ERROR; 
+        break; 
+      default: ev.event = EVENT_ERROR;  break;
     }
 
     c = user_handler(ev, c);
