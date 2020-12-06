@@ -70,6 +70,8 @@ void *_sbrk(intptr_t increment) {
   static intptr_t programe_break = (intptr_t)&_end;
   intptr_t pre_p_b = programe_break, new_p_b = programe_break;
 
+  putchar('!');
+
   if (_syscall_(SYS_brk, new_p_b, 0, 0) == 0) {
     programe_break = new_p_b;
     return (void *)pre_p_b;
