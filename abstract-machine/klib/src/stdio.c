@@ -5,6 +5,8 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+              'a', 'b', 'c', 'd', 'e', 'f'};
 
 #define M__vsprintf()                                                  \
   size_t fmtp = 0, outp = 0, bufp = 0;                                 \
@@ -12,6 +14,8 @@
                                                                        \
   char v_char;                                                         \
   int v_int;                                                           \
+  uint32_t v_uint32_t;                                                 \
+  uint32_t mask;                                                       \
   char *v_str;                                                         \
                                                                        \
                                                                        \
@@ -53,11 +57,23 @@
         for (i = 0; v_str[i] != '\0'; i++) opt(v_str[i]);              \
                                                                        \
         break;                                                         \
+      case 'p':                                                        \
+        mask = 0xf0000000;                                             \
+        v_uint32_t = va_arg(ap, uint32_t);                             \
+                                                                       \
+        opt('0');                                                      \
+        opt('x');                                                      \
+                                                                       \
+        for (i = 7; i >= 0; i --, mask >>= 4) {                        \
+          opt(hex[(v_uint32_t & mask) >> (i * 4)]);                    \
+        }                                                              \
+                                                                       \
+        break;                                                         \
       default:                                                         \
         printf("Not implemented!");                                    \
         return -1;                                                     \
         break;                                                         \
-    }                                                                  \
+      }                                                                \
     break;                                                             \
                                                                        \
     case '\\':                                                         \
