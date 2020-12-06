@@ -24,7 +24,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("eh: %d\n", eh.e_phnum);
 
   for (int i = 0; i < eh.e_phnum; i ++) {
-    ramdisk_read(&eh, eh.e_phoff + i * eh.e_phentsize, eh.e_phentsize);
+    ramdisk_read(&ph, eh.e_phoff + i * eh.e_phentsize, eh.e_phentsize);
 
     //
     printf("ph: %d\n", ph.p_type);
