@@ -34,7 +34,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     printf("ph: %d\n", ph.p_memsz);
     printf("ph: \n");
     
-
+    if (ph.p_type == 1) {
+      ramdisk_read(&ph, eh.e_phoff + i * eh.e_phentsize, eh.e_phentsize);
+      for (size_t j = ph.p_vaddr; j < ph.p_vaddr + ph.p_memsz; j ++) {
+        *((uint32_t *)j) = 1;
+      }
+    }
   }
 
 
