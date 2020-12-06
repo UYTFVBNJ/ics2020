@@ -28,8 +28,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
     //
     printf("ph: %d\n", ph.p_type);
-    printf("ph: %d\n", ph.p_offset);
-    printf("ph: %d\n", ph.p_vaddr);
+    printf("ph: %p\n", ph.p_offset);
+    printf("ph: %p\n", ph.p_vaddr);
     printf("ph: %d\n", ph.p_filesz);
     printf("ph: %d\n", ph.p_memsz);
     
