@@ -68,7 +68,7 @@ extern char _end;
 
 void *_sbrk(intptr_t increment) {
   static intptr_t programe_break = (intptr_t)&_end;
-  intptr_t pre_p_b = programe_break, new_p_b = programe_break;
+  intptr_t pre_p_b = programe_break, new_p_b = programe_break + increment;
 
   char ch1[] = "!\n";
   char ch2[] = "?\n";
