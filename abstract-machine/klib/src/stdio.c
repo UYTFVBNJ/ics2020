@@ -64,7 +64,7 @@ const char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
         opt('0');                                                      \
         opt('x');                                                      \
                                                                        \
-        for (i = 7; i >= 0; i --, mask >>= 4) {                        \
+        for (int i = 7; i >= 0; i --, mask >>= 4) {                        \
           opt(hex[(v_uint32_t & mask) >> (i * 4)]);                    \
         }                                                              \
                                                                        \
