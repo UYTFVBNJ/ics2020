@@ -82,6 +82,7 @@ CFLAGS   += -O2 -MMD -Wall -Werror -ggdb $(INCFLAGS) \
             -DARCH_H=\"arch/$(ARCH).h\" \
             -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector \
             -Wno-main
+						-fsanitize=address
 CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  += -MMD $(INCFLAGS)
 
