@@ -17,12 +17,7 @@ inline void SYS_open_handler(Context *c) {
   size_t count = c->GPR4;
   size_t i = 0;
 
-  if (fd == 1 || fd == 2) {
-    for (i = 0; i < count; i ++) putch(buf[i]);
-    c->GPRx = i;
-  } else {
-    c->GPRx = -1;
-  }
+  c->GPRx = ;
 
   c->epc += 4;
 }

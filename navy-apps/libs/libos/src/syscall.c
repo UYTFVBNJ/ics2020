@@ -56,7 +56,7 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
+  (SYS_open);
   return 0;
 }
 
