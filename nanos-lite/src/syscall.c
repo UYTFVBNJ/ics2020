@@ -99,8 +99,9 @@ void do_syscall(Context *c) {
     SYS_handle(open);
     SYS_handle(read);
     SYS_handle(write);
-    SYS_handle(brk);
+    SYS_handle(close);
     SYS_handle(lseek);
+    SYS_handle(brk);
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
