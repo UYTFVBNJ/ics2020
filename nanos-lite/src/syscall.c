@@ -12,6 +12,7 @@ inline void SYS_yield_handler(Context *c) {
 }
 
 int fs_open(const char *pathname, int flags, int mode);
+
 inline void SYS_open_handler(Context *c) {
   const char * path = (char*)c->GPR2;
   int flags = c->GPR3;
@@ -22,9 +23,24 @@ inline void SYS_open_handler(Context *c) {
   c->epc += 4;
 }
 
+
+size_t fs_read(int fd, void *buf, size_t len);
+
+inline void SYS_read_handler(Context *c) {
+  int fd = c->GPR2;
+  void * buf = (void*)c->GPR3;
+  size_t len = c->GPR4;
+
+  c->GPRx = fs_read(fd, buf, len);
+
+  c->epc += 4;
+}
+
+size_t fs_write(int fd, const void *buf, size_t len);
+
 inline void SYS_write_handler(Context *c) {
   int fd = c->GPR2;
-  char * buf = (char*)c->GPR3;
+  const char * buf = (char*)c->GPR3;
   size_t count = c->GPR4;
   size_t i = 0;
 
@@ -32,7 +48,7 @@ inline void SYS_write_handler(Context *c) {
     for (i = 0; i < count; i ++) putch(buf[i]);
     c->GPRx = i;
   } else {
-    c->GPRx = -1;
+    c->GPRx = fs_write(fd, buf, count);
   }
 
   c->epc += 4;
