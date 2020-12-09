@@ -18,7 +18,10 @@ inline void SYS_open_handler(Context *c) {
   int flags = c->GPR3;
   int mode = c->GPR4;
 
+  printf("SYS_op\n");
+
   c->GPRx = fs_open(path, flags, mode);
+  printf("SYS_op: %d\n", c->GPRx);
 
   c->epc += 4;
 }
