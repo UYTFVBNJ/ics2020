@@ -63,6 +63,18 @@ inline void SYS_brk_handler(Context *c) {
   c->epc += 4;
 }
 
+size_t fs_lseek(int fd, size_t offset, int whence);
+
+inline void SYS_lseek_handler(Context *c) {
+  int fd = c->GPR2;
+  size_t offset =  c->GPR3;
+  int whence = c->GPR4;
+
+  c->GPRx = fs_lseek(fd, offset, whence);
+
+  c->epc += 4;
+}
+
 #define SYS_handle(x) case SYS_ ## x: SYS_ ## x ## _handler(c);     break
 
 void do_syscall(Context *c) {
@@ -75,6 +87,7 @@ void do_syscall(Context *c) {
     SYS_handle(open);
     SYS_handle(write);
     SYS_handle(brk);
+    SYS_handle(lseek);
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
