@@ -57,8 +57,12 @@ inline void SYS_write_handler(Context *c) {
   c->epc += 4;
 }
 
-inline void SYS_brk_handler(Context *c) {
-  c->GPRx = 0;
+int fs_close(int fd);
+
+inline void SYS_close_handler(Context *c) {
+  int fd = c->GPR2;
+
+  c->GPRx = fs_close(fd);
 
   c->epc += 4;
 }
@@ -73,6 +77,12 @@ inline void SYS_lseek_handler(Context *c) {
   printf("SYS_ls: %d\n", fd);
   c->GPRx = fs_lseek(fd, offset, whence);
   printf("SYS_ls: %d\n", c->GPRx);
+
+  c->epc += 4;
+}
+
+inline void SYS_brk_handler(Context *c) {
+  c->GPRx = 0;
 
   c->epc += 4;
 }
