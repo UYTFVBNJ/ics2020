@@ -70,7 +70,7 @@ inline void SYS_lseek_handler(Context *c) {
   size_t offset =  c->GPR3;
   int whence = c->GPR4;
 
-  printf("SYS_ls: %d\n", whence);
+  printf("SYS_ls: %d\n", fd);
   c->GPRx = fs_lseek(fd, offset, whence);
   printf("SYS_ls: %d\n", c->GPRx);
 
