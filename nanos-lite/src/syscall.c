@@ -71,6 +71,7 @@ inline void SYS_lseek_handler(Context *c) {
   int whence = c->GPR4;
 
   c->GPRx = fs_lseek(fd, offset, whence);
+  printf("SYS_ls: %d\n", c->GPRx);
 
   c->epc += 4;
 }
