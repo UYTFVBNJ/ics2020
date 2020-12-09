@@ -11,13 +11,13 @@ inline void SYS_yield_handler(Context *c) {
   c->epc += 4;
 }
 
+int fs_open(const char *pathname, int flags, int mode);
 inline void SYS_open_handler(Context *c) {
-  int fd = c->GPR2;
-  char * buf = (char*)c->GPR3;
-  size_t count = c->GPR4;
-  size_t i = 0;
+  const char * path = (char*)c->GPR2;
+  int flags = c->GPR3;
+  int mode = c->GPR4;
 
-  c->GPRx = ;
+  c->GPRx = fs_open(path, flags, mode);
 
   c->epc += 4;
 }
