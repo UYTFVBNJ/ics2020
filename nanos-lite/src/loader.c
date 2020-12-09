@@ -20,6 +20,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   static Elf_Ehdr eh;
   static Elf_Phdr ph;
 
+  fs_lseek(fd, 0, 0);
   fs_read(fd, &eh, 52);
 
   //
