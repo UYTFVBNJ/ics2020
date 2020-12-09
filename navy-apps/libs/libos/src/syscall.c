@@ -70,13 +70,7 @@ void *_sbrk(intptr_t increment) {
   static intptr_t programe_break = (intptr_t)&_end;
   intptr_t pre_p_b = programe_break, new_p_b = programe_break + increment;
 
-  char ch1[] = "!\n";
-  char ch2[] = "?\n";
-
-  _write(1, &ch1, 2);
-
   if (_syscall_(SYS_brk, new_p_b, 0, 0) == 0) {
-    _write(1, &ch2, 2);
     programe_break = new_p_b;
     return (void *)pre_p_b;
   } else {
