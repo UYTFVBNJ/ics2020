@@ -33,6 +33,8 @@ inline void SYS_write_handler(Context *c) {
   size_t count = c->GPR4;
   size_t i = 0;
 
+  printf("SYS_wr: %d\n", count);
+
   if (fd == 1 || fd == 2) {
     for (i = 0; i < count; i ++) putch(buf[i]);
     c->GPRx = i;
