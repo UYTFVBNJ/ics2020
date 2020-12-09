@@ -1,17 +1,67 @@
 #include <common.h>
 #include "syscall.h"
+
+inline void SYS_exit_handler(Context *c) {
+  halt(0);
+}
+
+inline void SYS_yield_handler(Context *c) {
+  yield();
+
+  c->epc += 4;
+}
+
+inline void SYS_open_handler(Context *c) {
+  int fd = c->GPR2;
+  char * buf = (char*)c->GPR3;
+  size_t count = c->GPR4;
+  size_t i = 0;
+
+  if (fd == 1 || fd == 2) {
+    for (i = 0; i < count; i ++) putch(buf[i]);
+    c->GPRx = i;
+  } else {
+    c->GPRx = -1;
+  }
+
+  c->epc += 4;
+}
+
+inline void SYS_write_handler(Context *c) {
+  int fd = c->GPR2;
+  char * buf = (char*)c->GPR3;
+  size_t count = c->GPR4;
+  size_t i = 0;
+
+  if (fd == 1 || fd == 2) {
+    for (i = 0; i < count; i ++) putch(buf[i]);
+    c->GPRx = i;
+  } else {
+    c->GPRx = -1;
+  }
+
+  c->epc += 4;
+}
+
+inline void SYS_brk_handler(Context *c) {
+  c->GPRx = 0;
+
+  c->epc += 4;
+}
+
+#define SYS_handle(x) case SYS_ ## x: SYS_ ## x ## _handler(c);     break
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
 
   switch (a[0]) {
-    case 0: SYS_exit(c);      break;
-    case 1: SYS_yield(c);     break;
-    case 2: SYS_open(c);      break;
-    
-    case 4: SYS_write(c);     break;
+    SYS_handle(exit);
+    SYS_handle(yield);
+    SYS_handle(open);
+    SYS_handle(write);
+    SYS_handle(brk);
 
-    case 9: SYS_brk(c);       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
