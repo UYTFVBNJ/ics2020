@@ -2,11 +2,8 @@
 #include <assert.h>
 
 int main() {
-  printf("FILE-TEST:\n");
-
   FILE *fp = fopen("/share/files/num", "r+");
   assert(fp);
-  printf("FILE-TEST: fp = %d\n", fp);
 
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);

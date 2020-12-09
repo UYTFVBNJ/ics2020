@@ -87,6 +87,7 @@ void do_syscall(Context *c) {
     SYS_handle(exit);
     SYS_handle(yield);
     SYS_handle(open);
+    SYS_handle(read);
     SYS_handle(write);
     SYS_handle(brk);
     SYS_handle(lseek);
