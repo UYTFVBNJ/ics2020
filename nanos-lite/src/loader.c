@@ -37,9 +37,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if (ph.p_type == 1) {
       ramdisk_read((void(*))ph.p_vaddr, ph.p_offset, ph.p_filesz);
 
-      // for (size_t j = ph.p_vaddr + ph.p_filesz; j < ph.p_vaddr + ph.p_memsz; j ++) {
-        // *((uint32_t *)j) = 0;
-      // }
+      for (size_t j = ph.p_vaddr + ph.p_filesz; j < ph.p_vaddr + ph.p_memsz; j ++) {
+        *((uint32_t *)j) = 0;
+      }
     }
   }
 
