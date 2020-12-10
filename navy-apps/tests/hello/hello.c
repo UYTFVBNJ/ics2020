@@ -16,7 +16,7 @@ int main() {
 
     uint32_t time = NDL_GetTicks();
     // if (tv.tv_usec < 1500) {
-    if (time <= 2) {
+    if (time % 1000 <= 2) {
 
       printf("Hello World from Navy-apps at %dth time!\n", i ++);
       // printf("%d %d\n", tv.tv_sec, tv.tv_usec);
