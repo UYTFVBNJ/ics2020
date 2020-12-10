@@ -133,13 +133,25 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
+  va_list vl;
+  va_start(vl,fmt);
+  
+  int outp = vsnprintf(out, n, fmt, vl);
 
-  return 0;
+  va_end(vl);
+
+  return outp;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
+#define opt(arg) if (outp < n - 1) out[outp++] = arg
 
-  return 0;
+  M__vsprintf()
+  out[outp] = '\0';
+
+#undef opt
+
+  return outp;
 }
 
 #endif
