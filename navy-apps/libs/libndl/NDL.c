@@ -57,7 +57,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     read(6, buf, sizeof(buf) - 1);
     // printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
     screen_w = getnum(buf);
-    screen_h = getnum(buf + 13);
+    screen_h = getnum(buf + 13);  
     *w = screen_w; *h = screen_h;
   }
 }
@@ -65,7 +65,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   for (int i = 0; i < h; i++) {
     lseek(5, (y + i) * screen_w + x, 0);
-    write(5, pixels + i * w, w);
+    write(5, pixels + i * (w + 100), w);
   }
 }
 
