@@ -11,7 +11,7 @@ typedef struct {
   WriteFn write;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, DEV_EVENTS, DEV_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -31,8 +31,8 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
-  [DEV_EVENTS] = {"/dev/events", 0, 0, events_read, invalid_write},
-  [DEV_FB]     = {"/dev/fb", 0, 0, invalid_read, invalid_write},
+  [FD_FB]     = {"/dev/fb", 0, 0, invalid_read, invalid_write},
+  [FD_EVENTS] = {"/dev/events", 0, 0, events_read, invalid_write},
 #include "files.h"
 };
 
@@ -55,15 +55,10 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
-  printf("loading %p, %p\n", pathname, file_table[0].name);
-  printf("loading %s\n", pathname);
-  printf("loading %s\n", file_table[0].name);
   for (int i = 0; i < FT_SIZE; i ++) 
-    if (file_table[i].name == NULL) {
-    // if (strcmp(pathname, file_table[0].name) == 0) {
-    printf("loading %d:\n", i);
-    return i;
-  }
+    if (strcmp(pathname, file_table[i].name) == 0) {
+      return i;
+    }
   assert(0);
   return 0;
 }
