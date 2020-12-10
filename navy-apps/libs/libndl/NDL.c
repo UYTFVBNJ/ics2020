@@ -27,7 +27,7 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   if (getenv("NWM_APP")) {
-    printf("HI~ NDL\n");
+    printf("HI~ NDL_OpenCanvas\n");
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w; screen_h = *h;
@@ -43,6 +43,11 @@ void NDL_OpenCanvas(int *w, int *h) {
       if (strcmp(buf, "mmap ok") == 0) break;
     }
     close(fbctl);
+  } else {
+    char buf[64];
+    read(6, buf, sizeof(buf) - 1);
+    sscanf(buf, "%d %d", screen_w, screen_h);
+    *w = screen_w; *h = screen_h;
   }
 }
 
