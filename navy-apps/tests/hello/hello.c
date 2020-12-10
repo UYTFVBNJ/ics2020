@@ -15,7 +15,8 @@ int main() {
     gettimeofday(&tv, NULL);
     if (tv.tv_usec < 500) {
 
-      printf("Hello World from Navy-apps for the %dth time!\n", i ++);
+      printf("Hello World from Navy-apps at %dth time!\n", i ++);
+      printf("%d %d\n", tv.tv_sec, tv.tv_usec);
 
 
       j ++;
