@@ -13,7 +13,7 @@ int main() {
   while (1) {
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    if (tv.tv_usec < 1000) {
+    // if (tv.tv_usec < 1000) {
 
       printf("Hello World from Navy-apps at %dth time!\n", i ++);
       printf("%d %d\n", tv.tv_sec, tv.tv_usec);
@@ -24,7 +24,7 @@ int main() {
         printf("Hello World from Navy-apps for the %dth time!\n", i ++);
         j = 0;
       }
-    }
+    // }
   }
   return 0;
 }
