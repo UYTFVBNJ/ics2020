@@ -44,7 +44,10 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t open_offset[sizeof(file_table)];
 
 void init_fs() {
+  Log("Initializing file system");
+
   // TODO: initialize the size of /dev/fb
+
   for (int i = 0; i < FT_SIZE; i ++) {
     if (file_table[i].read == NULL)  file_table[i].read  = ramdisk_read;
     if (file_table[i].write == NULL) file_table[i].write = ramdisk_write;
