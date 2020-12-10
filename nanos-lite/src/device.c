@@ -28,16 +28,28 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   return 0;
 }
 
+AM_GPU_CONFIG_T dispinfo; // might be changed
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  AM_GPU_CONFIG_T di = io_read(AM_GPU_CONFIG);
-  return snprintf(buf, len + 1,"WIDTH : %d \nHEIGHT : %d\n", di.width, di.height);
+  dispinfo = io_read(AM_GPU_CONFIG);
+  return snprintf(buf, len + 1,"WIDTH : %d \nHEIGHT : %d\n", dispinfo.width, dispinfo.height);
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+	io_write(AM_GPU_FBDRAW, offset / dispinfo.width, offset % dispinfo.width, buf, len, 1, true);
   return 0;
+}
+
+static inline int getnum(char * buf) {
+  while (!(*buf >= '0' && *buf <= '9') && (*buf != '-') && (*buf != '+')) buf++;
+  int number;
+  if (sscanf(buf, "%d", &number) == 1) {
+    return number;
+  }
+  return -1;
 }
 
 void init_device() {
   Log("Initializing devices...");
+  dispinfo = io_read(AM_GPU_CONFIG);
   ioe_init();
 }

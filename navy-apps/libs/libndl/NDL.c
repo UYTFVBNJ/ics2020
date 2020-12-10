@@ -25,7 +25,7 @@ int NDL_PollEvent(char *buf, int len) {
   return 0;
 }
 
-static int getnum(char * buf) {
+static inline int getnum(char * buf) {
   while (!(*buf >= '0' && *buf <= '9') && (*buf != '-') && (*buf != '+')) buf++;
   int number;
   if (sscanf(buf, "%d", &number) == 1) {
@@ -55,7 +55,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   } else {
     char buf[64];
     read(6, buf, sizeof(buf) - 1);
-    printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
+    // printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
     screen_w = getnum(buf);
     screen_h = getnum(buf + 13);
     *w = screen_w; *h = screen_h;
@@ -63,6 +63,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  for (int i = 0; i < h; i++) {
+    lseek(5, (y + i) * screen_w + x, 0);
+    write(5, pixels + i * w, w);
+  }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
