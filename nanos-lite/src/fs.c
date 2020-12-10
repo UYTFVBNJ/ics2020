@@ -59,8 +59,9 @@ int fs_open(const char *pathname, int flags, int mode) {
   printf("loading %s\n", pathname);
   printf("loading %s\n", file_table[0].name);
   for (int i = 0; i < FT_SIZE; i ++) 
-    if (strcmp(pathname, file_table[0].name) == 0) {
-  printf("loading\n");
+    if (file_table[i].name == NULL) {
+    // if (strcmp(pathname, file_table[0].name) == 0) {
+    printf("loading %d:\n", i);
     return i;
   }
   assert(0);
