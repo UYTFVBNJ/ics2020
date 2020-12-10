@@ -42,7 +42,7 @@ char* strcat(char* dst, const char* src) {
 int strcmp(const char* s1, const char* s2) {
   size_t i;
 
-  assert(s1 != NULL);
+  assert((uint32_t)s1 != 0x80102264);
   assert(s2 != NULL);
   for (i = 0; s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i]; i++) ;
 
