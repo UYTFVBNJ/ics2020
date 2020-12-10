@@ -16,7 +16,6 @@ int fs_close(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
-  printf("loading:\n");
   static Elf_Ehdr eh;
   static Elf_Phdr ph;
 
@@ -24,21 +23,21 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   fs_read(fd, &eh, 52);
 
   //
-  printf("eh: %d\n", eh.e_phoff);
-  printf("eh: %d\n", eh.e_phentsize);
-  printf("eh: %d\n", eh.e_phnum);
+  // printf("eh: %d\n", eh.e_phoff);
+  // printf("eh: %d\n", eh.e_phentsize);
+  // printf("eh: %d\n", eh.e_phnum);
 
   for (int i = 0; i < eh.e_phnum; i ++) {
     fs_lseek(fd, eh.e_phoff + i * eh.e_phentsize, 0);
     fs_read(fd, &ph, eh.e_phentsize);
 
     //
-    printf("ph: %d\n", ph.p_type);
-    printf("ph: %p\n", ph.p_offset);
-    printf("ph: %p\n", ph.p_vaddr);
-    printf("ph: %d\n", ph.p_filesz);
-    printf("ph: %d\n", ph.p_memsz);
-    printf("ph: \n");
+    // printf("ph: %d\n", ph.p_type);
+    // printf("ph: %p\n", ph.p_offset);
+    // printf("ph: %p\n", ph.p_vaddr);
+    // printf("ph: %d\n", ph.p_filesz);
+    // printf("ph: %d\n", ph.p_memsz);
+    // printf("ph: \n");
     
     if (ph.p_type == 1) {
       fs_lseek(fd, ph.p_offset, 0);

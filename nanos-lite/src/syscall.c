@@ -82,6 +82,14 @@ inline void SYS_brk_handler(Context *c) {
   c->epc += 4;
 }
 
+inline void SYS_gettimeofday_handler(Context *c) {
+
+  AM_TIMER_UPTIME_T rtc = io_read(AM_TIMER_UPTIME);
+  c->GPRx = 0;
+
+  c->epc += 4;
+}
+
 #define SYS_handle(x) case SYS_ ## x: SYS_ ## x ## _handler(c);     break
 
 void do_syscall(Context *c) {
@@ -97,6 +105,8 @@ void do_syscall(Context *c) {
     SYS_handle(close);
     SYS_handle(lseek);
     SYS_handle(brk);
+
+    SYS_handle(gettimeofday);
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
