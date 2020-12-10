@@ -25,6 +25,15 @@ int NDL_PollEvent(char *buf, int len) {
   return 0;
 }
 
+static int getnum(char * buf) {
+  while (!(*buf >= '0' && *buf <= '9') && (*buf != '-') && (*buf != '+')) buf++;
+  int number;
+  if (sscanf(buf, "%d", &number) == 1) {
+    return number;
+  }
+  return -1;
+}
+
 void NDL_OpenCanvas(int *w, int *h) {
   if (getenv("NWM_APP")) {
     printf("HI~ NDL_OpenCanvas\n");
@@ -47,7 +56,8 @@ void NDL_OpenCanvas(int *w, int *h) {
     char buf[64];
     read(6, buf, sizeof(buf) - 1);
     printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
-    sscanf(buf, "%d%d", &screen_w, &screen_h);
+    screen_w = getnum(buf);
+    screen_h = getnum(buf + 13);
     *w = screen_w; *h = screen_h;
   }
 }
