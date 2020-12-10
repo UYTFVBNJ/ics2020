@@ -55,6 +55,7 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
+  printf("loading\n");
   for (int i = 0; i < FT_SIZE; i ++) if (strcmp(pathname, file_table[i].name) == 0) {
     return i;
   }
