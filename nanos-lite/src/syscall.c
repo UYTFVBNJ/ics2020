@@ -82,9 +82,19 @@ inline void SYS_brk_handler(Context *c) {
   c->epc += 4;
 }
 
+struct timeval {
+  __time_t tv_sec;		/* Seconds.  */
+  __suseconds_t tv_usec;	/* Microseconds.  */
+} * tv;
 inline void SYS_gettimeofday_handler(Context *c) {
 
   AM_TIMER_UPTIME_T rtc = io_read(AM_TIMER_UPTIME);
+
+  tv = (struct timeval *)c->GPR2;
+
+  tv->tv_sec = rtc.us / 1000000;
+  tv->tv_usec = rtc.us % 1000000;
+
   c->GPRx = 0;
 
   c->epc += 4;
