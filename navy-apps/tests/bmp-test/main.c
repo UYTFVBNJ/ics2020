@@ -15,7 +15,7 @@ int main() {
   NDL_DrawRect(bmp, 0, 0, w, h);
   for (int i = 0; i < h; i ++, puts(""))
     for (int j = 0; j < w; j ++) 
-      printf("%d ", bmp[i * w + j]);
+      printf("%d ", ((int*)bmp)[i * w + j]);
   free(bmp);
   NDL_Quit();
   printf("Test ends! Spinning...\n");
