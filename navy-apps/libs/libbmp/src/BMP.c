@@ -21,26 +21,17 @@ struct BitmapHeader {
 
 void* BMP_Load(const char *filename, int *width, int *height) {
   FILE *fp = fopen(filename, "r");
-  printf("ahhh?\n");
   if (!fp) return NULL;
 
   struct BitmapHeader hdr;
-  printf("ahhh?\n");
   assert(sizeof(hdr) == 54);
-  printf("ahhh?\n");
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
-  printf("ahhh?\n");
 
   if (hdr.bitcount != 24) return NULL;
-  printf("ahhh?\n");
   if (hdr.compression != 0) return NULL;
-  printf("ahhh?\n");
   int w = hdr.width;
   int h = hdr.height;
-  printf("ahhh?\n");
   uint32_t *pixels = malloc(w * h * sizeof(uint32_t));
-  printf("%p\n", pixels);
-  assert(pixels);
 
   int line_off = (w * 3 + 3) & ~0x3;
   for (int i = 0; i < h; i ++) {
@@ -53,14 +44,9 @@ void* BMP_Load(const char *filename, int *width, int *height) {
       pixels[w * i + j] = (r << 16) | (g << 8) | b;
     }
   }
-  printf("%p\n", pixels);
-  assert(pixels);
 
   fclose(fp);
-  assert(pixels);
   if (width) *width = w;
   if (height) *height = h;
-  assert(pixels);
-  printf("%p\n", pixels);
   return pixels;
 }
