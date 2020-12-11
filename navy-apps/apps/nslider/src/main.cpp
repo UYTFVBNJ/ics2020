@@ -58,7 +58,7 @@ int main() {
 
     printf("WQW");
     if (e.type == SDL_KEYDOWN) {
-    printf("WQW");
+    printf("e.key: %d\n", e.key.keysym.sym);
       switch(e.key.keysym.sym) {
         case SDLK_0: rep = rep * 10 + 0; break;
         case SDLK_1: rep = rep * 10 + 1; break;
@@ -82,6 +82,7 @@ int main() {
           }
           break;
       }
+      printf("e.cur: %d\n", cur);
     }
   }
 
