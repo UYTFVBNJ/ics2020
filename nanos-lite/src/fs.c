@@ -66,6 +66,7 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
   for (int i = 0; i < FT_SIZE; i ++) 
     if (strcmp(pathname, file_table[i].name) == 0) {
+      open_offset[i] = 0;
       return i;
     }
   assert(0);
