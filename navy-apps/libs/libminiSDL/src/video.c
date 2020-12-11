@@ -12,10 +12,12 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
+  printf("%p %p\n", src->pixels, dst->pixels);
   int src_sf_w = src->w, src_sf_h = src->h, dst_sf_w = dst->w, dst_sf_h = dst->h;
   int src_x = srcrect->x, src_y = srcrect->y, dst_x = dstrect->x, dst_y = dstrect->y;
   int src_w = srcrect->w, src_h = srcrect->h;
   
+  printf("%p %p\n", src->pixels, dst->pixels);
   for (int i = 0; i < src_h; i ++) 
     for (int j = 0; j < src_w; j ++) 
       dst->pixels[(dst_x + i) * dst_sf_w + dst_y + j] = src->pixels[(src_x + i) * src_sf_w + src_y + j];
