@@ -58,7 +58,9 @@ void NDL_OpenCanvas(int *w, int *h) {
     // printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
     screen_w = getnum(buf);
     screen_h = getnum(buf + 13);  
-    *w = screen_w; *h = screen_h;
+    if (*w == 0 && *h == 0) {
+      *w = screen_w; *h = screen_h;
+    }
   }
 }
 
