@@ -67,7 +67,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   for (int i = 0; i < h; i++) {
     lseek(5, (y + i) * screen_w + x, 0);
-    write(5, pixels + i * (w + 54), w);
+    write(5, pixels + i * w, w);
   }
 }
 
