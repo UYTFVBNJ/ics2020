@@ -30,6 +30,8 @@ int SDL_WaitEvent(SDL_Event *event) {
       event->type = SDL_KEYUP;
       event->key.keysym.sym = key;
       return 1;
+    } else {
+      printf("???");
     }
   }
 
