@@ -20,9 +20,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   printf("Surface: %d %d %d\n", s->format->Rshift, s->format->Gshift, s->format->Bshift);
   printf("Surface: %d %d %d\n", s->format->Rmask, s->format->Gmask, s->format->Bmask);
 
+  printf("%p ", *(uint32_t *)s->pixels);
   for (int i = 0; i < h; i ++, puts("")) 
     for (int j = 0; j < w / 40; j ++) 
-      printf("%x ", (uint32_t *)s->pixels[i * w + j * 40]);
+      printf("%p ", (uint32_t *)s->pixels[i * w + j * 40]);
   NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
 }
 
