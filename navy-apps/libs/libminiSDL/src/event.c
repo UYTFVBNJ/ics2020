@@ -17,7 +17,22 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  
+  char buf[64];
+  while (1) {
+    NDL_PollEvent(buf, 64);
+    int key;
+    if (sscanf(buf, "kd %d", &key)) {
+      event->type = SDL_KEYDOWN;
+      event->key.keysym.sym = key;
+      return 1;
+    } else 
+    if (sscanf(buf, "ku %d", &key)) {
+      event->type = SDL_KEYUP;
+      event->key.keysym.sym = key;
+      return 1;
+    }
+  }
+
   return 1;
 }
 
