@@ -21,11 +21,15 @@ struct BitmapHeader {
 
 void* BMP_Load(const char *filename, int *width, int *height) {
   FILE *fp = fopen(filename, "r");
+  printf("ahhh?\n");
   if (!fp) return NULL;
 
   struct BitmapHeader hdr;
+  printf("ahhh?\n");
   assert(sizeof(hdr) == 54);
+  printf("ahhh?\n");
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
+  printf("ahhh?\n");
 
   if (hdr.bitcount != 24) return NULL;
   if (hdr.compression != 0) return NULL;

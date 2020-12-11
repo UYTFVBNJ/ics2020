@@ -26,6 +26,9 @@ update:
 	@ln -sf $(NAVY_HOME)/libs/libos/src/syscall.h src/syscall.h
 	@touch src/resources.S
 
-.PHONY: update
+uprun: update run
+
+.PHONY: update uprun
 endif
+
 
