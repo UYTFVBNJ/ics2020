@@ -8,6 +8,8 @@ static const char *keyname[] = {
   _KEYS(keyname)
 };
 
+#define KN_SZ (sizeof(keyname))
+
 int SDL_PushEvent(SDL_Event *ev) {
   return 0;
 }
@@ -20,15 +22,18 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   while (1) {
     NDL_PollEvent(buf, 64);
-    int key;
-    if (sscanf(buf, "kd %d", &key)) {
+    int i;
+    char key[16];
+    if (sscanf(buf, "kd %s", key)) {
       event->type = SDL_KEYDOWN;
-      event->key.keysym.sym = key;
+      for (i = 0; i < KN_SZ; i ++) if (strcmp(key, keyname[i]) == 0) break;
+      event->key.keysym.sym = i;
       return 1;
     } else 
-    if (sscanf(buf, "ku %d", &key)) {
+    if (sscanf(buf, "ku %s", key)) {
       event->type = SDL_KEYUP;
-      event->key.keysym.sym = key;
+      for (i = 0; i < KN_SZ; i ++) if (strcmp(key, keyname[i]) == 0) break;
+      event->key.keysym.sym = i;
       return 1;
     } else {
       printf("???");
