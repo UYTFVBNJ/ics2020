@@ -164,7 +164,7 @@ $(CLEAN_ALL):
 .PHONY: clean-all $(CLEAN_ALL)
 
 ### Build fsimg and ramdisk for Nanos-lite
-APPS = nterm
+APPS = menu
 TESTS =	bmp-test \
 				event-test \
 #				file-test \
