@@ -9,24 +9,22 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   printf("SDL_BlitSurface\n");
   // printf("%p %p\n", srcrect, dstrect);
-  printf("%d\n", src->format->BitsPerPixel);
-  printf("Surface: %d %d %d %d\n", src->format->Rshift, src->format->Gshift, src->format->Bshift, src->format->Ashift);
-  printf("Surface: %d %d %d %d\n", src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask);
-  printf("%d\n", (((uint32_t *)src->pixels)[0] & src->format->Amask) >> src->format->Ashift);
+  // printf("%d\n", src->format->BitsPerPixel);
+  // printf("Surface: %d %d %d %d\n", src->format->Rshift, src->format->Gshift, src->format->Bshift, src->format->Ashift);
+  // printf("Surface: %d %d %d %d\n", src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask);
+  // printf("%d\n", (((uint32_t *)src->pixels)[0] & src->format->Amask) >> src->format->Ashift);
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
-  // printf("%p %p\n", src->pixels, dst->pixels);
   int src_sf_w = src->w, src_sf_h = src->h, dst_sf_w = dst->w, dst_sf_h = dst->h;
-  // printf("%p %p\n", src->pixels, dst->pixels);
   int src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0, 
       dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
-  // printf("%p %p\n", src->pixels, dst->pixels);
   int src_w = srcrect ? srcrect->w : src->w, src_h = srcrect ? srcrect->h : src->h;
 
   uint32_t *dst_pixels = (uint32_t *)dst->pixels, *src_pixels = (uint32_t *)src->pixels; 
 
-  // printf("%p %p\n", src->pixels, dst->pixels);
+  printf("Surface: %d %d\n", dst_sf_w, dst_sf_h);
+  printf("Surface: %d %d %d %d\n", dst_x, dst_y, src_h, src_w);
   for (int i = 0; i < src_h; i ++) 
     for (int j = 0; j < src_w; j ++) 
       dst_pixels[(dst_y + i) * dst_sf_w + dst_x + j] = src_pixels[(src_y + i) * src_sf_w + src_x + j];
