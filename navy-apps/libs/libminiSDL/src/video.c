@@ -7,9 +7,11 @@
 #include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  // printf("SDL_BlitSurface\n");
+  printf("SDL_BlitSurface\n");
   // printf("%p %p\n", srcrect, dstrect);
   printf("%d\n", src->format->BitsPerPixel);
+  printf("Surface: %d %d %d %d\n", src->format->Rshift, src->format->Gshift, src->format->Bshift, src->format->Ashift);
+  printf("Surface: %d %d %d %d\n", src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask);
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
