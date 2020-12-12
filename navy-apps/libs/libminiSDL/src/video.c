@@ -12,6 +12,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   printf("%d\n", src->format->BitsPerPixel);
   printf("Surface: %d %d %d %d\n", src->format->Rshift, src->format->Gshift, src->format->Bshift, src->format->Ashift);
   printf("Surface: %d %d %d %d\n", src->format->Rmask, src->format->Gmask, src->format->Bmask, src->format->Amask);
+  printf("%d\n", (((uint32_t *)src->pixels)[0] & src->format->Amask) >> src->format->Ashift);
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
