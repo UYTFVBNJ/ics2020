@@ -93,7 +93,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for (int i = 0; i < h; i ++)
       for (int j = 0; j < w; j ++) 
         printf("%d ",  
-          palette[((uint8_t *)s->pixels)[i * w + j]].val);
+          ((uint8_t *)s->pixels)[i * w + j]]);
 
     for (int i = 0; i < h; i ++)
       for (int j = 0; j < w; j ++) 
