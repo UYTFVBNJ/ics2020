@@ -87,9 +87,11 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if (s->format->BitsPerPixel == 8) {
     pixels_32 = malloc(sizeof(s->pixels) * 4);
 
+    int k;
     for (int i = 0; i < h; i ++)
       for (int j = 0; j < w; j ++) 
-        pixels_32[i * w + j] 
+        // pixels_32[i * w + j] 
+        k
           = s->format->palette->colors[((uint8_t *)s->pixels)[i * w + j]].val;
     
     NDL_DrawRect(pixels_32, x, y, w, h);
@@ -113,7 +115,6 @@ static inline int maskToShift(uint32_t mask) {
 
 SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
     uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask) {
-  printf("SDL_CreateRGBSurface:\n");
   assert(depth == 8 || depth == 32);
   SDL_Surface *s = malloc(sizeof(SDL_Surface));
   assert(s);
@@ -125,7 +126,6 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
     assert(s->format->palette);
     s->format->palette->colors = malloc(sizeof(SDL_Color) * 256);
     assert(s->format->palette->colors);
-    printf("???\n");
     memset(s->format->palette->colors, 0, sizeof(SDL_Color) * 256);
     s->format->palette->ncolors = 256;
   } else {
@@ -176,9 +176,7 @@ void SDL_FreeSurface(SDL_Surface *s) {
 }
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
-  printf("SDL_SetVideoMode:\n");
   if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
-  printf("???\n");
   return SDL_CreateRGBSurface(flags, width, height, bpp,
       DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
 }
