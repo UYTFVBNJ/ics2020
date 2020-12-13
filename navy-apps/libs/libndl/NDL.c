@@ -54,7 +54,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   } else {
     char buf[64];
-    read(6, buf, sizeof(buf) - 1); //snprintf to be fixed
+    _read(6, buf, sizeof(buf) - 1); //snprintf to be fixed
     printf("HI~ NDL_OpenCanvas_default:\n %s\n", buf); 
   printf("%d\n", sizeof(buf) - 1);
     screen_w = getnum(buf);
