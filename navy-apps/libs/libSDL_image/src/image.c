@@ -14,10 +14,15 @@ SDL_Surface* IMG_Load(const char *filename) {
   FILE * fp = fopen(filename, "r");
 
   fseek(fp, 0, SEEK_END);
+  size_t size =  ftell(fp);
+  char * buf = malloc(size);
 
-  printf("%d\n", ftell(fp));
+  SDL_Surface * img = STBIMG_LoadFromMemory(buf, size);
 
-  return NULL;
+  free(buf);
+  
+  fclose(fp);
+  return img;
 }
 
 int IMG_isPNG(SDL_RWops *src) {
