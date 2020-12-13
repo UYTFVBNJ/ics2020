@@ -44,8 +44,8 @@ int SDL_PollEvent(SDL_Event *ev) {
   } else {
     // printf("???");
   }
-  printf("");
 
+  printf("");
   return 0;
 }
 
@@ -66,5 +66,6 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 uint8_t* SDL_GetKeyState(int *numkeys) {
   // printf("SDL_GetKeyState\n");
   printf("%d\n", keystate[SDLK_RETURN]);
+  printf("");
   return keystate;
 }
