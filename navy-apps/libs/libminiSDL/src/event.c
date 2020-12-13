@@ -22,7 +22,6 @@ int SDL_WaitEvent(SDL_Event *event) {
   char buf[64];
   while (1) {
     NDL_PollEvent(buf, 64);
-    printf("Please Choose.\n");
     int i;
     char key[16];
     if (sscanf(buf, "kd %s", key)  == 1) {
