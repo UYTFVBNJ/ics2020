@@ -56,7 +56,6 @@ void init_fs() {
   
   file_table[DEV_FB].size = dispinfo.vmemsz;
 
-
   for (int i = 0; i < FT_SIZE; i ++) {
     if (file_table[i].read == NULL)  file_table[i].read  = ramdisk_read;
     if (file_table[i].write == NULL) file_table[i].write = ramdisk_write;
@@ -73,7 +72,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
-  if (open_offset[fd] + len >= file_table[fd].size) 
+  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) 
     len = file_table[fd].size - open_offset[fd];
   if (fd == 6) printf("::%d\n", len);
   size_t l = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
@@ -82,7 +81,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
-  if (open_offset[fd] + len >= file_table[fd].size) 
+  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) 
     len = file_table[fd].size - open_offset[fd];
 
   size_t l = file_table[fd].write(buf, file_table[fd].disk_offset + open_offset[fd], len);
