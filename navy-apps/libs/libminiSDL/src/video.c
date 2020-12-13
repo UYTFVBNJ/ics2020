@@ -64,7 +64,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  // printf("UpdateRect: %d %d %d %d\n", x, y, w, h);
+  printf("UpdateRect: %d %d %d %d\n", x, y, w, h);
   // printf("Surface: %d\n", s->format->BitsPerPixel);
   // printf("Surface: %d %d %d\n", s->format->Rshift, s->format->Gshift, s->format->Bshift);
   // printf("Surface: %d %d %d\n", s->format->Rmask, s->format->Gmask, s->format->Bmask);
