@@ -93,7 +93,8 @@ const char hex[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
     break;                                                             \
   }                                                                    \
                                                                        \
- // bufp--; opt(buf[bufp]) cannot be written as buf[--bufp] because of vsnprintf uses if
+
+// bufp--; opt(buf[bufp]) cannot be written as buf[--bufp] because of vsnprintf uses if
 int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap,fmt);
