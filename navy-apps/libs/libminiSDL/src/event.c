@@ -8,9 +8,9 @@ static const char *keyname[] = {
   _KEYS(keyname)
 };
 
-#define KN_SZ (sizeof(keyname))
+#define KN_SZ (sizeof(keyname)/sizeof(char *))
 
-static uint8_t keystate[85];
+static uint8_t keystate[KN_SZ];
 
 int SDL_PushEvent(SDL_Event *ev) {
   printf("SDL_PushEvent\n");
