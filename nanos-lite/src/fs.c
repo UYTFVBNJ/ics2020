@@ -63,6 +63,7 @@ void init_fs() {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
+  printf("fs_open\n");
   for (int i = 0; i < FT_SIZE; i ++) 
     if (strcmp(pathname, file_table[i].name) == 0) {
       return i;
@@ -72,6 +73,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
+  printf("fs_read\n");
   if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) // fd > 6 might be changed
     len = file_table[fd].size - open_offset[fd];
   size_t l = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
@@ -80,6 +82,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
+  printf("fs_write\n");
   if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) // fd > 6 might be changed
     len = file_table[fd].size - open_offset[fd];
 
@@ -90,6 +93,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
+  printf("fs_lseek\n");
   size_t target_offset;
   switch (whence) {
     case SEEK_SET:
@@ -113,6 +117,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 }
 
 int fs_close(int fd) {
+  printf("fs_close\n");
   open_offset[fd] = 0; // shoud be set when opened or closed ???
   return 0;
 }
