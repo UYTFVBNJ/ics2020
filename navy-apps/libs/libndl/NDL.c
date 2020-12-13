@@ -54,7 +54,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     close(fbctl);
   } else {
     char buf[64];
-    _read(6, buf, sizeof(buf) - 1); //snprintf to be fixed
+    read(6, buf, sizeof(buf) - 1); //snprintf to be fixed
     printf("HI~ NDL_OpenCanvas_default:\n %s\n", buf); 
   printf("%d\n", sizeof(buf) - 1);
     screen_w = getnum(buf);
@@ -95,6 +95,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  printf("NDL_INIT\n");
   return 0;
 }
 
