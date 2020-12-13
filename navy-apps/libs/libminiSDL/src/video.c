@@ -113,6 +113,7 @@ static inline int maskToShift(uint32_t mask) {
 
 SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
     uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask) {
+  printf("SDL_CreateRGBSurface:\n");
   assert(depth == 8 || depth == 32);
   SDL_Surface *s = malloc(sizeof(SDL_Surface));
   assert(s);
@@ -124,6 +125,7 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
     assert(s->format->palette);
     s->format->palette->colors = malloc(sizeof(SDL_Color) * 256);
     assert(s->format->palette->colors);
+    printf("???\n");
     memset(s->format->palette->colors, 0, sizeof(SDL_Color) * 256);
     s->format->palette->ncolors = 256;
   } else {
@@ -175,10 +177,9 @@ void SDL_FreeSurface(SDL_Surface *s) {
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
   if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
-  return {
-    printf("???\n");
-    SDL_CreateRGBSurface(flags, width, height, bpp,
-      DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);}
+  printf("???\n");
+  return SDL_CreateRGBSurface(flags, width, height, bpp,
+      DEFAULT_RMASK, DEFAULT_GMASK, DEFAULT_BMASK, DEFAULT_AMASK);
 }
 
 void SDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
