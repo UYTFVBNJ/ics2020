@@ -85,6 +85,7 @@ int main(int argc, char *argv[], char *envp[]) {
     do {
     printf("Please Choose.\n");
       SDL_WaitEvent(&e);
+    printf("Please Choose.\n");
     } while (e.type != SDL_KEYDOWN);
     printf("Please Choose.\n");
 
