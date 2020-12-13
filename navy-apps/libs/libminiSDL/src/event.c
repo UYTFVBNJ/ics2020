@@ -19,7 +19,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  // printf("SDL_PollEvent\n");
+  printf("SDL_PollEvent\n");
   char buf[64];
   NDL_PollEvent(buf, 64);
   int i;
