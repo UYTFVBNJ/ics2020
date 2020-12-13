@@ -17,7 +17,7 @@ inline void SYS_execve_handler(Context *c) {
 }
 
 inline void SYS_exit_handler(Context *c) {
-  c->GPR2 = (uintptr_t)&"/bin/menu";
+  c->GPR2 = (uintptr_t)&"/bin/nterm";
   SYS_execve_handler(c);
 }
 
