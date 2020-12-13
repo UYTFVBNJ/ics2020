@@ -10,6 +10,8 @@ static const char *keyname[] = {
 
 #define KN_SZ (sizeof(keyname))
 
+static uint8_t keystate[85];
+
 int SDL_PushEvent(SDL_Event *ev) {
   printf("SDL_PushEvent\n");
   return 0;
@@ -17,6 +19,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 
 int SDL_PollEvent(SDL_Event *ev) {
   printf("SDL_PollEvent\n");
+  printf("SDL_PollEvent: %d\n", sizeof(keyname));
   char buf[64];
   NDL_PollEvent(buf, 64);
   int i;
@@ -27,6 +30,7 @@ int SDL_PollEvent(SDL_Event *ev) {
       ev->type = SDL_KEYDOWN;
       ev->key.keysym.sym = i;
     }
+    keystate[i] = 1;
     return 1;
   } else 
   if (sscanf(buf, "ku %s", key) == 1) {
@@ -35,6 +39,7 @@ int SDL_PollEvent(SDL_Event *ev) {
       ev->type = SDL_KEYUP;
       ev->key.keysym.sym = i;
     }
+    keystate[i] = 0;
     return 1;
   } else {
     // printf("???");
@@ -56,7 +61,8 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
   return 0;
 }
 
+
 uint8_t* SDL_GetKeyState(int *numkeys) {
   printf("SDL_GetKeyState\n");
-  return NULL;
+  return keystate;
 }
