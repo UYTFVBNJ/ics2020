@@ -78,16 +78,12 @@ int main(int argc, char *argv[], char *envp[]) {
 
   while (1) {
     display_menu(i_max);
-    printf("Please Choose.\n");
 
     SDL_Event e;
-    printf("Please Choose.\n");
     do {
-    printf("Please Choose.\n");
       SDL_WaitEvent(&e);
-    printf("Please Choose.\n");
     } while (e.type != SDL_KEYDOWN);
-    printf("Please Choose.\n");
+    printf("Pass\n");
 
     int i = -1;
     switch (e.key.keysym.sym) {
