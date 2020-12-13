@@ -72,16 +72,15 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
-  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) 
+  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) // fd > 6 might be changed
     len = file_table[fd].size - open_offset[fd];
-  if (fd == 6) printf("::%d\n", len);
   size_t l = file_table[fd].read(buf, file_table[fd].disk_offset + open_offset[fd], len);
   open_offset[fd] += l;
   return l;
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
-  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) 
+  if (fd > 6 && open_offset[fd] + len >= file_table[fd].size) // fd > 6 might be changed
     len = file_table[fd].size - open_offset[fd];
 
   size_t l = file_table[fd].write(buf, file_table[fd].disk_offset + open_offset[fd], len);
