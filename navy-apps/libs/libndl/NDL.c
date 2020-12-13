@@ -35,7 +35,6 @@ static inline int getnum(char * buf) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  printf("NDL_OpenCanvas:\n");
   if (getenv("NWM_APP")) {
     printf("HI~ NDL_OpenCanvas\n");
     int fbctl = 4;
@@ -54,7 +53,6 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
-    printf("HI~ NDL_OpenCanvas\n");
     char buf[64];
     read(6, buf, sizeof(buf) - 1);
     printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
