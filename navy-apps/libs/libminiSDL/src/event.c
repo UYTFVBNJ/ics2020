@@ -14,12 +14,12 @@ static const char *keyname[] = {
 static uint8_t keystate[KN_SZ];
 
 int SDL_PushEvent(SDL_Event *ev) {
-  printf("SDL_PushEvent\n");
+  // printf("SDL_PushEvent\n");
   return 0;
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  printf("SDL_PollEvent\n");
+  // printf("SDL_PollEvent\n");
   char buf[64];
   NDL_PollEvent(buf, 64);
   int i;
@@ -50,7 +50,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  printf("SDL_WaitEvent\n");
+  // printf("SDL_WaitEvent\n");
   while (SDL_PollEvent(event) == 0) {
   }
 
@@ -58,13 +58,13 @@ int SDL_WaitEvent(SDL_Event *event) {
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
-  printf("SDL_PeepEvents\n");
+  // printf("SDL_PeepEvents\n");
   return 0;
 }
 
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("SDL_GetKeyState\n");
+  // printf("SDL_GetKeyState\n");
   printf("%d\n", keystate[SDLK_RETURN]);
   return keystate;
 }
