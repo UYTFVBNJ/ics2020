@@ -54,6 +54,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
+    printf("HI~ NDL_OpenCanvas\n");
     char buf[64];
     read(6, buf, sizeof(buf) - 1);
     printf("HI~ NDL_OpenCanvas:\n %s\n", buf);
