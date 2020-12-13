@@ -166,7 +166,7 @@ $(CLEAN_ALL):
 ### Build fsimg and ramdisk for Nanos-lite
 APPS = pal 
 TESTS =	\
-#				bmp-test \
+				bmp-test \
 #				event-test \
 #				file-test \
 #			 	hello \
