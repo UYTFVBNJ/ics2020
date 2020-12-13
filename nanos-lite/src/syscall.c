@@ -1,4 +1,5 @@
 #include <common.h>
+#include <proc.h>
 #include "syscall.h"
 
 inline void SYS_exit_handler(Context *c) {
@@ -82,6 +83,20 @@ inline void SYS_brk_handler(Context *c) {
   c->epc += 4;
 }
 
+void naive_uload(PCB *, const char *);
+inline void SYS_execve_handler(Context *c) {
+
+  const char * pathname = (char *)c->GPR2;
+  // char * const argv = (char *)c->GPR3;
+  // char * const envp = (char *)c->GPR4;
+
+  naive_uload(NULL, pathname);
+
+  c->GPRx = 0;
+
+  c->epc += 4;
+}
+
 struct timeval {
   __time_t tv_sec;		/* Seconds.  */
   __suseconds_t tv_usec;	/* Microseconds.  */
@@ -115,6 +130,9 @@ void do_syscall(Context *c) {
     SYS_handle(close);
     SYS_handle(lseek);
     SYS_handle(brk);
+
+    SYS_handle(execve);
+  
 
     SYS_handle(gettimeofday);
 
