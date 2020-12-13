@@ -56,10 +56,10 @@ void NDL_OpenCanvas(int *w, int *h) {
     char buf[64];
     read(6, buf, sizeof(buf) - 1); //snprintf to be fixed
     printf("HI~ NDL_OpenCanvas_default:\n %s\n", buf); 
-    // screen_w = getnum(buf);
-    // screen_h = getnum(buf + 13);  
-    screen_w = 400;
-    screen_h = 300;  
+    screen_w = getnum(buf);
+    screen_h = getnum(buf + 13);  
+    // screen_w = 400;
+    // screen_h = 300;  
     if (*w == 0 && *h == 0) {
       *w = screen_w; *h = screen_h;
     }
