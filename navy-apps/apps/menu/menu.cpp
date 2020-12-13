@@ -78,11 +78,13 @@ int main(int argc, char *argv[], char *envp[]) {
 
   while (1) {
     display_menu(i_max);
+    printf("Please Choose.\n");
 
     SDL_Event e;
     do {
       SDL_WaitEvent(&e);
     } while (e.type != SDL_KEYDOWN);
+    printf("Please Choose.\n");
 
     int i = -1;
     switch (e.key.keysym.sym) {
@@ -179,5 +181,4 @@ static void display_menu(int n) {
   printf("========================================\n");
   printf("Please Choose.\n");
   fflush(stdout);
-  printf("Please Choose.\n");
 }
