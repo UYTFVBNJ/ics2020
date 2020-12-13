@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  printf("SDL_BlitSurface\n");
+  // printf("SDL_BlitSurface\n");
   // printf("%p %p\n", srcrect, dstrect);
   // printf("%d\n", src->format->BitsPerPixel);
   // printf("Surface: %d %d %d %d\n", src->format->Rshift, src->format->Gshift, src->format->Bshift, src->format->Ashift);
@@ -43,7 +43,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("SDL_FillRect\n");
+  // printf("SDL_FillRect\n");
   // printf("%x\n", color);
   // printf("%p\n", dstrect);
 
@@ -64,7 +64,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  printf("UpdateRect: %d %d %d %d\n", x, y, w, h);
+  // printf("UpdateRect: %d %d %d %d\n", x, y, w, h);
   // printf("Surface: %d\n", s->format->BitsPerPixel);
   // printf("Surface: %d %d %d\n", s->format->Rshift, s->format->Gshift, s->format->Bshift);
   // printf("Surface: %d %d %d\n", s->format->Rmask, s->format->Gmask, s->format->Bmask);
