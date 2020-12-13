@@ -90,6 +90,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     int k;
     SDL_Color * palette = s->format->palette->colors;
     printf("::%d::", s->format->palette->ncolors);
+    for (int i = 0; i < h; i ++)
+      for (int j = 0; j < w; j ++) 
+        printf("%d ",  
+          palette[((uint8_t *)s->pixels)[i * w + j]].val);
 
     for (int i = 0; i < h; i ++)
       for (int j = 0; j < w; j ++) 
