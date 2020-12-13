@@ -21,6 +21,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 int SDL_PollEvent(SDL_Event *ev) {
   printf("SDL_PollEvent\n");
   char buf[64];
+  buf[0] = '\0';
   NDL_PollEvent(buf, 64);
   int i;
   char key[16];
@@ -35,7 +36,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     return 1;
   } else 
   if (sscanf(buf, "ku %s", key) == 1) {
-    printf("ku: %d\n", key);
+    printf("%s ku: %d\n", buf, key);
     for (i = 0; i < KN_SZ; i ++) if (strcmp(key, keyname[i]) == 0) break;
     if (ev) {
       ev->type = SDL_KEYUP;
