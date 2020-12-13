@@ -13,7 +13,6 @@ static struct timeval tv;
 
 uint32_t NDL_GetTicks() {
   gettimeofday(&tv, NULL);
-  printf("SDL_GetTicks\n");
   return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 
