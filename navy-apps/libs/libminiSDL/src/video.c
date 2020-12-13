@@ -86,6 +86,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   } else 
   if (s->format->BitsPerPixel == 8) {
     printf("%d\n", sizeof(s->pixels));
+    printf("%d %d\n", w, h);
     pixels_32 = malloc(sizeof(s->pixels) * 4);
 
     int k;
