@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <SDL.h>
 
+#include <string.h>
+
 char handle_key(SDL_Event *ev);
 
 static void sh_printf(const char *format, ...) {
@@ -23,6 +25,9 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  int len = strlen(cmd);
+  cmd[len] = '\0';
+
   execv(cmd, NULL);
 }
 
