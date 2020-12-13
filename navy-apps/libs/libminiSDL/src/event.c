@@ -31,6 +31,7 @@ int SDL_PollEvent(SDL_Event *ev) {
       ev->key.keysym.sym = i;
     }
     keystate[i] = 1;
+    printf("Poll : %d", i);
     return 1;
   } else 
   if (sscanf(buf, "ku %s", key) == 1) {
