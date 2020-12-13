@@ -28,6 +28,7 @@ int SDL_WaitEvent(SDL_Event *event) {
     if (sscanf(buf, "kd %s", key)) {
     printf("kd\n");
     printf("buf: %s\n", buf);
+    printf("kd\n");
       event->type = SDL_KEYDOWN;
       for (i = 0; i < KN_SZ; i ++) if (strcmp(key, keyname[i]) == 0) break;
       event->key.keysym.sym = i;
