@@ -20,7 +20,6 @@ int SDL_PushEvent(SDL_Event *ev) {
 
 int SDL_PollEvent(SDL_Event *ev) {
   // printf("SDL_PollEvent\n");
-  printf("");
   char buf[64];
   NDL_PollEvent(buf, 64);
   int i;
@@ -45,6 +44,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   } else {
     // printf("???");
   }
+  printf("");
 
   return 0;
 }
