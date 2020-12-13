@@ -176,6 +176,7 @@ void SDL_FreeSurface(SDL_Surface *s) {
 }
 
 SDL_Surface* SDL_SetVideoMode(int width, int height, int bpp, uint32_t flags) {
+  printf("SDL_SetVideoMode:\n");
   if (flags & SDL_HWSURFACE) NDL_OpenCanvas(&width, &height);
   printf("???\n");
   return SDL_CreateRGBSurface(flags, width, height, bpp,

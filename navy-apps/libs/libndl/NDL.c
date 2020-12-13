@@ -35,6 +35,7 @@ static inline int getnum(char * buf) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+  printf("NDL_OpenCanvas:\n");
   if (getenv("NWM_APP")) {
     printf("HI~ NDL_OpenCanvas\n");
     int fbctl = 4;
