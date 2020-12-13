@@ -19,10 +19,10 @@ Context* __am_irq_handle(Context *c) {
     switch (c->cause) {
       case 1: // Supervisor software interrupt
         // printf("addr: %p\n", c->epc);
-        if (c->epc >= 0x83000000) // might be changed
+        // if (c->epc >= 0x83000000) // might be changed
           ev.event = EVENT_SYSCALL; 
-        else 
-          ev.event = EVENT_YIELD; 
+        // else 
+          // ev.event = EVENT_YIELD; 
         break; 
       case 5: // Supervisor timer interrupt
         ev.event = EVENT_ERROR; 

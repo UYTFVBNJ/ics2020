@@ -2,8 +2,23 @@
 #include <proc.h>
 #include "syscall.h"
 
+void naive_uload(PCB *, const char *);
+inline void SYS_execve_handler(Context *c) {
+
+  const char * pathname = (char *)c->GPR2;
+  // char * const argv = (char *)c->GPR3;
+  // char * const envp = (char *)c->GPR4;
+
+  naive_uload(NULL, pathname);
+
+  c->GPRx = 0;
+
+  c->epc += 4;
+}
+
 inline void SYS_exit_handler(Context *c) {
-  halt(0);
+  c->GPR2 = (uintptr_t)&"/bin/menu";
+  SYS_execve_handler(c);
 }
 
 inline void SYS_yield_handler(Context *c) {
@@ -83,19 +98,7 @@ inline void SYS_brk_handler(Context *c) {
   c->epc += 4;
 }
 
-void naive_uload(PCB *, const char *);
-inline void SYS_execve_handler(Context *c) {
 
-  const char * pathname = (char *)c->GPR2;
-  // char * const argv = (char *)c->GPR3;
-  // char * const envp = (char *)c->GPR4;
-
-  naive_uload(NULL, pathname);
-
-  c->GPRx = 0;
-
-  c->epc += 4;
-}
 
 struct timeval {
   __time_t tv_sec;		/* Seconds.  */
