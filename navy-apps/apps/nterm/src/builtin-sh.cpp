@@ -25,10 +25,12 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  char buf[64];
+  strcpy(buf, cmd);
   int len = strlen(cmd);
-  cmd[len] = '\0';
+  buf[len - 1] = '\0';
 
-  execv(cmd, NULL);
+  execv(buf, NULL);
 }
 
 void builtin_sh_run() {
