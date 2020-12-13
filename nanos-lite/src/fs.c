@@ -68,7 +68,7 @@ int fs_open(const char *pathname, int flags, int mode) {
     if (strcmp(pathname, file_table[i].name) == 0) {
       return i;
     }
-  assert(0);
+  panic("%s not found", pathname);
   return 0;
 }
 
