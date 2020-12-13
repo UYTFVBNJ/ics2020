@@ -31,10 +31,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("SDL_FillRect\n");
-  printf("%x\n", color);
-  printf("%p\n", dstrect);
-  
+  // printf("SDL_FillRect\n");
+  // printf("%x\n", color);
+  // printf("%p\n", dstrect);
+
   int sf_w = dst->w, sf_h = dst->h;
   int x = dstrect ? dstrect->x : 0, y = dstrect ? dstrect->y : 0,
       w = dstrect ? dstrect->w : dst->w, h = dstrect ? dstrect->h : dst->h;
