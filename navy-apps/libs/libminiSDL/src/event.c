@@ -19,7 +19,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  // printf("SDL_PollEvent\n");
+  printf("SDL_PollEvent\n");
   char buf[64];
   NDL_PollEvent(buf, 64);
   int i;
@@ -64,7 +64,7 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  // printf("SDL_GetKeyState\n");
+  printf("SDL_GetKeyState\n");
   printf("%d\n", keystate[SDLK_RETURN]);
   printf("");
   return keystate;
