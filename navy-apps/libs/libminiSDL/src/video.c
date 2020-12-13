@@ -102,6 +102,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     
     NDL_DrawRect(pixels_32, x, y, w, h);
     free(pixels_32);
+    while (1);
   } else 
   assert(0);
 }
