@@ -40,7 +40,7 @@ __am_asm_trap:
   jal __am_irq_handle
 
   lw sp, OFFSET_SP(sp)
-  addi sp, sp, -CONTEXT_SIZE
+  addi sp, sp, -CONTEXT_SIZE // qwq
 
   lw t1, OFFSET_STATUS(sp)
   lw t2, OFFSET_EPC(sp)
