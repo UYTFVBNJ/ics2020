@@ -92,10 +92,11 @@ inline void SYS_lseek_handler(Context *c) {
   c->epc += 4;
 }
 
-inline void SYS_brk_handler(Context *c) {
+inline Context* SYS_brk_handler(Context *c) {
   c->GPRx = 0;
 
   c->epc += 4;
+  return c;
 }
 
 
@@ -118,26 +119,26 @@ inline void SYS_gettimeofday_handler(Context *c) {
   c->epc += 4;
 }
 
-#define SYS_handle(x) case SYS_ ## x: SYS_ ## x ## _handler(c);     break
+#define SYS_handle(x) case SYS_ ## x: return SYS_ ## x ## _handler(c);     break
 
 Context* do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
 
   switch (a[0]) {
-    SYS_handle(exit);
-    SYS_handle(yield);
-    SYS_handle(open);
-    SYS_handle(read);
-    SYS_handle(write);
-    SYS_handle(close);
-    SYS_handle(lseek);
+    // SYS_handle(exit);
+    // SYS_handle(yield);
+    // SYS_handle(open);
+    // SYS_handle(read);
+    // SYS_handle(write);
+    // SYS_handle(close);
+    // SYS_handle(lseek);
     SYS_handle(brk);
 
-    SYS_handle(execve);
+    // SYS_handle(execve);
   
 
-    SYS_handle(gettimeofday);
+    // SYS_handle(gettimeofday);
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
