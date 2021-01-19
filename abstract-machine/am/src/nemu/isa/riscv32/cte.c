@@ -55,7 +55,17 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  return NULL;
+  uint32_t * base = (uint32_t *)kstack.end - (32 + 3);
+
+  for (int i = 0; i < 32; i ++) *(base + i) = 0;
+
+  *(base + 2) = (uint32_t)kstack.start; // sp
+
+  *(base + 32) = 0; // CAUSE
+  *(base + 33) = 0; // STATUS
+  *(base + 34) = (uint32_t)entry; // EPC
+
+  return (Context*)base;
 }
 
 void yield() {
