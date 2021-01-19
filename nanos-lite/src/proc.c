@@ -21,13 +21,16 @@ void hello_fun(void *arg) {
   }
 }
 
+void context_kload(PCB *pcb, void (*entry)(void *), void *arg);
 void init_proc() {
+  context_kload(&pcb[0], hello_fun, NULL);
+
   switch_boot_pcb();
 
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/bin/pal");
+  // naive_uload(NULL, "/bin/pal");
   // naive_uload(NULL, "/bin/bird");
   // naive_uload(NULL, "/bin/menu");
   // naive_uload(NULL, "/bin/nterm");

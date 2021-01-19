@@ -23,8 +23,10 @@ inline Context* SYS_exit_handler(Context *c) {
   return c;
 }
 
+Context* schedule(Context *prev);
 inline Context* SYS_yield_handler(Context *c) {
-  yield();
+  // yield();
+  c = schedule(c);
 
   c->epc += 4;
   return c;
