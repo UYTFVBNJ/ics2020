@@ -120,7 +120,7 @@ inline void SYS_gettimeofday_handler(Context *c) {
 
 #define SYS_handle(x) case SYS_ ## x: SYS_ ## x ## _handler(c);     break
 
-void do_syscall(Context *c) {
+Context* do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
 
@@ -141,4 +141,6 @@ void do_syscall(Context *c) {
 
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
+
+  return c;
 }
