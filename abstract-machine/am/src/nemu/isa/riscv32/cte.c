@@ -64,6 +64,8 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 
   for (int i = 0; i < 32; i ++) *(base + i) = 0;
 
+  *(base + 10) = (uint32_t)arg; // arg0
+
   *(base + 2) = (uint32_t)kstack.end; // sp
 
   *(base + 32) = 0; // CAUSE
