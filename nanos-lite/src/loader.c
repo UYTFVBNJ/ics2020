@@ -117,6 +117,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   uintptr_t * ustk_pt_4 = (uintptr_t *) pt;
 
   printf("envp_len: %d\n", ustk_envp_len);
+    * ustk_pt_4 = (uintptr_t)NULL;
+    ustk_pt_4 --;
   for (int i = ustk_envp_len; i >= 0; i --) { // i = ustk_envp_len places the top NULL
     * ustk_pt_4 = (uintptr_t)ustk_envp[i];
     ustk_pt_4 --;
