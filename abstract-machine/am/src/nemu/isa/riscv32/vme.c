@@ -75,6 +75,8 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
 
   for (int i = 0; i < 32; i ++) *(base + i) = 0;
 
+  *(base + 2) = (uint32_t)kstack.end; // sp
+
   *(base + 32) = 0; // CAUSE
   *(base + 33) = 0; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
