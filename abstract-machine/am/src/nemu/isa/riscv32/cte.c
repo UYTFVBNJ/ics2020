@@ -6,7 +6,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
   // printf("__am_irq_handle:");
-  printf("%d %d %d\n", c->epc, c->status, c->cause);
+  printf("%p %d %d\n", c->epc, c->status, c->cause);
   // for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
   // printf("\n");
   // for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
@@ -37,7 +37,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  printf("%d %d %d\n", c->epc, c->status, c->cause);
+  printf("%p %d %d\n", c->epc, c->status, c->cause);
   
 
   return c;
