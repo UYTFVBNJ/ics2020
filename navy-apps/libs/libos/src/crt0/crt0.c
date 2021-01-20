@@ -20,6 +20,7 @@ void call_main(uintptr_t *args) {
   int argc = (int)*args;
   char ** argv = (char **)(args + 1);
   char ** envp = (char **)(args + 1 + argc + 1); 
+  printf("envp[0] %p\n", envp[0]);
   char *empty[] =  {NULL };
   environ = empty;
   // environ = envp;
