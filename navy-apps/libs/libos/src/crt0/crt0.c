@@ -24,9 +24,9 @@ void call_main(uintptr_t *args) {
   printf("argv[0] %p\n", argv[0]);
   printf("argv[1] %p\n", argv[1]);
   printf("argv[2] %p\n", argv[2]);
-  char *empty[] =  {NULL };
-  environ = empty;
-  // environ = envp;
+  // char *empty[] =  {NULL };
+  // environ = empty;
+  environ = envp;
   exit(main(argc, argv, envp));
   assert(0);
 }
