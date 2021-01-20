@@ -58,7 +58,9 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
+  printf("kcontext:\n");
   uint32_t * base = (uint32_t *)kstack.end - (32 + 3);
+  printf("base:%p\n", base);
 
   for (int i = 0; i < 32; i ++) *(base + i) = 0;
 
