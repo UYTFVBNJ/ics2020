@@ -25,6 +25,7 @@ inline Context* SYS_exit_handler(Context *c) {
 
 Context* schedule(Context *prev);
 inline Context* SYS_yield_handler(Context *c) {
+  printf("yield\n");
   // yield();
   c = schedule(c);
 
