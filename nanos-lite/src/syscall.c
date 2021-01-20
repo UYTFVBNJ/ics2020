@@ -30,7 +30,7 @@ inline Context* SYS_yield_handler(Context *c) {
   c = schedule(c);
   printf("\n");
 
-  // c->epc += 4;
+  c->epc += 4; // to be deleted
   return c;
 }
 

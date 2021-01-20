@@ -39,7 +39,7 @@ Context* __am_irq_handle(Context *c) {
   }
 
   printf("%p %d %d\n", c->epc, c->status, c->cause);
-  printf("%p %p\n", c, c->gpr[2]);
+  printf("%p %p %p\n", c, c->gpr[2], *(uintptr_t *)(c->gpr[2] + 8));
   
 
   return c;
