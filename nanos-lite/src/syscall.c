@@ -105,7 +105,6 @@ inline Context* SYS_lseek_handler(Context *c) {
 }
 
 inline Context* SYS_brk_handler(Context *c) {
-  printf("brk\n");
   c->GPRx = 0;
 
   c->epc += 4;
