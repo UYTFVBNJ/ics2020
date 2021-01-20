@@ -14,15 +14,12 @@ void call_main(uintptr_t *args) {
 */
 
 void call_main(uintptr_t *args) {
-  // printf("call_main\n");
   int argc = (int)*args;
   char ** argv = (char **)(args + 1);
   char ** envp = (char **)(args + argc + 1 + 1); 
-  environ = envp;
-  exit(main(argc, argv, envp));
-
-  // char ** argv = (char **)(args + 1);
+  char *empty[] =  {NULL };
+  environ = empty;
   // environ = envp;
-  // exit(main(argc, argv, envp));
+  exit(main(argc, argv, envp));
   assert(0);
 }
