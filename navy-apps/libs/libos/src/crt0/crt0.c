@@ -18,7 +18,7 @@ void call_main(uintptr_t *args) {
   int argc = (int)*args;
   char *empty[] =  {NULL }; 
   environ = empty;
-  exit(main(0, empty, empty));
+  exit(main(argc, empty, empty));
 
   // char ** argv = (char **)(args + 1);
   // char ** envp = (char **)(args + argc + 1 + 1); 
