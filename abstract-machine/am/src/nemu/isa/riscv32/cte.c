@@ -6,8 +6,8 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
   // printf("__am_irq_handle:");
-  printf("%p %d %d\n", c->epc, c->status, c->cause);
-  printf("%p %p\n", c, c->gpr[2]);
+  // printf("%p %d %d\n", c->epc, c->status, c->cause);
+  // printf("%p %p\n", c, c->gpr[2]);
   // for (int i = 0; i < 32; i ++) printf("%d ", c->gpr[i]); 
   // printf("\n");
   // for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
@@ -38,8 +38,8 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  printf("%p %d %d\n", c->epc, c->status, c->cause);
-  printf("%p %p %p\n", c, c->gpr[2], *(uintptr_t *)(c->gpr[2] + 8));
+  // printf("%p %d %d\n", c->epc, c->status, c->cause);
+  // printf("%p %p %p\n", c, c->gpr[2], *(uintptr_t *)(c->gpr[2] + 8));
   
 
   return c;
@@ -58,9 +58,9 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  printf("kcontext:\n");
+  // printf("kcontext:\n");
   uint32_t * base = (uint32_t *)kstack.end - (32 + 3);
-  printf("base:%p\n", base);
+  // printf("base:%p\n", base);
 
   for (int i = 0; i < 32; i ++) *(base + i) = 0;
 

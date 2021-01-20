@@ -22,10 +22,13 @@ void hello_fun(void *arg) {
 }
 
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg);
+void context_uload(PCB *pcb, const char *filename);
+
 void init_proc() {
   // context_kload(&pcb[0], hello_fun, NULL);
   context_kload(&pcb[0], hello_fun, (void*)0x1000);
-  context_kload(&pcb[1], hello_fun, (void*)0x1111);
+  // context_kload(&pcb[1], hello_fun, (void*)0x1111);
+  context_uload(&pcb[1], "/bin/pal");
 
   switch_boot_pcb();
 
