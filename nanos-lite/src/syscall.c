@@ -28,6 +28,7 @@ inline Context* SYS_yield_handler(Context *c) {
   printf("yield\n");
   // yield();
   c = schedule(c);
+  printf("\n");
 
   c->epc += 4;
   return c;
