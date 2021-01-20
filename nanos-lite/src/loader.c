@@ -70,15 +70,61 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
-
-void context_uload(PCB *pcb, const char *filename) {
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
   Area kstack;
   kstack.start = pcb->stack;
   kstack.end   = pcb->stack + STACK_SIZE;
 
+  // loading exe
   uintptr_t entry = loader(pcb, filename);
 
   pcb->cp = ucontext(NULL, kstack , (void*)entry);
+
+  // loading args
+  char * ustk_pt_1 = (char *)heap.end;
   
-  pcb->cp->GPRx = (uintptr_t)heap.end; // GPRx = stack.top
+  int ustk_envp_len = 0;
+  char * ustk_envp[10];
+  for (ustk_envp_len = 0; envp[ustk_envp_len] != NULL; ustk_envp_len ++) {
+    size_t len;
+
+    for (len = 0; (envp[ustk_envp_len])[len] != '\0'; len ++);
+
+    ustk_pt_1 -= len + 1;
+    ustk_envp[ustk_envp_len] = ustk_pt_1;
+
+    strcpy(ustk_pt_1, envp[ustk_envp_len]);
+  }
+
+  int ustk_argv_len = 0;
+  char * ustk_argv[10];
+  for (ustk_argv_len = 0; argv[ustk_argv_len] != NULL; ustk_argv_len ++) {
+    size_t len;
+
+    for (len = 0; (argv[ustk_argv_len])[len] != '\0'; len ++);
+
+    ustk_pt_1 -= len + 1;
+    ustk_argv[ustk_argv_len] = ustk_pt_1;
+
+    strcpy(ustk_pt_1, argv[ustk_argv_len]);
+  }
+
+  uint32_t pt = (uint32_t)(ustk_pt_1 - 1); 
+  pt = pt & (~0x11);
+
+  uintptr_t * ustk_pt_4 = (uintptr_t *) pt;
+
+  for (int i = ustk_envp_len; i >= 0; i --) { // i = ustk_envp_len places the top NULL
+    * ustk_pt_4 = (uintptr_t)ustk_envp[i];
+    ustk_pt_4 --;
+  }
+
+  for (int i = ustk_argv_len; i >= 0; i --) { // i = ustk_argv_len places the top NULL
+    * ustk_pt_4 = (uintptr_t)ustk_argv[i];
+    ustk_pt_4 --;
+  }
+
+  * ustk_pt_4 = (uintptr_t)ustk_argv_len;
+
+  pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
 }
