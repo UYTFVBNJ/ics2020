@@ -65,7 +65,7 @@ static inline def_EHelper(CSR) {
     case 0x105 : id_src2->preg = &cpu.csr[1]._32;    break; // stvec
     case 0x141 : id_src2->preg = &cpu.csr[2]._32;    break; // sepc
     case 0x142 : id_src2->preg = &cpu.csr[3]._32;    break; // scause
-    case 0x180 : id_src2->preg = &cpu.csr[4]._32;    break; // satp
+    case 0x180 : id_src2->preg = &cpu.satp.val;    break; // satp
 
     default : exec_inv(s); assert(0); break;
   }

@@ -16,7 +16,16 @@ typedef struct {
 
   struct {
     rtlreg_t _32;
-  } csr[5];
+  } csr[4];
+
+  union {
+    struct {
+      uint32_t PPN : 22;
+      uint32_t ASID : 9;
+      uint32_t MODE : 1;
+    }detail;
+    uint32_t val;
+  }satp;  
 
   vaddr_t pc;
 } riscv32_CPU_state;
@@ -84,5 +93,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len);
 // #define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
 int isa_vaddr_check(vaddr_t vaddr, int type, int len);
 #define riscv32_has_mem_exception() (false)
+
+#define PTE_SIZE 4
 
 #endif
