@@ -3,7 +3,10 @@
 static void *pf = NULL;
 
 void* new_page(size_t nr_page) {
-  return NULL;
+  void * ptr = pf;
+  pf = pf + nr_page * PGSIZE;
+
+  return ptr;
 }
 
 static inline void* pg_alloc(int n) { // 我们保证AM通过回调函数调用pg_alloc()时申请的空间总是页面大小的整数倍
