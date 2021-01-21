@@ -94,6 +94,45 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len);
 int isa_vaddr_check(vaddr_t vaddr, int type, int len);
 #define riscv32_has_mem_exception() (false)
 
+union PTE{
+  struct {
+      uint32_t V : 1;
+      uint32_t R : 1;
+      uint32_t W : 1;
+      uint32_t X : 1;
+
+      uint32_t U : 1;
+      uint32_t G : 1;
+      uint32_t A : 1;
+      uint32_t D : 1;
+
+      uint32_t RSW : 2;
+
+      uint32_t PPN0 : 10;
+      uint32_t PPN1 : 12;
+  }detail;
+  uint32_t val;
+};
 #define PTE_SIZE 4
+
+union VA{
+  struct {
+      uint32_t page_offest : 12;
+
+      uint32_t VPN0 : 10;
+      uint32_t VPN1 : 10;
+  }detail;
+  uint32_t val;
+};
+
+union PA{
+  struct {
+      uint32_t page_offest : 12;
+
+      uint32_t PPN0 : 10;
+      uint32_t PPN1 : 10; // might be changed to 12
+  }detail;
+  uint32_t val;
+};
 
 #endif
