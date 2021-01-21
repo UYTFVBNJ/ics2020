@@ -7,29 +7,29 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   paddr_t a = cpu.satp.detail.PPN;
   union PTE pte = (union PTE)paddr_read(a + va.detail.VPN1 * PTE_SIZE, 4);
 
-  if (pte.detail.V == 0) assert(0);
-  else {
-    assert(!(pte.detail.R || pte.detail.W || pte.detail.X));
-    a = (pte.val >> 10) * PAGE_SIZE;
+  assert(pte.detail.V);
 
-    pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
+  assert(!(pte.detail.R || pte.detail.W || pte.detail.X));
 
-    // A leaf PTE has been found.
+  a = (pte.val >> 10) * PAGE_SIZE;
 
-    if (type == MEM_TYPE_READ   && !pte.detail.R) assert(0);
-    if (type == MEM_TYPE_WRITE  && !pte.detail.W) assert(0);
-    if (type == MEM_TYPE_IFETCH && !pte.detail.X) assert(0);
+  pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
 
-    // A, D ignored
+  // A leaf PTE has been found.
 
-    union PA pa;
+  if (type == MEM_TYPE_READ   && !pte.detail.R) assert(0);
+  if (type == MEM_TYPE_WRITE  && !pte.detail.W) assert(0);
+  if (type == MEM_TYPE_IFETCH && !pte.detail.X) assert(0);
 
-    pa.detail.page_offest = va.detail.page_offest;
-    pa.detail.PPN0 = pte.detail.PPN0;
-    pa.detail.PPN1 = pte.detail.PPN1;
+  // A, D ignored
 
-    return pa.val;
-  }
+  union PA pa;
+
+  pa.detail.page_offest = va.detail.page_offest;
+  pa.detail.PPN0 = pte.detail.PPN0;
+  pa.detail.PPN1 = pte.detail.PPN1;
+
+  return pa.val;
 }
 
 int isa_vaddr_check(vaddr_t vaddr, int type, int len) {
@@ -44,5 +44,6 @@ word_t vaddr_mmu_read(vaddr_t addr, int len, int type) {
 }
 
 void vaddr_mmu_write(vaddr_t addr, word_t data, int len) {
-
+  paddr_t paddr = isa_mmu_translate(addr, MEM_TYPE_WRITE, len);
+  paddr_write(paddr, data, len);
 }
