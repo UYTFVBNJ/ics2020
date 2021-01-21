@@ -86,13 +86,3 @@ void concat(vaddr_write, bytes) (vaddr_t addr, word_t data) { \
 def_vaddr_template(1)
 def_vaddr_template(2)
 def_vaddr_template(4)
-
-/* PTE accessing interfaces */
-
-union PTE PTE_read(paddr_t addr) {
-  return (union PTE)paddr_read(addr, 4);
-}
-
-void PTE_write(paddr_t addr, word_t data) {
-  paddr_write(addr, data, 4);
-}

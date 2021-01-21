@@ -2,20 +2,17 @@
 #include <memory/paddr.h>
 #include <memory/vaddr.h>
 
-union PTE PTE_read(paddr_t addr);
-void PTE_write(paddr_t addr, word_t data);
-
 paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   union VA va = (union VA)addr;
   paddr_t a = cpu.satp.detail.PPN;
-  union PTE pte = PTE_read(a + va.detail.VPN1 * PTE_SIZE);
+  union PTE pte = (union PTE)paddr_read(a + va.detail.VPN1 * PTE_SIZE, 4);
 
   if (pte.detail.V == 0) assert(0);
   else {
     assert(!(pte.detail.R || pte.detail.W || pte.detail.X));
     a = (pte.val >> 10) * PAGE_SIZE;
 
-    pte = PTE_read(a + va.detail.VPN0 * PTE_SIZE);
+    pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
 
     // A leaf PTE has been found.
 
