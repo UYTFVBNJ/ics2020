@@ -16,7 +16,7 @@ typedef struct {
 
   struct {
     rtlreg_t _32;
-  } csr[4];
+  } csr[5];
 
   vaddr_t pc;
 } riscv32_CPU_state;
@@ -80,7 +80,9 @@ typedef struct {
   } instr;
 } riscv32_ISADecodeInfo;
 
-#define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
+paddr_t isa_mmu_translate(vaddr_t vaddr, int type, int len);
+// #define isa_vaddr_check(vaddr, type, len) (MEM_RET_OK)
+int isa_vaddr_check(vaddr_t vaddr, int type, int len);
 #define riscv32_has_mem_exception() (false)
 
 #endif
