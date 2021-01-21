@@ -2,6 +2,47 @@
 #include <nemu.h>
 #include <klib.h>
 
+union PTE{
+  struct {
+      uint32_t V : 1;
+      uint32_t R : 1;
+      uint32_t W : 1;
+      uint32_t X : 1;
+
+      uint32_t U : 1;
+      uint32_t G : 1;
+      uint32_t A : 1;
+      uint32_t D : 1;
+
+      uint32_t RSW : 2;
+
+      uint32_t PPN0 : 10;
+      uint32_t PPN1 : 12;
+  }detail;
+  uint32_t val;
+};
+#define PTE_SIZE 4
+
+union VA{
+  struct {
+      uint32_t page_offest : 12;
+
+      uint32_t VPN0 : 10;
+      uint32_t VPN1 : 10;
+  }detail;
+  uint32_t val;
+};
+
+union PA{
+  struct {
+      uint32_t page_offest : 12;
+
+      uint32_t PPN0 : 10;
+      uint32_t PPN1 : 10; // might be changed to 12
+  }detail;
+  uint32_t val;
+};
+
 static AddrSpace kas = {};
 static void* (*pgalloc_usr)(int) = NULL;
 static void (*pgfree_usr)(void*) = NULL;
@@ -65,7 +106,22 @@ void __am_switch(Context *c) {
   }
 }
 
-void map(AddrSpace *as, void *va, void *pa, int prot) {
+void map(AddrSpace *as, void *va_, void *pa_, int prot) {
+  if (prot == 0) panic("Not implemented");
+  assert(vme_enable);
+
+  union VA va = (union VA)(uint32_t)va_;
+  union PA pa = (union PA)(uint32_t)pa_;
+  union PTE * pte = (union PTE *)as->ptr + va.detail.VPN1; // no need to multiply 4
+
+  // finding corresponding PTE
+  pte = (union PTE *)((pte->val >> 10) * PGSIZE) + va.detail.VPN0;
+
+  // filling PTE
+  pte->detail.V = 1;
+
+  pte->detail.PPN0 = pa.detail.PPN0;
+  pte->detail.PPN1 = pa.detail.PPN1;
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {

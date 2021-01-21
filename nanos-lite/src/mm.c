@@ -6,7 +6,11 @@ void* new_page(size_t nr_page) {
   return NULL;
 }
 
-static inline void* pg_alloc(int n) {
+static inline void* pg_alloc(int n) { // 我们保证AM通过回调函数调用pg_alloc()时申请的空间总是页面大小的整数倍
+  void * ptr = new_page(n / PGSIZE);
+
+  memset(ptr, 0, n);
+
   return NULL;
 }
 
