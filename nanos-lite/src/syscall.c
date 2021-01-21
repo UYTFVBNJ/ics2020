@@ -2,14 +2,17 @@
 #include <proc.h>
 #include "syscall.h"
 
+// void* new_page(size_t nr_page);
 void naive_uload(PCB *, const char *);
+// void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 inline Context* SYS_execve_handler(Context *c) {
 
   const char * pathname = (char *)c->GPR2;
-  // char * const argv = (char *)c->GPR3;
-  // char * const envp = (char *)c->GPR4;
+  // char ** const argv = (char **)c->GPR3;
+  // char ** const envp = (char **)c->GPR4;
 
   naive_uload(NULL, pathname);
+  // context_uload(PCB *pcb, pathname, argv, envp);
 
   c->GPRx = 0;
 

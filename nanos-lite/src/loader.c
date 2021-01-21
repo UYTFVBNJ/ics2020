@@ -82,6 +82,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   // loading args
   char * ustk_pt_1 = (char *)heap.end;
+  printf("uload placing stack at %p\n", ustk_pt_1);
   
   int ustk_envp_len = 0;
   char * ustk_envp[10];
