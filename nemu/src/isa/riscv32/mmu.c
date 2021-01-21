@@ -17,9 +17,10 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
 
   // A leaf PTE has been found.
 
-  if (type == MEM_TYPE_READ   && !pte.detail.R) assert(0);
-  if (type == MEM_TYPE_WRITE  && !pte.detail.W) assert(0);
-  if (type == MEM_TYPE_IFETCH && !pte.detail.X) assert(0);
+  // prot is not enable now
+  // if (type == MEM_TYPE_READ   && !pte.detail.R) assert(0);
+  // if (type == MEM_TYPE_WRITE  && !pte.detail.W) assert(0);
+  // if (type == MEM_TYPE_IFETCH && !pte.detail.X) assert(0);
 
   // A, D ignored
 
