@@ -114,6 +114,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     ustk_argv[ustk_argv_len] = ustk_pt_1;
 
     strcpy(ustk_pt_1, argv[ustk_argv_len]);
+    printf("uload argv[%d] : %s\n", ustk_argv_len, ustk_pt_1);
   }
 
   uint32_t pt = (uint32_t)(ustk_pt_1 - 1); 
