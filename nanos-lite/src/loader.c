@@ -133,12 +133,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     ustk_pt_4 --;
   }
 
-  * ustk_pt_4 = (uintptr_t)NULL;
-  ustk_pt_4 --;
-
 
   for (int i = ustk_argv_len - 1; i >= 0; i --) { // cannot i = ustk_argv_len places the top NULL
-    // printf("argv[%d], placing %p with %p\n", i, ustk_pt_4, ustk_argv[i]);
+    printf("argv[%d], placing %p with %p\n", i, ustk_pt_4, ustk_argv[i]);
     * ustk_pt_4 = (uintptr_t)ustk_argv[i];
     ustk_pt_4 --;
   }
