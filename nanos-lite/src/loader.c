@@ -141,6 +141,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   * ustk_pt_4 = (uintptr_t)ustk_argv_len;
 
   pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
+  printf("uload placing sp at %p\n", ustk_pt_4);
 
   printf("uload finished %s\n", filename);
 }
