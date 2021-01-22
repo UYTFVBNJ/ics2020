@@ -69,6 +69,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
   pcb->cp = kcontext(kstack , entry, arg);
 }
 
+void* new_page(size_t nr_page);
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
   Area kstack;
