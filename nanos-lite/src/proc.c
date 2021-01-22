@@ -31,6 +31,7 @@ void init_proc() {
   char * argv[] = {"--skip", NULL};
   char * envp[] = {NULL};
   context_uload(&pcb[0], "/bin/pal", argv, envp);
+  // context_uload(&pcb[0], "/bin/exec-test", argv, envp);
 
   switch_boot_pcb();
 

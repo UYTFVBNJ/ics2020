@@ -82,7 +82,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(NULL, kstack , (void*)entry);
 
   // loading args
-  char * ustk_pt_1 = (char *)heap.end;
+  // char * ustk_pt_1 = (char *)heap.end;
+  char * ustk_pt_1 = (char *)new_page(8);
   printf("uload placing stack at %p\n", ustk_pt_1);
   
   int ustk_envp_len = 0;

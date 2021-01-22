@@ -165,7 +165,7 @@ $(CLEAN_ALL):
 
 ### Build fsimg and ramdisk for Nanos-lite
 APPS = bird pal
-TESTS =	\
+TESTS =	exec-test \
 #				bmp-test \
 #				event-test \
 #				file-test \
