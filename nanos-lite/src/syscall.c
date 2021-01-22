@@ -2,6 +2,7 @@
 #include <proc.h>
 #include "syscall.h"
 
+void switch_boot_pcb();
 Context* schedule(Context *prev);
 // void naive_uload(PCB *, const char *);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
@@ -13,6 +14,7 @@ inline Context* SYS_execve_handler(Context *c) {
 
   // naive_uload(NULL, pathname);
   context_uload(current, pathname, argv, envp);
+  switch_boot_pcb();
 
   // yield
   printf("yield\n");
