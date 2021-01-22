@@ -118,7 +118,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
 
   uint32_t pt = (uint32_t)(ustk_pt_1 - 1); 
-  pt = pt & (~0x11);
+  pt = pt & (~0x3);
 
   uintptr_t * ustk_pt_4 = (uintptr_t *) pt;
   printf("pt : %p %p\n", ustk_pt_1, ustk_pt_4);
