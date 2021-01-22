@@ -2,21 +2,24 @@
 #include <proc.h>
 #include "syscall.h"
 
-// void* new_page(size_t nr_page);
-void naive_uload(PCB *, const char *);
-// void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+Context* schedule(Context *prev);
+// void naive_uload(PCB *, const char *);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 inline Context* SYS_execve_handler(Context *c) {
 
   const char * pathname = (char *)c->GPR2;
-  // char ** const argv = (char **)c->GPR3;
-  // char ** const envp = (char **)c->GPR4;
+  char ** const argv = (char **)c->GPR3;
+  char ** const envp = (char **)c->GPR4;
 
-  naive_uload(NULL, pathname);
-  // context_uload(PCB *pcb, pathname, argv, envp);
+  // naive_uload(NULL, pathname);
+  context_uload(current, pathname, argv, envp);
+
+  // yield
+  printf("yield\n");
+  c = schedule(c);
 
   c->GPRx = 0;
 
-  c->epc += 4;
   return c;
 }
 
@@ -26,14 +29,11 @@ inline Context* SYS_exit_handler(Context *c) {
   return c;
 }
 
-Context* schedule(Context *prev);
 inline Context* SYS_yield_handler(Context *c) {
   printf("yield\n");
   // yield();
   c = schedule(c);
-  printf("\n");
 
-  c->epc += 4; // to be deleted
   return c;
 }
 
