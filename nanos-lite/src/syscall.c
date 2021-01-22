@@ -20,8 +20,6 @@ inline Context* SYS_execve_handler(Context *c) {
   printf("yield\n");
   c = schedule(c);
 
-  c->GPRx = 0;
-
   return c;
 }
 
