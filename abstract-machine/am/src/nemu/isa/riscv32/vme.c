@@ -113,7 +113,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
   union PTE * pte = (union PTE *)as->ptr + va.detail.VPN1; // no need to multiply 4
-  printf("map: va %p to pa %p with prot %d\n", as->ptr, va.detail.VPN1, pte);
+  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
 
   // finding corresponding PTE
   pte = (union PTE *)((pte->val >> 10) * PGSIZE) + va.detail.VPN0;
