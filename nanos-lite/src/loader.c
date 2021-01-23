@@ -76,10 +76,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   kstack.start = pcb->stack;
   kstack.end   = pcb->stack + STACK_SIZE;
 
-  // loading exe
-  uintptr_t entry = loader(pcb, filename);
-
-  pcb->cp = ucontext(NULL, kstack , (void*)entry);
 
   // loading args
   // char * ustk_pt_1 = (char *)heap.end;
@@ -143,7 +139,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   }
 
   * ustk_pt_4 = (uintptr_t)ustk_argv_len;
+  
+  // loading exe
+  uintptr_t entry = loader(pcb, filename);
 
+  pcb->cp = ucontext(NULL, kstack , (void*)entry);
+  
   pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
   printf("uload placing sp at %p\n", ustk_pt_4);
 
