@@ -113,20 +113,22 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
   union PTE * pte = (union PTE *)as->ptr + va.detail.VPN1; // no need to multiply 4
-  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
 
   // finding corresponding PTE
   if (pte->val == 0) {
     pte->val = (uint32_t)pgalloc_usr(PGSIZE);
   }
 
+  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
   pte = (union PTE *)((pte->val >> 10) * PGSIZE) + va.detail.VPN0;
 
+  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
   // filling PTE
   pte->detail.V = 1;
 
   pte->detail.PPN0 = pa.detail.PPN0;
   pte->detail.PPN1 = pa.detail.PPN1;
+  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
