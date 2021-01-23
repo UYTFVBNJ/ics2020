@@ -14,7 +14,7 @@ static inline void* pg_alloc(int n) { // 我们保证AM通过回调函数调用p
 
   memset(ptr, 0, n);
 
-  return NULL;
+  return ptr;
 }
 
 void free_page(void *p) {
