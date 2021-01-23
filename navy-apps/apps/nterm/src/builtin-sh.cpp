@@ -40,6 +40,7 @@ static void sh_handle_cmd(const char *cmd) {
 
   argv[arg_cnt] = NULL;
 
+  printf("sh: environ %p %p\n", &environ, environ);
   execvp(buf, argv);
 }
 
