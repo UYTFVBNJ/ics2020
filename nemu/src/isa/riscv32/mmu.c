@@ -4,9 +4,9 @@
 
 paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   union VA va = (union VA)addr;
-  paddr_t a = cpu.satp.detail.PPN;
+  paddr_t a = cpu.satp.detail.PPN * PAGE_SIZE;
 
-  printf("mmu:\n");
+  printf("mmu: \n");
   union PTE pte = (union PTE)paddr_read(a + va.detail.VPN1 * PTE_SIZE, 4);
   printf("mmu:\n");
 
