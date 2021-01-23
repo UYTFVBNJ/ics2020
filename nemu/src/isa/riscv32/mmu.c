@@ -19,6 +19,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
 
   printf("2mmu: %x\n", a + va.detail.VPN0 * PTE_SIZE);
   pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
+  assert(pte.detail.V);
   printf("mmu:\n");
 
   // A leaf PTE has been found.
