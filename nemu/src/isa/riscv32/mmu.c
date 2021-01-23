@@ -11,7 +11,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   union PTE pte = (union PTE)paddr_read(a + va.detail.VPN1 * PTE_SIZE, 4);
   // printf("mmu:\n");
 
-  // assert(pte.detail.V);
+  assert(pte.detail.V);
 
   assert(!(pte.detail.R || pte.detail.W || pte.detail.X));
 
@@ -19,7 +19,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
 
   // printf("2mmu: %x\n", a + va.detail.VPN0 * PTE_SIZE);
   pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
-  // assert(pte.detail.V);
+  assert(pte.detail.V);
   // printf("mmu:\n");
 
   // A leaf PTE has been found.
@@ -41,6 +41,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
 }
 
 int isa_vaddr_check(vaddr_t vaddr, int type, int len) {
+  if (vaddr > 0x83000000) return MEM_RET_OK;
   if (cpu.satp.detail.MODE) return MEM_RET_NEED_TRANSLATE;
   else return MEM_RET_OK;
 }
