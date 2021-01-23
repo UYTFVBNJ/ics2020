@@ -75,7 +75,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   *(base + 33) = 0; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
 
-  // *(base + 35) = 0x80000000 | ((uint32_t)as->ptr >> 12); // SATP ???
+  // *(base + 0) = 0x80000000 | ((uint32_t)as->ptr >> 12); // SATP is a0
 
   return (Context*)base;
 }
