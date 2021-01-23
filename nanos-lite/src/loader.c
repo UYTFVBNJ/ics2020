@@ -23,6 +23,7 @@ void* new_page(size_t nr_page);
 static uintptr_t loader_set_pg(PCB *pcb, uint32_t vaddr, uint32_t * last_pg_va, uint32_t * last_pg_pa) {
   if (*last_pg_va != (vaddr & ~(PGSIZE - 1))) {
     *last_pg_pa = (uint32_t)new_page(1);
+    printf("setting va %p at pa %p\n", vaddr, *last_pg_pa);
     *last_pg_va = vaddr & ~(PGSIZE - 1);
     map(&pcb->as, (void*)*last_pg_va, (void*)*last_pg_pa, 0); // native set RWX
   }
