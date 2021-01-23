@@ -185,7 +185,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   // loading exe
   uintptr_t entry = loader(pcb, filename);
 
-  pcb->cp = ucontext(NULL, kstack , (void*)entry);
+  pcb->cp = ucontext(&pcb->as, kstack , (void*)entry);
   
   pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
   printf("uload placing sp at %p\n", ustk_pt_4);
