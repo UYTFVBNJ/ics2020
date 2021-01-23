@@ -68,8 +68,9 @@ int fs_open(const char *pathname, int flags, int mode) {
     if (strcmp(pathname, file_table[i].name) == 0) {
       return i;
     }
-  panic("%s not found", pathname);
-  return 0;
+  // panic("%s not found", pathname);
+  printf("fs: %s not found\n", pathname);
+  return -1;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {

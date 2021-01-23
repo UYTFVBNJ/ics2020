@@ -6,6 +6,8 @@
 #include <time.h>
 #include "syscall.h"
 
+#include <errno.h>
+
 // helper macros
 #define _concat(x, y) x ## y
 #define concat(x, y) _concat(x, y)
@@ -95,7 +97,15 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
-  return _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
+  int ret = _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
+  
+  // the returned sp ptr will always < 0, but in this case syscall will not return
+  if (ret == -2) {
+    errno = - ret;
+    return -1;
+  }
+
+  return ret;
 }
 
 // Syscalls below are not used in Nanos-lite.

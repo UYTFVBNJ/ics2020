@@ -6,11 +6,17 @@ void switch_boot_pcb();
 Context* schedule(Context *prev);
 // void naive_uload(PCB *, const char *);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
+int fs_open(const char *pathname, int flags, int mode);
 inline Context* SYS_execve_handler(Context *c) {
 
   const char * pathname = (char *)c->GPR2;
   char ** const argv = (char **)c->GPR3;
   char ** const envp = (char **)c->GPR4;
+
+  if (fs_open(pathname, 0, 0) == -1) {
+    c->GPRx = -2;
+    return c;
+  }
 
   printf("SYS: envp[0] %p : %p %s\n", envp, envp[0], envp[0]);
   printf("SYS: envp[1] %p : %p\n", envp, envp[1]);
