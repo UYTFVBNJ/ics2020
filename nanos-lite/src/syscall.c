@@ -12,6 +12,7 @@ inline Context* SYS_execve_handler(Context *c) {
   char ** const argv = (char **)c->GPR3;
   char ** const envp = (char **)c->GPR4;
 
+  printf("SYS: envp[0] %p : %p\n", envp, envp[0]);
   // naive_uload(NULL, pathname);
   context_uload(current, pathname, argv, envp);
   switch_boot_pcb();
