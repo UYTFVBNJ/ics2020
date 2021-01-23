@@ -113,6 +113,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
   union PTE * pte = (union PTE *)as->ptr + va.detail.VPN1; // no need to multiply 4
+  printf("map: va %p to pa %p with prot %d\n", pte, pa_, prot);
 
   // finding corresponding PTE
   pte = (union PTE *)((pte->val >> 10) * PGSIZE) + va.detail.VPN0;
@@ -122,7 +123,6 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
 
   pte->detail.PPN0 = pa.detail.PPN0;
   pte->detail.PPN1 = pa.detail.PPN1;
-  printf("map: va %p to pa %p with prot %d\n", va_, pa_, prot);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
