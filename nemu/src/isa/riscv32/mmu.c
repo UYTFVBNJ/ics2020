@@ -5,7 +5,10 @@
 paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   union VA va = (union VA)addr;
   paddr_t a = cpu.satp.detail.PPN;
+
+  printf("mmu:\n");
   union PTE pte = (union PTE)paddr_read(a + va.detail.VPN1 * PTE_SIZE, 4);
+  printf("mmu:\n");
 
   assert(pte.detail.V);
 
@@ -14,6 +17,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   a = (pte.val >> 10) * PAGE_SIZE;
 
   pte = (union PTE)paddr_read(a + va.detail.VPN0 * PTE_SIZE, 4);
+  printf("mmu:\n");
 
   // A leaf PTE has been found.
 

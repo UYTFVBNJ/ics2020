@@ -108,7 +108,7 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   // if (prot == 0) panic("Not implemented");
-  printf("bgmap: va %p to pa %p with prot %d\n", va_, pa_, prot);
+  // printf("bgmap: va %p to pa %p with prot %d\n", va_, pa_, prot);
 
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
@@ -128,7 +128,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
 
   pte->detail.PPN0 = pa.detail.PPN0;
   pte->detail.PPN1 = pa.detail.PPN1;
-  printf("edmap: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
+  // printf("edmap: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
