@@ -66,6 +66,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       while (done_sz < ph.p_filesz) {
         uint32_t pa = loader_set_pg(pcb, ph.p_vaddr + done_sz, &last_pg_va, &last_pg_pa);
 
+        printf("loading va %p at pa %p\n", ph.p_vaddr + done_sz, pa);
+
         fs_read(fd, (void(*))pa, min(ph.p_filesz, (uint32_t)PGSIZE));
         done_sz += min(ph.p_filesz, (uint32_t)PGSIZE);
       }
