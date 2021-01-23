@@ -72,7 +72,7 @@ bool vme_init(void* (*pgalloc_f)(int), void (*pgfree_f)(void*)) {
 
   int i;
   for (i = 0; i < LENGTH(segments); i ++) {
-    printf("map range: %p %p\n", segments[i].start, segments[i].end);
+    // printf("map range: %p %p\n", segments[i].start, segments[i].end);
     void *va = segments[i].start;
     for (; va < segments[i].end; va += PGSIZE) {
       map(&kas, va, va, 0);
@@ -119,6 +119,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   if (pte->val == 0) {
     pte->val = (uint32_t)pgalloc_usr(PGSIZE) >> 2;
     pte->detail.V = 1;
+    printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte->val);
   }
 
   // printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
