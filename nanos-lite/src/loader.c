@@ -124,6 +124,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   uintptr_t * ustk_pt_4 = (uintptr_t *) pt;
   printf("pt : %p %p\n", ustk_pt_1, ustk_pt_4);
 
+  ustk_pt_4 --; // prevent setting ustk_pt_1 to null
   * ustk_pt_4 = (uintptr_t)NULL;
   ustk_pt_4 --;
 
