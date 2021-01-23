@@ -109,7 +109,6 @@ void __am_switch(Context *c) {
 void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   // if (prot == 0) panic("Not implemented");
   printf("map: va %p to pa %p with prot %d\n", va_, pa_, prot);
-  assert(vme_enable);
 
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
