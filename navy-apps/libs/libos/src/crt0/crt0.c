@@ -15,7 +15,7 @@ void call_main(uintptr_t *args) {
   printf("argv[0] : %p\n", argv[0]);
   printf("envp[0] %p : %p\n", envp, envp[0]);
   environ = envp;
-  printf("envpon %p : %p\n", environ, environ[0]);
+  printf("envpon %p %p : %p\n", &environ, environ, environ[0]);
   exit(main(argc, argv, envp));
   assert(0);
 }
