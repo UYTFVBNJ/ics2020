@@ -27,10 +27,10 @@ static void sh_prompt() {
 static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   strcpy(buf, cmd);
-  printf("sh: buf %s\n", buf);
+  // printf("sh: buf %s\n", buf);
   int len = strlen(buf);
   buf[len - 1] = '\0'; // delete the '\n' in the end
-  printf("sh: buf %s\n", buf);
+  // printf("sh: buf %s\n", buf);
 
   char * pathname = strtok(buf, " ");
 
