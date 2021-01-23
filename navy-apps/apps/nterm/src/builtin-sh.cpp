@@ -28,7 +28,7 @@ static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   strcpy(buf, cmd);
   int len = strlen(buf);
-  buf[len] = '\0'; // delete the '\n' in the end
+  buf[len - 1] = '\0'; // delete the '\n' in the end
 
   char * pathname = strtok(buf, " ");
 
@@ -40,7 +40,6 @@ static void sh_handle_cmd(const char *cmd) {
     arg_cnt ++;
   }
 
-  argv[argv]
   argv[arg_cnt] = NULL;
 
   printf("sh: environ %p %p\n", &environ, environ);
