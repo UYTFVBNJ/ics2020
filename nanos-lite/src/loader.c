@@ -187,6 +187,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   pcb->cp = ucontext(NULL, kstack , (void*)entry);
   
+  printf("uload placing sp at %p\n", ustk_pt_4);
   pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
   printf("uload placing sp at %p\n", ustk_pt_4);
 
