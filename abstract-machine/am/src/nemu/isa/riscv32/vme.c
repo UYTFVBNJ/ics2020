@@ -148,6 +148,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   *(base + 34) = (uint32_t)entry; // EPC
 
   *(base + 0) = 0x80000000 | ((uint32_t)as->ptr >> 12); // SATP
+  printf("base:%p\n", *base);
 
   return (Context*)base;
 }
