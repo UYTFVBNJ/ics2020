@@ -122,6 +122,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
 
   pte->detail.PPN0 = pa.detail.PPN0;
   pte->detail.PPN1 = pa.detail.PPN1;
+  printf("map: va %p to pa %p with prot %d\n", va_, pa_, prot);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
