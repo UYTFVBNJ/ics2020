@@ -88,7 +88,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   
   int ustk_envp_len = 0;
   char * ustk_envp[10];
-  // if (envp != NULL)
+  if (envp != NULL)
   for (ustk_envp_len = 0; envp[ustk_envp_len] != NULL; ustk_envp_len ++) {
     printf("uload envp[%d] : %s\n", ustk_envp_len, envp[ustk_envp_len]);
     size_t len;
@@ -103,7 +103,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   int ustk_argv_len = 0;
   char * ustk_argv[10];
-  // if (argv != NULL)
+  if (argv != NULL)
   for (ustk_argv_len = 0; argv[ustk_argv_len] != NULL; ustk_argv_len ++) {
     printf("uload argv[%d] : %s\n", ustk_argv_len, argv[ustk_argv_len]);
     size_t len;
