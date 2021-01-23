@@ -108,7 +108,7 @@ void __am_switch(Context *c) {
 
 void map(AddrSpace *as, void *va_, void *pa_, int prot) {
   // if (prot == 0) panic("Not implemented");
-  printf("map: va %p to pa %p with prot %d\n", va_, pa_, prot);
+  // printf("map: va %p to pa %p with prot %d\n", va_, pa_, prot);
 
   union VA va = (union VA)(uint32_t)va_;
   union PA pa = (union PA)(uint32_t)pa_;
@@ -119,16 +119,16 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
     pte->val = (uint32_t)pgalloc_usr(PGSIZE) >> 2;
   }
 
-  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
+  // printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
   pte = (union PTE *)((pte->val >> 10) * PGSIZE) + va.detail.VPN0;
 
-  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
+  // printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
   // filling PTE
   pte->detail.V = 1;
 
   pte->detail.PPN0 = pa.detail.PPN0;
   pte->detail.PPN1 = pa.detail.PPN1;
-  printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
+  // printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
