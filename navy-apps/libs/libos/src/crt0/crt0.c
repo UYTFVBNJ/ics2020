@@ -12,7 +12,7 @@ void call_main(uintptr_t *args) {
   printf("argc : %d\n", argc);
   char ** argv = (char **)(args + 1);
   char ** envp = (char **)(args + 1 + argc + 1); 
-  printf("argv[0] : %p\n", argv[0]);
+  printf("argv[0] %p : %s\n", argv[0], argv[0]);
   printf("envp[0] %p : %p\n", envp, envp[0]);
   environ = envp;
   printf("envpon %p %p : %p\n", &environ, environ, environ[0]);
