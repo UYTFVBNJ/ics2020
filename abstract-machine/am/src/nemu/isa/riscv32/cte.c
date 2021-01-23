@@ -4,7 +4,10 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
+void __am_get_cur_as(Context *c);
+void __am_switch(Context *c);
 Context* __am_irq_handle(Context *c) {
+  __am_get_cur_as(c);
   // printf("__am_irq_handle:");
   // printf("%p %d %d\n", c->epc, c->status, c->cause);
   // printf("%p %p\n", c, c->gpr[2]);
@@ -41,7 +44,7 @@ Context* __am_irq_handle(Context *c) {
   // printf("%p %d %d\n", c->epc, c->status, c->cause);
   // printf("%p %p\n", c, c->gpr[2]);
   
-
+  __am_switch(c);
   return c;
 }
 
@@ -71,6 +74,8 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   *(base + 32) = 0; // CAUSE
   *(base + 33) = 0; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
+
+  // *(base + 35) = 0x80000000 | ((uint32_t)as->ptr >> 12); // SATP ???
 
   return (Context*)base;
 }

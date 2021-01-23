@@ -14,6 +14,23 @@ size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 int fs_close(int fd);
 
+uint32_t min(uint32_t a, uint32_t b) {
+  if (a < b) return a;
+  return b;
+}
+
+void* new_page(size_t nr_page);
+static uintptr_t loader_set_pg(PCB *pcb, uint32_t vaddr, uint32_t * last_pg_va, uint32_t * last_pg_pa) {
+  if (*last_pg_va != (vaddr & ~(PGSIZE - 1))) {
+    *last_pg_pa = (uint32_t)new_page(1);
+    *last_pg_va = vaddr & ~(PGSIZE - 1);
+    map(&pcb->as, (void*)*last_pg_va, (void*)*last_pg_pa, 0); // native set RWX
+  }
+
+  uint32_t offset = vaddr & (PGSIZE - 1);
+  return *last_pg_pa + offset;
+}
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("loading %s\n", filename);
   int fd = fs_open(filename, 0, 0);
@@ -28,6 +45,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // printf("eh: %d\n", eh.e_phentsize);
   // printf("eh: %d\n", eh.e_phnum);
 
+  uint32_t last_pg_va = 0;
+  uint32_t last_pg_pa = 0;
   for (int i = 0; i < eh.e_phnum; i ++) {
     fs_lseek(fd, eh.e_phoff + i * eh.e_phentsize, 0);
     fs_read(fd, &ph, eh.e_phentsize);
@@ -42,10 +61,20 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     
     if (ph.p_type == 1) {
       fs_lseek(fd, ph.p_offset, 0);
-      fs_read(fd, (void(*))ph.p_vaddr, ph.p_filesz);
+
+      int done_sz = 0;
+      while (done_sz < ph.p_filesz) {
+        uint32_t pa = loader_set_pg(pcb, ph.p_vaddr + done_sz, &last_pg_va, &last_pg_pa);
+
+        fs_read(fd, (void(*))pa, min(ph.p_filesz, (uint32_t)PGSIZE));
+        done_sz += min(ph.p_filesz, (uint32_t)PGSIZE);
+      }
+
 
       for (size_t j = ph.p_vaddr + ph.p_filesz; j < ph.p_vaddr + ph.p_memsz; j ++) {
-        *((uint32_t *)j) = 0;
+        uint32_t pa = loader_set_pg(pcb, j, &last_pg_va, &last_pg_pa);
+
+        *((uint32_t *)pa) = 0;
       }
     }
   }
@@ -69,9 +98,10 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
   pcb->cp = kcontext(kstack , entry, arg);
 }
 
-void* new_page(size_t nr_page);
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
+  protect(&pcb->as);
+
   Area kstack;
   kstack.start = pcb->stack;
   kstack.end   = pcb->stack + STACK_SIZE;
@@ -80,6 +110,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   // loading args
   // char * ustk_pt_1 = (char *)heap.end;
   char * ustk_pt_1 = (char *)new_page(8) + 8 * PGSIZE;
+  for (int i = 0; i < 8; i ++) {
+    map(&pcb->as, pcb->as.area.end - i * PGSIZE - 1, ustk_pt_1 - i * PGSIZE - 1, 0);
+  }
+
+  ustk_pt_1 --;
+
   printf("uload placing stack at %p\n", ustk_pt_1);
   
   int ustk_envp_len = 0;
