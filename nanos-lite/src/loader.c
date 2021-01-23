@@ -90,7 +90,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   char * ustk_envp[10];
   if (envp != NULL)
   for (ustk_envp_len = 0; envp[ustk_envp_len] != NULL; ustk_envp_len ++) {
-    printf("uload envp[%d] : %s\n", ustk_envp_len, envp[ustk_envp_len]);
+    // printf("uload envp[%d] : %s\n", ustk_envp_len, envp[ustk_envp_len]);
     size_t len;
 
     for (len = 0; (envp[ustk_envp_len])[len] != '\0'; len ++);
@@ -105,7 +105,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   char * ustk_argv[10];
   if (argv != NULL)
   for (ustk_argv_len = 0; argv[ustk_argv_len] != NULL; ustk_argv_len ++) {
-    printf("uload argv[%d] : %s\n", ustk_argv_len, argv[ustk_argv_len]);
+    // printf("uload argv[%d] : %s\n", ustk_argv_len, argv[ustk_argv_len]);
     size_t len;
 
     for (len = 0; (argv[ustk_argv_len])[len] != '\0'; len ++);
@@ -114,7 +114,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     ustk_argv[ustk_argv_len] = ustk_pt_1;
 
     strcpy(ustk_pt_1, argv[ustk_argv_len]);
-    printf("uload argv[%d] : %s\n", ustk_argv_len, ustk_pt_1);
+    // printf("uload argv[%d] : %s\n", ustk_argv_len, ustk_pt_1);
   }
 
   uint32_t pt = (uint32_t)(ustk_pt_1 - 1); 
@@ -122,14 +122,14 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pt = pt & ~0x3;
 
   uintptr_t * ustk_pt_4 = (uintptr_t *) pt;
-  printf("pt : %p %p\n", ustk_pt_1, ustk_pt_4);
+  // printf("pt : %p %p\n", ustk_pt_1, ustk_pt_4);
 
   ustk_pt_4 --; // prevent setting ustk_pt_1 to null
   * ustk_pt_4 = (uintptr_t)NULL;
   ustk_pt_4 --;
 
   for (int i = ustk_envp_len - 1; i >= 0; i --) { // cannot i = ustk_envp_len places the top NULL, since ustk_envp[len]'s value is not set
-    printf("envp[%d], placing %p with %p\n", i, ustk_pt_4, ustk_envp[i]);
+    // printf("envp[%d], placing %p with %p\n", i, ustk_pt_4, ustk_envp[i]);
     * ustk_pt_4 = (uintptr_t)ustk_envp[i];
     ustk_pt_4 --;
   }
@@ -138,7 +138,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   ustk_pt_4 --;
 
   for (int i = ustk_argv_len - 1; i >= 0; i --) { // cannot i = ustk_argv_len places the top NULL
-    printf("argv[%d], placing %p with %p\n", i, ustk_pt_4, ustk_argv[i]);
+    // printf("argv[%d], placing %p with %p\n", i, ustk_pt_4, ustk_argv[i]);
     * ustk_pt_4 = (uintptr_t)ustk_argv[i];
     ustk_pt_4 --;
   }
