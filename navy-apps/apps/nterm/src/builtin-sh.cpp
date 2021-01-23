@@ -27,10 +27,20 @@ static void sh_prompt() {
 static void sh_handle_cmd(const char *cmd) {
   char buf[64];
   strcpy(buf, cmd);
-  int len = strlen(cmd);
-  buf[len - 1] = '\0';
 
-  execvp(buf, NULL);
+  char * pathname = strtok(buf, " ");
+
+  char * arg;
+  char * argv[32];
+  int arg_cnt = 0;
+  while ((arg = strtok(NULL, " ")) != NULL) {
+    argv[arg_cnt] = arg;
+    arg_cnt ++;
+  }
+
+  argv[arg_cnt] = NULL;
+
+  execvp(buf, argv);
 }
 
 void builtin_sh_run() {
