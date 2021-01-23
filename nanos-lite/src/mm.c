@@ -5,7 +5,7 @@ static void *pf = NULL;
 void* new_page(size_t nr_page) {
   void * ptr = pf;
   pf = pf + nr_page * PGSIZE;
-  printf("new_page pf %p\n", pf);
+  // printf("new_page pf %p\n", pf);
 
   return ptr;
 }

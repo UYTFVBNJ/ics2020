@@ -84,6 +84,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
   }
 
+  printf("loader finished %s\n", filename);
   return eh.e_entry;
 }
 
