@@ -116,7 +116,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
 
   // finding corresponding PTE
   if (pte->val == 0) {
-    pte->val = (uint32_t)pgalloc_usr(PGSIZE);
+    pte->val = (uint32_t)pgalloc_usr(PGSIZE) >> 2;
   }
 
   printf("map: va %p to pa %p with prot %p\n", as->ptr, va.detail.VPN1, pte);
