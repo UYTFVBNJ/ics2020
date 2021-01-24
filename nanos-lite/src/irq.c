@@ -13,6 +13,7 @@ static Context* do_event(Event e, Context* c) {
       c = do_syscall(c);
       break;
     case EVENT_IRQ_TIMER:
+      printf("event timer ID = %d\n", e.event); 
       c = schedule(c);
       c->epc += 4;
       break;
