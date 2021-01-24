@@ -45,7 +45,7 @@ static inline def_EHelper(CSRRCI) {
 }
 
 static inline def_EHelper(SRET) {
-  rtl_jr(s, &cpu.csr[2]._32);
+  rtl_jr(s, &cpu.sepc.val);
 
   print_asm_template3(sret);
 }
@@ -62,9 +62,9 @@ static inline def_EHelper(CSR) {
     case 0x102 : if (s->isa.instr.i.funct3 == 0) exec_SRET(s);  return ; // SRET
 
     case 0x100 : id_src2->preg = &cpu.sstatus.val;    break; // sstatus
-    case 0x105 : id_src2->preg = &cpu.csr[1]._32;    break; // stvec
-    case 0x141 : id_src2->preg = &cpu.csr[2]._32;    break; // sepc
-    case 0x142 : id_src2->preg = &cpu.csr[3]._32;    break; // scause
+    case 0x105 : id_src2->preg = &cpu.stvec.val;    break; // stvec
+    case 0x141 : id_src2->preg = &cpu.sepc.val;    break; // sepc
+    case 0x142 : id_src2->preg = &cpu.scause.val;    break; // scause
     case 0x180 : id_src2->preg = &cpu.satp.val;    break; // satp
 
     default : exec_inv(s); assert(0); break;

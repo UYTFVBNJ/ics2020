@@ -25,9 +25,26 @@ typedef struct {
     uint32_t val;
   }sstatus;
 
-  struct {
-    rtlreg_t _32;
-  } csr[4];
+  union {
+    struct {
+      uint32_t SPIE : 1;
+    }detail;
+    uint32_t val;
+  }stvec;
+
+  union {
+    struct {
+      uint32_t SPIE : 1;
+    }detail;
+    uint32_t val;
+  }sepc;
+
+  union {
+    struct {
+      uint32_t SPIE : 1;
+    }detail;
+    uint32_t val;
+  }scause;
 
   union {
     struct {
