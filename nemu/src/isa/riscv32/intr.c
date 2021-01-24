@@ -9,7 +9,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc) {
    */
 
   printf("raise_intr %x %x\n", NO, cpu.pc);
-  if (cpu.gpr[29]._32 != 0) panic("t4");
+  // if (cpu.gpr[29]._32 != 0) panic("t4");
   cpu.sstatus.detail.SPIE = cpu.sstatus.detail.SIE; // sstatus
   cpu.sstatus.detail.SIE = 0; // sstatus
   rtl_li(s, &cpu.sepc.val, epc); // sepc
