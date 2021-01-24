@@ -77,7 +77,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       for (size_t j = ph.p_vaddr + ph.p_filesz; j < ph.p_vaddr + ph.p_memsz; j ++) {
         uint32_t pa = loader_set_pg(pcb, j, &last_pg_va, &last_pg_pa);
 
-        // printf("filling va %p at pa %p\n", j, pa);
+        printf("filling va %p at pa %p\n", j, pa);
 
         *((uint32_t *)pa) = 0;
       }
