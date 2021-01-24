@@ -3,6 +3,14 @@
 #include <NDL.h>
 
 int main() {
+
+  int ii = 1;
+
+  while (1) {
+    ii ++;
+    printf("i = %d\n", ii);
+  }
+
   if (write(1, "Hello World!\n", 13) == 0) puts("OK");
   printf("%d\n",write(1, "Hello World!\n", 13));
 

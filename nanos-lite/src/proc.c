@@ -35,7 +35,8 @@ void init_proc() {
   // context_uload(&pcb[0], "/bin/pal", argv, envp);
   // context_uload(&pcb[0], "/bin/dummy", argv, envp);
   // context_uload(&pcb[0], "/bin/exec-test", argv, envp);
-  context_uload(&pcb[0], "/bin/nterm", argv, envp);
+  // context_uload(&pcb[0], "/bin/nterm", argv, envp);
+  context_uload(&pcb[0], "/bin/hello", argv, envp);
 
   switch_boot_pcb();
 
