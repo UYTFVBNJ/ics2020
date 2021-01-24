@@ -1,8 +1,9 @@
 void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc);
 
 static inline def_EHelper(CSRRW) {
+  rtl_mv(s, s0, dsrc1);
   if (id_dest->reg != 0) rtl_mv(s, ddest, dsrc2);
-  rtl_mv(s, dsrc2, dsrc1);
+  rtl_mv(s, dsrc2, s0);
 
   print_asm_template3(csrrw);
 }
