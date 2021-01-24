@@ -19,7 +19,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc) {
 void query_intr(DecodeExecState *s) {
   if (cpu.INTR && cpu.sstatus.detail.SIE == 1) {
     cpu.INTR = false;
-    raise_intr(s, IRQ_TIMER, s->seq_pc); // the inst most recently exe ed
+    raise_intr(s, IRQ_TIMER, s->seq_pc - 4); // the inst most recently exe ed
     update_pc(s);
   }
 }
