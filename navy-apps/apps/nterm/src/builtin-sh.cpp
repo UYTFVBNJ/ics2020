@@ -37,7 +37,7 @@ static void sh_handle_cmd(const char *cmd) {
   char * arg;
   char * argv[32];
   int arg_cnt = 0;
-  argv[arg_cnt] = arg;
+  argv[arg_cnt] = pathname;
   arg_cnt ++;
 
   while ((arg = strtok(NULL, " ")) != NULL) {
