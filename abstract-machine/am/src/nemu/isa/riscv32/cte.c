@@ -73,7 +73,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   *(base + 2) = (uint32_t)kstack.end; // sp
 
   *(base + 32) = 0; // CAUSE
-  *(base + 33) = 0; // STATUS
+  *(base + 33) = 0x2; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
 
   return (Context*)base;

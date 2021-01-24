@@ -147,7 +147,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   *(base + 2) = (uint32_t)kstack.end; // sp
 
   *(base + 32) = 0; // CAUSE
-  *(base + 33) = 0; // STATUS
+  *(base + 33) = 0x2; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
 
   *(base + 0) = (uint32_t)as->ptr; // SATP(pdir)
