@@ -104,6 +104,10 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg) {
   pcb->cp = kcontext(kstack , entry, arg);
 }
 
+uint32_t ustk_get_va(uint32_t va_base, uint32_t pa_base, uint32_t pa) {
+  return va_base - (pa_base - pa);
+}
+
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
   protect(&pcb->as);
@@ -115,12 +119,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   // loading args
   // char * ustk_pt_1 = (char *)heap.end;
-  char * ustk_pt_1 = (char *)new_page(8) + 8 * PGSIZE;
+  char * ptr = (char *)new_page(8) + 8 * PGSIZE;
   for (int i = 0; i < 8; i ++) {
-    map(&pcb->as, pcb->as.area.end - i * PGSIZE - 1, ustk_pt_1 - i * PGSIZE - 1, 0);
+    map(&pcb->as, pcb->as.area.end - i * PGSIZE - 1, ptr - i * PGSIZE - 1, 0);
   }
 
-  ustk_pt_1 --;
+  char * ustk_pt_1 = ptr - 1;
 
   printf("uload placing stack at %p\n", ustk_pt_1);
   
@@ -187,7 +191,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   pcb->cp = ucontext(&pcb->as, kstack , (void*)entry);
   
-  pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
+  // pcb->cp->GPRx = (uintptr_t)ustk_pt_4; // GPRx = stack.top
+  pcb->cp->GPRx = ustk_get_va((uint32_t)pcb->as.area.end, (uint32_t)ptr, (uint32_t)ustk_pt_4); 
   printf("uload placing sp at %p\n", ustk_pt_4);
 
   printf("uload finished %s\n", filename);
