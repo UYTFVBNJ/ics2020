@@ -63,15 +63,9 @@ save_context:
 
   csrr t2, sepc
 
-
-
   sw t0, OFFSET_CAUSE(sp)
-
   sw t1, OFFSET_STATUS(sp)
-
   sw t2, OFFSET_EPC(sp)
-
-
 
   csrr t0, sscratch
 
@@ -99,10 +93,6 @@ save_context:
 
   csrw sepc, t2
 
-
-
-  
-
   MAP(REGS, POP)
 
 
@@ -111,11 +101,11 @@ save_context:
 
 
 
-  lw t5, OFFSET_NP(sp)
+  lw t4, OFFSET_NP(sp)
 
   // if t0 = c->np = 0
 
-  bnez t5, set_sp
+  bnez t4, set_sp
 
   // ksp = $sp
 
