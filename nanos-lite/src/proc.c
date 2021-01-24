@@ -27,16 +27,16 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 void init_proc() {
   // context_kload(&pcb[0], hello_fun, NULL);
   // context_kload(&pcb[0], hello_fun, (void*)0x1000);
-  // context_kload(&pcb[1], hello_fun, (void*)0x1111);
+  context_kload(&pcb[1], hello_fun, (void*)0x1111);
   char * argv[] = {"--skip", NULL};
   // char * argv[] = {NULL};
   // char * argv[] = {"/bin/exec-test", NULL};
   char * envp[] = {NULL};
-  // context_uload(&pcb[0], "/bin/pal", argv, envp);
+  context_uload(&pcb[0], "/bin/pal", argv, envp);
   // context_uload(&pcb[0], "/bin/dummy", argv, envp);
   // context_uload(&pcb[0], "/bin/exec-test", argv, envp);
   // context_uload(&pcb[0], "/bin/nterm", argv, envp);
-  context_uload(&pcb[0], "/bin/hello", argv, envp);
+  // context_uload(&pcb[0], "/bin/hello", argv, envp);
 
   switch_boot_pcb();
 
@@ -55,8 +55,8 @@ Context* schedule(Context *prev) {
   current->cp = prev;
 
   // always select pcb[0] as the new process
-  current = &pcb[0];
-  // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  // current = &pcb[0];
+  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
   // then return the new context
   return current->cp;
