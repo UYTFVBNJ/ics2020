@@ -25,7 +25,7 @@ typedef struct {
 
   struct {
     rtlreg_t _32;
-  } csr[4];
+  } csr[3];
 
   union {
     struct {
