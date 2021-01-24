@@ -16,9 +16,11 @@ typedef struct {
  
   union {
     struct {
-      uint32_t PPN : 22;
-      uint32_t ASID : 9;
-      uint32_t MODE : 1;
+      uint32_t UIE : 1;
+      uint32_t SIE : 1;
+      uint32_t WPRI : 2;
+      uint32_t UPIE : 1;
+      uint32_t SPIE : 1;
     }detail;
     uint32_t val;
   }sstatus;

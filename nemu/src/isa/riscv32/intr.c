@@ -8,6 +8,7 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc) {
    * That is, use ``NO'' to index the IDT.
    */
 
+  // rtl_li(s, &cpu.csr[2]._32, epc); // sstatus
   rtl_li(s, &cpu.csr[2]._32, epc); // sepc
   rtl_li(s, &cpu.csr[3]._32, NO);  // scause
   rtl_jr(s, &cpu.csr[1]._32);      // stvec
