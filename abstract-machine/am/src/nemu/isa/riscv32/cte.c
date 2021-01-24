@@ -28,10 +28,10 @@ Context* __am_irq_handle(Context *c) {
         // else 
           // ev.event = EVENT_YIELD; 
         break; 
-      case 5: // Supervisor timer interrupt
-        ev.event = EVENT_ERROR; 
+      case 0x80000005: // Supervisor timer interrupt
+        ev.event = EVENT_IRQ_TIMER; 
         break; 
-      case 9: // Supervisor external interrupt
+      case 0x80000009: // Supervisor external interrupt
         ev.event = EVENT_ERROR; 
         break; 
       default: ev.event = EVENT_ERROR;  break;
