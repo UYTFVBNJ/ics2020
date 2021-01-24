@@ -8,7 +8,7 @@ int main() {
 
   while (1) {
     ii ++;
-    printf("i = %d\n", ii);
+    // printf("i = %d\n", ii);
   }
 
   if (write(1, "Hello World!\n", 13) == 0) puts("OK");
