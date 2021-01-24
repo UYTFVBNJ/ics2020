@@ -15,7 +15,7 @@ Context* __am_irq_handle(Context *c) {
   // printf("\n");
   // for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
   // printf("\n");
-  printf("%p ", &c->pdir); 
+  // printf("%p ", &c->pdir); 
   // printf("\n");
 
   if (user_handler) {
