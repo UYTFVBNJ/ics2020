@@ -195,5 +195,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp->GPRx = ustk_get_va((uint32_t)pcb->as.area.end, (uint32_t)ptr, (uint32_t)ustk_pt_4); 
   printf("uload placing sp at %p\n", ustk_pt_4);
 
+  pcb->max_brk = 0;
+
   printf("uload finished %s\n", filename);
 }

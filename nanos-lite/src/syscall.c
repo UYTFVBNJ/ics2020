@@ -115,8 +115,11 @@ inline Context* SYS_lseek_handler(Context *c) {
   return c;
 }
 
+int mm_brk(uintptr_t brk);
 inline Context* SYS_brk_handler(Context *c) {
-  c->GPRx = 0;
+  uintptr_t new_p_b = (uintptr_t)c->GPR2;
+
+  c->GPRx = mm_brk(new_p_b);
 
   c->epc += 4;
   return c;
