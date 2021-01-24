@@ -8,7 +8,8 @@ void raise_intr(DecodeExecState *s, uint32_t NO, vaddr_t epc) {
    * That is, use ``NO'' to index the IDT.
    */
 
-  // rtl_li(s, &cpu.csr[2]._32, epc); // sstatus
+  cpu.sstatus.detail.SPIE = cpu.sstatus.detail.SIE; // sstatus
+  cpu.sstatus.detail.SIE = 0; // sstatus
   rtl_li(s, &cpu.sepc.val, epc); // sepc
   rtl_li(s, &cpu.scause.val, NO);  // scause
   rtl_jr(s, &cpu.stvec.val);      // stvec

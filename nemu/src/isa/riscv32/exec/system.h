@@ -45,6 +45,9 @@ static inline def_EHelper(CSRRCI) {
 }
 
 static inline def_EHelper(SRET) {
+  cpu.sstatus.detail.SIE = cpu.sstatus.detail.SPIE;
+  cpu.sstatus.detail.SPIE = 1;
+  
   rtl_jr(s, &cpu.sepc.val);
 
   print_asm_template3(sret);
