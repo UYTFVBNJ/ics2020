@@ -37,6 +37,9 @@ static void sh_handle_cmd(const char *cmd) {
   char * arg;
   char * argv[32];
   int arg_cnt = 0;
+  argv[arg_cnt] = arg;
+  arg_cnt ++;
+
   while ((arg = strtok(NULL, " ")) != NULL) {
     argv[arg_cnt] = arg;
     arg_cnt ++;
@@ -45,7 +48,7 @@ static void sh_handle_cmd(const char *cmd) {
   argv[arg_cnt] = NULL;
 
   printf("sh: environ %p %p\n", &environ, environ);
-  execvp(buf, argv);
+  execvp(pathname, argv);
 }
 
 void builtin_sh_run() {
