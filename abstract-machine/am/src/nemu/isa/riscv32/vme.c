@@ -91,9 +91,9 @@ void protect(AddrSpace *as) {
   as->area = USER_SPACE;
   as->pgsize = PGSIZE;
   // map kernel space
-    for (int i = 0; i < 1024; i ++) printf("%p : %p\n", i, *(uint32_t*)(updir + i));
+    // for (int i = 0; i < 1024; i ++) printf("%p : %p\n", i, *(uint32_t*)(updir + i));
   memcpy(updir, kas.ptr, PGSIZE);
-    for (int i = 0; i < 1024; i ++) printf("%p : %p\n", i, *(uint32_t*)(updir + i));
+    // for (int i = 0; i < 1024; i ++) printf("%p : %p\n", i, *(uint32_t*)(updir + i));
 }
 
 void unprotect(AddrSpace *as) {
