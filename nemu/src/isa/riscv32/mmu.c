@@ -14,7 +14,7 @@ paddr_t isa_mmu_translate(vaddr_t addr, int type, int len) {
   if (!pte.detail.V) {
     printf("0mmu: %x %x %d\n", addr, cpu.pc, len);
     printf("0mmu: %x %x %d\n", a, cpu.pc, len);
-    for (int i = 0; i < 1024; i ++) printf("%x\n", paddr_read(a + i * PTE_SIZE, 4));
+    for (int i = 0; i < 1024; i ++) printf("%d : %x\n", i, paddr_read(a + i * PTE_SIZE, 4));
     printf("1mmu: %x\n", a + va.detail.VPN1 * PTE_SIZE);
     assert(pte.detail.V);
   }
