@@ -42,6 +42,8 @@ inline Context* SYS_yield_handler(Context *c) {
   // yield();
   c = schedule(c);
 
+  c->epc += 4;
+
   return c;
 }
 
