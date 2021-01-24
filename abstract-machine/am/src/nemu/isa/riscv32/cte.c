@@ -41,7 +41,7 @@ Context* __am_irq_handle(Context *c) {
     assert(c != NULL);
   }
 
-  // printf("%p %d %d\n", c->epc, c->status, c->cause);
+  printf("%p %d %d\n", c->epc, c->status, c->cause);
   printf("switch: %p %p\n", c, c->pdir);
   
   __am_switch(c);
