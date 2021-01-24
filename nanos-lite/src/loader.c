@@ -112,7 +112,6 @@ uint32_t ustk_get_va(uint32_t va_base, uint32_t pa_base, uint32_t pa) {
 Context *ucontext(AddrSpace *as, Area kstack, void *entry);
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
   protect(&pcb->as);
-  printf("uload placing stack at %p\n", pcb->as.ptr);
 
   Area kstack;
   kstack.start = pcb->stack;
