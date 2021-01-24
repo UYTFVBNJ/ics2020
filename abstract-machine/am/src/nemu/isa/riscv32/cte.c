@@ -7,7 +7,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 void __am_get_cur_as(Context *c);
 void __am_switch(Context *c);
 Context* __am_irq_handle(Context *c) {
-  printf("%p ", &c->pdir); 
+  printf("%p \n", &c->pdir); 
   __am_get_cur_as(c);
   // printf("__am_irq_handle:");
   // printf("%p %d %d\n", c->epc, c->status, c->cause);
@@ -16,8 +16,7 @@ Context* __am_irq_handle(Context *c) {
   // printf("\n");
   // for (int i = 0; i < 32; i ++) printf("%d ", &c->gpr[i]); 
   // printf("\n");
-  printf("%p ", &c->pdir); 
-  // printf("\n");
+  printf("%p \n", &c->pdir); 
 
   if (user_handler) {
     Event ev = {0};
