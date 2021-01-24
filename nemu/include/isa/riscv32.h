@@ -37,6 +37,13 @@ typedef struct {
       uint32_t SPIE : 1;
     }detail;
     uint32_t val;
+  }sscratch;
+
+  union {
+    struct {
+      uint32_t SPIE : 1;
+    }detail;
+    uint32_t val;
   }sepc;
 
   union {
