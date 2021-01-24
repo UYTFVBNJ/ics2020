@@ -65,7 +65,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   uint32_t * base = (uint32_t *)kstack.end - (32 + 3);
   // printf("base:%p\n", base);
 
-  for (int i = 0; i < 32; i ++) *(base + i) = 0;
+  for (int i = 0; i < 32; i ++) *(base + i) = 0; // pdir = NULL
 
   *(base + 10) = (uint32_t)arg; // arg0
 
