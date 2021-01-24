@@ -13,6 +13,15 @@ typedef struct {
   struct {
     rtlreg_t _32;
   } gpr[32];
+ 
+  union {
+    struct {
+      uint32_t PPN : 22;
+      uint32_t ASID : 9;
+      uint32_t MODE : 1;
+    }detail;
+    uint32_t val;
+  }sstatus;
 
   struct {
     rtlreg_t _32;
@@ -26,6 +35,8 @@ typedef struct {
     }detail;
     uint32_t val;
   }satp;  
+
+  bool INTR;
 
   vaddr_t pc;
 } riscv32_CPU_state;
