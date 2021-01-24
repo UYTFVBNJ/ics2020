@@ -12,43 +12,120 @@ f(30) f(31)
 #define PUSH(n) sw concat(x, n), (n * 4)(sp);
 #define POP(n)  lw concat(x, n), (n * 4)(sp);
 
-#define CONTEXT_SIZE ((32 + 3) * 4)
+#define CONTEXT_SIZE ((32 + 3 + 1) * 4)
 #define OFFSET_SP     ( 2 * 4)
 #define OFFSET_CAUSE  (32 * 4)
 #define OFFSET_STATUS (33 * 4)
 #define OFFSET_EPC    (34 * 4)
+#define OFFSET_NP     (35 * 4)
 
 .globl __am_asm_trap
+
 __am_asm_trap:
+
+  /* --- */
+
+  csrrw sp, sscratch, sp   // (1) atomically exchange sp and sscratch
+
+  bnez sp, save_context    // (2) take the branch if we trapped from user
+
+  // if is in kernel sp = 0
+
+  csrr sp, sscratch        // (3) if we trapped from kernel, restore the original sp
+
+  
+
+  /* --- */
+
+save_context:
+
+
+
   addi sp, sp, -CONTEXT_SIZE
+
+
 
   MAP(REGS, PUSH)
 
-  mv t0, sp
+
+
+  csrr t0, sscratch
+
   addi t0, t0, CONTEXT_SIZE
+
   sw t0, OFFSET_SP(sp)
 
+
+
   csrr t0, scause
+
   csrr t1, sstatus
+
   csrr t2, sepc
 
+
+
   sw t0, OFFSET_CAUSE(sp)
+
   sw t1, OFFSET_STATUS(sp)
+
   sw t2, OFFSET_EPC(sp)
 
+
+
+  csrr t0, sscratch
+
+  sltiu t1, t0, 1 // ksa == 0 => t1 == 1(kernel) / ksa != 0 => t1 == 0(user)
+
+  sw t1, OFFSET_NP(sp)
+
+
+
   mv a0, sp
+
   jal __am_irq_handle
 
-  lw sp, OFFSET_SP(a0)
-  addi sp, sp, -CONTEXT_SIZE // qwq
+
+
+  mv sp, a0
+
+
 
   lw t1, OFFSET_STATUS(sp)
+
   lw t2, OFFSET_EPC(sp)
+
   csrw sstatus, t1
+
   csrw sepc, t2
+
+
+
+  
 
   MAP(REGS, POP)
 
-  addi sp, sp, CONTEXT_SIZE
+
+
+  /* --- */
+
+
+
+  lw t5, OFFSET_NP(sp)
+
+  // if t0 = c->np = 0
+
+  bnez t5, set_sp
+
+  // ksp = $sp
+
+  csrw sscratch, sp
+
+set_sp:
+
+  lw sp, OFFSET_SP(sp)
+
+  /* --- */
 
   sret
+

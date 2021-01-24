@@ -139,7 +139,7 @@ void map(AddrSpace *as, void *va_, void *pa_, int prot) {
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   // printf("ucontext:\n");
-  uint32_t * base = (uint32_t *)kstack.end - (32 + 3);
+  uint32_t * base = (uint32_t *)kstack.end - (32 + 3 + 1);
   // printf("base:%p\n", base);
 
   for (int i = 0; i < 32; i ++) *(base + i) = 0;
@@ -149,6 +149,8 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   *(base + 32) = 0; // CAUSE
   *(base + 33) = 0x2; // STATUS
   *(base + 34) = (uint32_t)entry; // EPC
+
+  *(base + 35) = 1; // NP
 
   *(base + 0) = (uint32_t)as->ptr; // SATP(pdir)
   printf("ucontext : base:%p\n", *base);
