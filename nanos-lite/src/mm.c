@@ -31,7 +31,7 @@ int mm_brk(uintptr_t brk) {
     return 0;
   }
 
-  while ((current->max_brk & ~(PGSIZE - 1)) != (brk & ~(PGSIZE - 1))) {
+  while ((current->max_brk & ~(PGSIZE - 1)) < (brk & ~(PGSIZE - 1))) {
     uint32_t ptr = (uint32_t)new_page(1);
     current->max_brk += PGSIZE;
     map(&current->as, (void*)current->max_brk, (void*)ptr, 0); // native set RWX
